@@ -15,7 +15,7 @@
 <div class="header">
     <div class="side-nav">
         <ul class="nav-link">
-            <li><a href=""><i class="fa-solid fa-house-user" style="color: #ffffff;"></i><p>Dashboard</p></a></li>
+            <li><a href=""><i class="fa-solid fa-calendar-da " style="color: #ffffff;"></i><p>Dashboard</p></a></li>
             <li><a href=""><i class="fa-solid fa-gavel" style="color: #ffffff;"></i><p>Lawyers</p></a></li>
             <li><a href=""><i class="fa-solid fa-users" style="color: #ffffff;"></i><p>Clients</p></a></li>
             <li><a href=""><i class="fa-solid fa-calendar-check"  style="color: #ffffff;"></i><p> Appointments </p></a></li>
