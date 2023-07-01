@@ -12,19 +12,19 @@
 	<meta property="og:description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
 	<meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png">
 	<meta name="format-detection" content="telephone=no">
-	
+
 	<!-- PAGE TITLE HERE -->
 	<title>Admin Dashboard</title>
-	
+
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 	<link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 	<link href="../../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../vendor/nouislider/nouislider.min.css">
-	
+
 	<!-- Style css -->
     <link href="../../css/style.css" rel="stylesheet">
-	
+
 </head>
 <body>
 
@@ -70,7 +70,7 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-		
+
 		<!--**********************************
             Chat box start
         ***********************************-->
@@ -297,7 +297,7 @@
 								<div>
 									<h6 class="mb-1">Chat with Khelesh</h6>
 									<p class="mb-0 text-success">Online</p>
-								</div>							
+								</div>
 								<div class="dropdown">
 									<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
 									<ul class="dropdown-menu dropdown-menu-end">
@@ -572,7 +572,7 @@
 		<!--**********************************
             Chat box End
         ***********************************-->
-		
+
 		<!--**********************************
             Header start
         ***********************************-->
@@ -658,7 +658,7 @@
 									</div>
                                     <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
                                 </div>
-                        
+
 								<div class="dropdown-menu dropdown-menu-end">
 									<div id="DZ_W_TimeLine02" class="widget-timeline dlab-scroll style-1 ps ps--active-y p-3 height370">
 										<ul class="timeline">
@@ -714,7 +714,7 @@
 									</div>
 								</div>
 							</li>
-							
+
 							<li class="nav-item dropdown  header-profile">
 								<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
 									<img src="../../images/user.jpg" width="56" alt="">
@@ -753,129 +753,52 @@
 							<i class="fas fa-home"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li>
+                        <a class="" href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-info-circle"></i>
 							<span class="nav-text">Calender</span>
 						</a>
-                        <ul aria-expanded="false">
-<!--                          <li><a href="app-profile.html">Profile</a></li>-->
-<!--							<li><a href="post-details.html">Post Details</a></li>-->
-<!--                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>-->
-<!--                                <ul aria-expanded="false">-->
-<!--                                   <li><a href="email-compose.html">Compose</a></li>-->
-<!--                                    <li><a href="email-inbox.html">Inbox</a></li>-->
-<!--                                   <li><a href="email-read.html">Read</a></li>-->
-<!--                                </ul>-->
-<!--                            </li>-->
-<!--                            <li><a href="app-calender.html">Calendar</a></li>-->
-<!--							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>-->
-<!--                                <ul aria-expanded="false">-->
-<!--                                    <li><a href="ecom-product-grid.html">Product Grid</a></li>-->
-<!--									<li><a href="ecom-product-list.html">Product List</a></li>-->
-<!--									<li><a href="ecom-product-detail.html">Product Details</a></li>-->
-<!--									<li><a href="ecom-product-order.html">Order</a></li>-->
-<!--									<li><a href="ecom-checkout.html">Checkout</a></li>-->
-<!--									<li><a href="ecom-invoice.html">Invoice</a></li>-->
-<!--									<li><a href="ecom-customers.html">Customers</a></li>-->
-<!--                                </ul>-->
-<!--                            </li>-->
-                        </ul>
                     </li>
                     <li><a class="" href="javascript:void()" aria-expanded="false">
-							<i class="fas fa-facebook"></i>
+							<i class="fas fa-chart-area"></i>
 							<span class="nav-text">Charts</span>
 						</a>
-<!--                        <ul aria-expanded="false">-->
-<!--                            <li><a href="chart-flot.html">Flot</a></li>-->
-<!--                            <li><a href="chart-morris.html">Morris</a></li>-->
-<!--                            <li><a href="chart-chartjs.html">Chartjs</a></li>-->
-<!--                            <li><a href="chart-chartist.html">Chartist</a></li>-->
-<!--                            <li><a href="chart-sparkline.html">Sparkline</a></li>-->
-<!--                            <li><a href="chart-peity.html">Peity</a></li>-->
-<!--                        </ul>-->
                     </li>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li><a class=" " href="javascript:void()" aria-expanded="false">
 							<i class="fab fa-bootstrap"></i>
 							<span class="nav-text">Bootstrap</span>
 						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="ui-accordion.html">Accordion</a></li>
-                            <li><a href="ui-alert.html">Alert</a></li>
-                            <li><a href="ui-badge.html">Badge</a></li>
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-modal.html">Modal</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            <li><a href="ui-list-group.html">List Group</a></li>
-                            <li><a href="ui-card.html">Cards</a></li>
-                            <li><a href="ui-carousel.html">Carousel</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="ui-popover.html">Popover</a></li>
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-pagination.html">Pagination</a></li>
-                            <li><a href="ui-grid.html">Grid</a></li>
 
-                        </ul>
                     </li>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li><a class="" href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-heart"></i>
 							<span class="nav-text">Plugins</span>
 						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="uc-select2.html">Select 2</a></li>
-                            <li><a href="uc-nestable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                            <li><a href="map-jqvmap.html">Jqv Map</a></li>
-							<li><a href="uc-lightgallery.html">Light Gallery</a></li>
-                        </ul>
+
                     </li>
                     <li><a href="widget-basic.html" class="" aria-expanded="false">
 							<i class="fas fa-user-check"></i>
 							<span class="nav-text">Widget</span>
 						</a>
 					</li>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li><a class="" href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-file-alt"></i>
 							<span class="nav-text">Forms</span>
 						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="form-element.html">Form Elements</a></li>
-                            <li><a href="form-wizard.html">Wizard</a></li>
-                            <li><a href="form-ckeditor.html">CkEditor</a></li>
-                            <li><a href="form-pickers.html">Pickers</a></li>
-                            <li><a href="form-validation.html">Form Validate</a></li>
-                        </ul>
                     </li>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li><a class="" href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-table"></i>
 							<span class="nav-text">Table</span>
 						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                            <li><a href="table-datatable-basic.html">Datatable</a></li>
-                        </ul>
+
                     </li>
-                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <li><a class=" " href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-clone"></i>
 							<span class="nav-text">Pages</span>
 						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="page-error-400.html">Error 400</a></li>
-                                    <li><a href="page-error-403.html">Error 403</a></li>
-                                    <li><a href="page-error-404.html">Error 404</a></li>
-                                    <li><a href="page-error-500.html">Error 500</a></li>
-                                    <li><a href="page-error-503.html">Error 503</a></li>
-                                </ul>
+
                             </li>
-                            <li><a href="page-lock-screen.html">Lock Screen</a></li>
-                            <li><a href="empty-page.html">Empty Page</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -884,7 +807,7 @@
         <!--**********************************
             Sidebar end
         ***********************************-->
-		
+
 		<!--**********************************
             Content body start
         ***********************************-->
@@ -900,7 +823,7 @@
 										<div class="card">
 											<div class="card-header border-0 flex-wrap">
 												<h4 class="fs-20 font-w700 mb-2">Project Statistics</h4>
-												<div class="d-flex align-items-center project-tab mb-2">	
+												<div class="d-flex align-items-center project-tab mb-2">
 													<div class="card-tabs mt-3 mt-sm-0 mb-3 ">
 														<ul class="nav nav-tabs" role="tablist">
 															<li class="nav-item">
@@ -927,7 +850,7 @@
 															<a class="dropdown-item" href="javascript:void(0)">Edit</a>
 														</div>
 													</div>
-												</div>	
+												</div>
 											</div>
 											<div class="card-body">
 												<div class="d-flex justify-content-between align-items-center flex-wrap">
@@ -940,7 +863,7 @@
 															<span class="fs-16 font-w400 d-block">Total Projects</span>
 														</div>
 													</div>
-													<div class="d-flex">	
+													<div class="d-flex">
 														<div class="d-flex me-5">
 															<div class="mt-2">
 																<svg width="13" height="13" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -969,7 +892,7 @@
 												<div class="tab-content">
 													<div class="tab-pane fade active show" id="monthly">
 														<div id="chartBar" class="chartBar"></div>
-													</div>	
+													</div>
 													<div class="tab-pane fade" id="Weekly">
 														<div id="chartBar1" class="chartBar"></div>
 													</div>
@@ -981,9 +904,9 @@
 													<label class="form-check-label font-w400 fs-16 mb-0" for="flexSwitchCheckChecked1">Number</label>
 													<div class="form-check form-switch toggle-switch">
 														<input class="form-check-input custome" type="checkbox" id="flexSwitchCheckChecked1" checked="">
-													 
+
 													</div>
-													<label class="form-check-label font-w400 fs-16 mb-0 ms-3" for="flexSwitchCheckChecked2">Analytics</label>	
+													<label class="form-check-label font-w400 fs-16 mb-0 ms-3" for="flexSwitchCheckChecked2">Analytics</label>
 													<div class="form-check form-switch toggle-switch">
 													  <input class="form-check-input custome" type="checkbox" id="flexSwitchCheckChecked2" checked="">
 													</div>
@@ -995,19 +918,19 @@
 										<div class="card">
 											<div class="card-header border-0 pb-0">
 												<h4 class="fs-20 font-w700 mb-0">Case Categories</h4>
-<!--												<div class="dropdown ">-->
-<!--													<div class="btn-link" data-bs-toggle="dropdown">-->
-<!--														<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--															<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"></circle>-->
-<!--															<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"></circle>-->
-<!--															<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"></circle>-->
-<!--														</svg>-->
-<!--													</div>-->
-<!--													<div class="dropdown-menu dropdown-menu-right">-->
-<!--														<a class="dropdown-item" href="javascript:void(0)">Delete</a>-->
-<!--														<a class="dropdown-item" href="javascript:void(0)">Edit</a>-->
-<!--													</div>-->
-<!--												</div>-->
+												<div class="dropdown ">
+													<div class="btn-link" data-bs-toggle="dropdown">
+														<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"></circle>
+															<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"></circle>
+															<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"></circle>
+														</svg>
+													</div>
+													<div class="dropdown-menu dropdown-menu-right">
+														<a class="dropdown-item" href="javascript:void(0)">Delete</a>
+														<a class="dropdown-item" href="javascript:void(0)">Edit</a>
+													</div>
+												</div>
 											</div>
                                             <div class="card-body">
                                                 <div id="emailchart"> </div>
@@ -1092,7 +1015,7 @@
 												</div>
 											</div>
 										</div>
-										
+
 									</div>
 									<div class="col-xl-12">
 										<div class="card">
@@ -1103,20 +1026,20 @@
 															<div class="items">
 																<h4 class="fs-20 font-w700 mb-4">Fillow Company Profile Website Project</h4>
 																<span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-															</div>	
+															</div>
 															<div class="items">
 																<h4 class="fs-20 font-w700 mb-4">Fillow Company Profile Website Project</h4>
 																<span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-															</div>	
+															</div>
 															<div class="items">
 																<h4 class="fs-20 font-w700 mb-4">Fillow Company Profile Website Project</h4>
 																<span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-															</div>	
+															</div>
 														</div>
 													</div>
 													<div class="col-xl-6 redial col-sm-6">
 														<div id="redial"></div>
-														<span class="text-center d-block fs-18 font-w600">On Progress <small class="text-success">70%</small></span>	
+														<span class="text-center d-block fs-18 font-w600">On Progress <small class="text-success">70%</small></span>
 													</div>
 												</div>
 											</div>
@@ -1135,7 +1058,7 @@
 <!--													<div class="card-body">-->
 <!--														<div id="emailchart"> </div>-->
 <!--														<div class="mb-3 mt-4">-->
-<!--<!--															<h4 class="fs-18 font-w600">Legend</h4>-->
+<!--															<h4 class="fs-18 font-w600">Legend</h4>-->
 <!--														</div>-->
 <!--														<div>-->
 <!--															<div class="d-flex align-items-center justify-content-between mb-4">-->
@@ -1184,14 +1107,14 @@
 <!--																<span class="fs-18 font-w600">696</span>-->
 <!--															</div>-->
 <!--														</div>-->
-														
+
 													</div>
 <!--													<div class="card-footer border-0 pt-0">-->
 <!--														<a href="javascript:void(0);" class="btn btn-outline-primary d-block btn-rounded">Update Progress</a>		-->
-<!--													
+<!--
 													</div>
 												</div>-->
-											</div>	
+											</div>
 <!--											<div class="col-xl-6 col-xxl-12 col-sm-6">-->
 <!--												<div class="card">-->
 <!--													<div class="card-header border-0 pb-0">-->
@@ -1291,7 +1214,7 @@
 <!--													</div>-->
 <!--												</div>-->
 <!--											</div>-->
-										</div>	
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1317,30 +1240,30 @@
     <script src="../../vendor/global/global.min.js"></script>
 	<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 	<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-	
+
 	<!-- Apex Chart -->
 	<script src="../../vendor/apexchart/apexchart.js"></script>
-	
+
 	<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-	
+
 	<!-- Chart piety plugin files -->
     <script src="../../vendor/peity/jquery.peity.min.js"></script>
 	<!-- Dashboard 1 -->
 	<script src="../../js/dashboard/dashboard-1.js"></script>
-	
+
 	<script src="../../vendor/owl-carousel/owl.carousel.js"></script>
-	
+
     <script src="../../js/custom.min.js"></script>
 	<script src="../../js/dlabnav-init.js"></script>
     <script src="../../js/styleSwitcher.js"></script>
 	<script>
 		function cardsCenter()
 		{
-			
+
 			/*  testimonial one function by = owl.carousel.js */
-			
-	
-			
+
+
+
 			jQuery('.card-slider').owlCarousel({
 				loop:true,
 				margin:0,
@@ -1356,10 +1279,10 @@
 					},
 					576:{
 						items:1
-					},	
+					},
 					800:{
 						items:1
-					},			
+					},
 					991:{
 						items:1
 					},
@@ -1372,13 +1295,13 @@
 				}
 			})
 		}
-		
+
 		jQuery(window).on('load',function(){
 			setTimeout(function(){
 				cardsCenter();
-			}, 1000); 
+			}, 1000);
 		});
-		
+
 	</script>
 
 </body>
