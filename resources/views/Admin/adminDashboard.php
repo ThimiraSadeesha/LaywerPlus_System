@@ -28,6 +28,8 @@
 </head>
 <body>
 
+
+
     <!--*******************
         Preloader start
     ********************-->
@@ -56,10 +58,51 @@
 					<defs>
 					</defs>
 				</svg>
-				<div class="brand-title">
-					<h2 class="">Welcome.</h2>
-					<span class="brand-sub-title">@soengsouy</span>
-				</div>
+                <?php
+                header('Cache-Control: no cache');
+                session_cache_limiter('private_no_expire');
+
+                $host = 'localhost';
+                $user = 'root';
+                $password = '';
+                $dbname = 'lawyerPlus';
+
+                $conn = new mysqli($host, $user, $password, $dbname);
+
+                if ($conn->connect_error) {
+                    die('Connection failed: ' . $conn->connect_error);
+                }
+
+                $sql = "SELECT username FROM admin";
+
+
+                $result = $conn->query($sql);
+
+                $usernames = array();
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $usernames[] = $row["username"];
+                    }
+                } else {
+                    echo "No results found";
+                }
+
+                $conn->close();
+                ?>
+
+                <div class="brand-title">
+                    <h2 class="">Welcome.</h2>
+                    <span class="brand-sub-title">
+        <?php
+        foreach ($usernames as $username) {
+            echo $username . "<br>";
+        }
+        ?>
+    </span>
+                </div>
+
+
             </a>
             <div class="nav-control">
                 <div class="hamburger">

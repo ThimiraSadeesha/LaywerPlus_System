@@ -42,7 +42,7 @@
 
                         if ($result->num_rows === 1) {
                             // Login successful
-                            header('Location: home.php');
+                            header('Location: adminDashboard.php');
                             exit;
                         } else {
                             // Login failed
