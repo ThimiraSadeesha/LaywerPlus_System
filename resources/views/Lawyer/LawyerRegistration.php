@@ -23,23 +23,23 @@
                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <div class="mb-3">
                                 <label class="form-label"><strong>Full Name</strong></label>
-                                <input type="text" name="fname" class="form-control" placeholder="Full Name">
+                                <input type="text" name="lname" class="form-control" placeholder="Full Name">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Username</strong></label>
-                                <input type="text" name="uname" class="form-control" placeholder="Username">
+                                <input type="text" name="username" class="form-control" placeholder="Username">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label"><strong>National ID</strong></label>
-                                <input type="text" name="nic" class="form-control" placeholder="National ID">
+                                <label class="form-label"><strong>Title</strong></label>
+                                <input type="text" name="title" class="form-control" placeholder="National ID">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Contact Number</strong></label>
                                 <input type="text" name="mobile" class="form-control" placeholder="Contact Number">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label"><strong>Address</strong></label>
-                                <input type="text" name="addrss" class="form-control" placeholder="Address">
+                                <label class="form-label"><strong>Category</strong></label>
+                                <input type="text" name="cate" class="form-control" placeholder="Address">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Email</strong></label>
@@ -54,7 +54,7 @@
                             </div>
                         </form>
                         <div class="text-center mt-3">
-                            <p>Already have an account? <a class="text-primary" href="login.php">Sign in</a></p>
+                            <p>Already have an account? <a class="text-primary" href="Admin/login.php">Sign in</a></p>
                         </div>
                     </div>
                 </div>
@@ -80,11 +80,11 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $fullName = $_POST['fname'];
-    $username = $_POST['uname'];
-    $nationalID = $_POST['nic'];
+    $fullName = $_POST['lname'];
+    $username = $_POST['username'];
+    $title = $_POST['title'];
     $contactNumber = $_POST['mobile'];
-    $address = $_POST['addrss'];
+    $Category = $_POST['cate'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //    $email = mysqli_real_escape_string($conn, $email);
 //    $password = mysqli_real_escape_string($conn, $password);
 
-    $sql = "INSERT INTO client (client_id ,name, nic, email, contact_number, address, password) VALUES ('$username','$fullName', '$nationalID', '$email','$contactNumber', '$address', '$password')";
+    $sql = "INSERT INTO lawyer (lawyer_id ,title,name,  email, 	category, contact_number, Password) VALUES ('$username', '$title','$fullName', '$email', '$Category','$contactNumber', '$password')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted successfully.";

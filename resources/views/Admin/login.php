@@ -60,9 +60,7 @@
                         <div class="form-group">
                             <input type="password" class="form-control mx-auto" id="password" name="password"
                                    placeholder="Password" required style="<?php echo $borderColor; ?>">
-                            <div class="hamburger">
-                                <span class="line"></span><span class="line"></span><span class="line"></span>
-                            </div>
+
                         </div>
                         <div class="form-group">
                             <div class="d-flex justify-content-between">

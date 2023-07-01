@@ -93,7 +93,8 @@
 
                 <div class="brand-title">
                     <h2 class="">Welcome.</h2>
-                    <span class="brand-sub-title">
+
+                        <span class="brand-sub-title">
         <?php
         foreach ($usernames as $username) {
             echo $username . "<br>";
@@ -101,7 +102,6 @@
         ?>
     </span>
                 </div>
-
 
             </a>
             <div class="nav-control">
