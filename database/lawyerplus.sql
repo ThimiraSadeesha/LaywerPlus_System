@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2023 at 04:11 PM
+-- Generation Time: Jul 02, 2023 at 09:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -83,7 +83,7 @@ DELIMITER $$
 CREATE TRIGGER `insert_user_from_assistant` AFTER INSERT ON `assistant` FOR EACH ROW BEGIN
     -- Insert into assistant table
     INSERT INTO user (user_id, name, role, password, status)
-    VALUES (NEW.assistant_id,NEW.name,"assistant",NEW.password,"inactive");
+    VALUES (NEW.assistant_id,NEW.name,'assistant',NEW.password,'inactive');
 END
 $$
 DELIMITER ;
@@ -91,9 +91,9 @@ DELIMITER $$
 CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW BEGIN
     UPDATE user
     SET name = NEW.name,
-        role = "assistant",
+        role = 'assistant',
         password = NEW.password,
-        status = "inactive"
+        status = 'inactive'
     WHERE user_id = NEW.assistant_id;
 END
 $$
@@ -232,7 +232,7 @@ DELIMITER $$
 CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW BEGIN
     -- Insert into user table
     INSERT INTO user (user_id, name, role, password, status)
-    VALUES (NEW.client_id,NEW.name,"client",NEW.password,"inactive");
+    VALUES (NEW.client_id,NEW.name,'client',NEW.password,'inactive');
 END
 $$
 DELIMITER ;
@@ -240,9 +240,9 @@ DELIMITER $$
 CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
     UPDATE user
     SET name = NEW.name,
-        role = "client",
+        role = 'client',
         password = NEW.password,
-        status = "inactive"
+        status = 'inactive'
     WHERE user_id = NEW.client_id;
 END
 $$
@@ -266,13 +266,38 @@ CREATE TABLE `lawyer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `lawyer`
+--
+
+INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `DOB`, `category`, `contact_number`, `password`) VALUES
+                                                                                                                  ('1', 'Mr.', 'John Doe', 'john.doe@example.com', '1985-01-01', 'Corporate Law', '1234567890', 'password123'),
+                                                                                                                  ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', '1980-04-05', 'Immigration Law', '7778889990', 'mypassword'),
+                                                                                                                  ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', '1983-02-28', 'Corporate Law', '3334445556', 'securepass'),
+                                                                                                                  ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', '1986-10-14', 'Family Law', '9990001112', 'pass123'),
+                                                                                                                  ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', '1991-08-07', 'Criminal Law', '2223334448', 'secretpass'),
+                                                                                                                  ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', '1979-06-21', 'Corporate Law', '7778889992', 'mypassword'),
+                                                                                                                  ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', '1984-04-15', 'Intellectual Property Law', '1112223338', '12345678'),
+                                                                                                                  ('16', 'Legal Researcher', 'Charlotte Davis', 'charlotte.davis@example.com', '1988-12-09', 'Real Estate Law', '5556667770', 'passw0rd'),
+                                                                                                                  ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', '1976-10-03', 'Personal Injury Law', '9998887772', 'mysecretpass'),
+                                                                                                                  ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', '1992-07-27', 'Tax Law', '3332221114', 'lawyerpass'),
+                                                                                                                  ('19', 'Legal Specialist', 'James White', 'james.white@example.com', '1981-05-11', 'Employment Law', '7776665556', 'securepass'),
+                                                                                                                  ('2', 'Chamara', 'Galagedra', 'jane.smith@example.com', '1990-05-15', 'Family Law', '9876543210', '123345'),
+                                                                                                                  ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', '1978-09-30', 'Criminal Law', '5551234567', 'pass123'),
+                                                                                                                  ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', '1982-03-12', 'Immigration Law', '9998887776', 'secretpass'),
+                                                                                                                  ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', '1995-11-20', 'Intellectual Property Law', '1112223334', 'mypassword'),
+                                                                                                                  ('6', 'Notary', 'Emily Davis', 'emily.davis@example.com', '1989-07-03', 'Real Estate Law', '7776665558', '12345678'),
+                                                                                                                  ('7', 'Prosecutor', 'Robert Taylor', 'robert.taylor@example.com', '1975-12-25', 'Personal Injury Law', '2223334442', 'passw0rd'),
+                                                                                                                  ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', '1987-08-17', 'Tax Law', '8887776660', 'mysecretpass'),
+                                                                                                                  ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', '1993-06-09', 'Employment Law', '4445556662', 'lawyerpass');
+
+--
 -- Triggers `lawyer`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW BEGIN
     -- Insert into user table
     INSERT INTO user (user_id, name, role, password, status)
-    VALUES (NEW.lawyer_id,NEW.name,"lawyer",NEW.password,"inactive");
+    VALUES (NEW.lawyer_id,NEW.name,'lawyer',NEW.password,'inactive');
 END
 $$
 DELIMITER ;
@@ -280,9 +305,9 @@ DELIMITER $$
 CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
     UPDATE user
     SET name = NEW.name,
-        role = "lawyer",
+        role = 'lawyer',
         password = NEW.password,
-        status = "inactive"
+        status = 'inactive'
     WHERE user_id = NEW.lawyer_id;
 END
 $$
@@ -322,6 +347,25 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `status`) VALUES
+                                                                         ('1', 'John Doe', 'lawyer', 'password123', 'inactive'),
+                                                                         ('10', 'Olivia Lewis', 'lawyer', 'mypassword', 'inactive'),
+                                                                         ('11', 'William Turner', 'lawyer', 'securepass', 'inactive'),
+                                                                         ('12', 'Sophia Hernandez', 'lawyer', 'pass123', 'inactive'),
+                                                                         ('13', 'Ethan Clark', 'lawyer', 'secretpass', 'inactive'),
+                                                                         ('14', 'Ava Roberts', 'lawyer', 'mypassword', 'inactive'),
+                                                                         ('15', 'Benjamin Thompson', 'lawyer', '12345678', 'inactive'),
+                                                                         ('16', 'Charlotte Davis', 'lawyer', 'passw0rd', 'inactive'),
+                                                                         ('17', 'Henry Wilson', 'lawyer', 'mysecretpass', 'inactive'),
+                                                                         ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', 'inactive'),
+                                                                         ('19', 'James White', 'lawyer', 'securepass', 'inactive'),
+                                                                         ('2', 'Galagedra', 'lawyer', '123345', 'inactive'),
+                                                                         ('3', 'David Johnson', 'lawyer', 'pass123', 'inactive'),
+                                                                         ('4', 'Sarah Williams', 'lawyer', 'secretpass', 'inactive'),
+                                                                         ('5', 'Michael Brown', 'lawyer', 'mypassword', 'inactive'),
+                                                                         ('6', 'Emily Davis', 'lawyer', '12345678', 'inactive'),
+                                                                         ('7', 'Robert Taylor', 'lawyer', 'passw0rd', 'inactive'),
+                                                                         ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', 'inactive'),
+                                                                         ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', 'inactive'),
                                                                          ('E2046014', 'Sadeesha', 'client', 'admin@123', 'inactive'),
                                                                          ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', 'inactive'),
                                                                          ('E2046315', 'Tharuka', 'client', 'admin@123', 'inactive');
