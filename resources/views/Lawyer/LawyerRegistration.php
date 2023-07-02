@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lawyer Registration</title>
+    <title>Registration</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Custom CSS -->
@@ -28,7 +27,7 @@
                             <div class="mb-3">
                                 <label class="form-label"><strong>Username</strong></label>
                                 <input type="text" name="username" class="form-control" placeholder="Username">
-                                <div id="uname_response" ></div>
+                                <span id="availability"></span>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Title</strong></label>
@@ -37,6 +36,10 @@
                             <div class="mb-3">
                                 <label class="form-label"><strong>Contact Number</strong></label>
                                 <input type="text" name="mobile" class="form-control" placeholder="Contact Number">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Date Of Birth</strong></label>
+                                <input type="date" name="sec" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Category</strong></label>
@@ -86,20 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $contactNumber = $_POST['mobile'];
     $Category = $_POST['cate'];
+    $dob = $_POST['sec'];
+    $formattedDate = date("Y-m-d", strtotime($dob));
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-
-    //If you Cannot insert data uncomment this code
-//    $fullName = mysqli_real_escape_string($conn, $fullName);
-//    $username = mysqli_real_escape_string($conn, $username);
-//    $nationalID = mysqli_real_escape_string($conn, $nationalID);
-//    $contactNumber = mysqli_real_escape_string($conn, $contactNumber);
-//    $address = mysqli_real_escape_string($conn, $address);
-//    $email = mysqli_real_escape_string($conn, $email);
-//    $password = mysqli_real_escape_string($conn, $password);
-
-    $sql = "INSERT INTO lawyer (lawyer_id ,title,name,  email, 	category, contact_number, Password) VALUES ('$username', '$title','$fullName', '$email', '$Category','$contactNumber', '$password')";
+    $sql = "INSERT INTO lawyer (lawyer_id, title, name, email, DOB, category, contact_number, Password) VALUES ('$username', '$title', '$fullName', '$email', '$formattedDate', '$Category', '$contactNumber', '$password')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted successfully.";
@@ -120,6 +115,10 @@ $conn->close();
 <script src="../../js/custom.min.js"></script>
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
+<!--ajax-->
+
+
+
 </body>
 
 </html>
