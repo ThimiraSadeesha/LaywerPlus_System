@@ -141,43 +141,26 @@
                     </a>
                 <li>
                     <a class="" href="javascript:void()" aria-expanded="false">
-                        <i class="fas fa-info-circle"></i>
+                        <i class="fas fa-calendar"></i>
                         <span class="nav-text">Calender</span>
                     </a>
                 </li>
                 <li><a class="" href="javascript:void()" aria-expanded="false">
                         <i class="fas fa-chart-area"></i>
-                        <span class="nav-text">Charts</span>
+                        <span class="nav-text">Reports</span>
                     </a>
                 </li>
                 <li><a class=" " href="javascript:void()" aria-expanded="false">
-                        <i class="fab fa-bootstrap"></i>
-                        <span class="nav-text">Bootstrap</span>
+                        <i class="la-legal"></i>
+                        <span class="nav-text">Lawyer</span>
                     </a>
 
                 </li>
                 <li><a class="" href="javascript:void()" aria-expanded="false">
                         <i class="fas fa-heart"></i>
-                        <span class="nav-text">Plugins</span>
+                        <span class="nav-text">Client</span>
                     </a>
-
-                </li>
-                <li><a class="" href="javascript:void()" aria-expanded="false">
-                        <i class="fas fa-file-alt"></i>
-                        <span class="nav-text">Forms</span>
-                    </a>
-                </li>
-                <li><a class="" href="javascript:void()" aria-expanded="false">
-                        <i class="fas fa-table"></i>
-                        <span class="nav-text">Table</span>
-                    </a>
-
-                </li>
-                <li><a class=" " href="javascript:void()" aria-expanded="false">
-                        <i class="fas fa-clone"></i>
-                        <span class="nav-text">Pages</span>
-                    </a>
-                </li>
+                
             </ul>
         </div>
     </div>
@@ -296,18 +279,33 @@
                                         <div class="col-xl-6 col-sm-6">
                                             <div class="card">
                                                 <div class="card-body px-4 pb-0">
-                                                    <h4 class="fs-18 font-w600 mb-5 text-nowrap">Ongoing Projects</h4>
+                                                    <h4 class="fs-18 font-w600 mb-5 text-nowrap">Monthly Target</h4>
                                                     <div class="progress default-progress">
-                                                        <div class="progress-bar bg-gradient1 progress-animated"
-                                                             style="width: 40%; height:10px;" role="progressbar">
-                                                            <span class="sr-only">45% Complete</span>
+                                                        <div id="progress-bar" class="progress-bar bg-gradient1 progress-animated" role="progressbar">
+                                                            <span class="sr-only">0% Complete</span>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-                                                        <span>80 left from target</span>
-                                                        <h4 class="mb-0">20</h4>
+                                                        <span id="progress-label">target</span>
+                                                        <h4 class="mb-0" id="progress-value">100</h4>
                                                     </div>
                                                 </div>
+                                                <script>
+                                                    // Get the progress bar element
+                                                    const progressBar = document.getElementById("progress-bar");
+
+                                                    // Get the progress label and value elements
+                                                    var progressLabel = document.getElementById("progress-label");
+                                                    var progressValue = document.getElementById("progress-value");
+
+                                                    // Set the initial progress value
+                                                    var currentValue = 80; // Change this value dynamically
+
+                                                    // Update the progress bar width and label
+                                                    progressBar.style.width = currentValue + "%";
+                                                    progressLabel.textContent = (100 - currentValue) + " left from target";
+                                                    progressValue.textContent = currentValue;
+                                                </script>
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-sm-6">
@@ -341,7 +339,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="card">
@@ -383,6 +380,7 @@
         </div>
     </div>
 </div>
+
 <script src="../../vendor/global/global.min.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
@@ -394,5 +392,44 @@
 <script src="../../js/custom.min.js"></script>
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
+<script>
+    function cardsCenter() {
+        jQuery('.card-slider').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            slideSpeed: 3000,
+            paginationSpeed: 3000,
+            dots: true,
+            navText: ['<i class="fas fa-arrow-left"></i>', '<i class="fas fa-arrow-right"></i>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                576: {
+                    items: 1
+                },
+                800: {
+                    items: 1
+                },
+                991: {
+                    items: 1
+                },
+                1200: {
+                    items: 1
+                },
+                1600: {
+                    items: 1
+                }
+            }
+        })
+    }
+
+    jQuery(window).on('load', function () {
+        setTimeout(function () {
+            cardsCenter();
+        }, 1000);
+    });
+</script>
 </body>
 </html>
