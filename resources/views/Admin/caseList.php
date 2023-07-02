@@ -97,6 +97,7 @@
                 </div>
             </div>
         </div>
+    <!-- Content body end -->
 
     <?php
             header('Cache-Control: no cache');
@@ -116,5 +117,4 @@
 
     ?>
 
-    <!-- Content body end -->
 </div>

@@ -17,7 +17,7 @@
         <div class="col-md-8">
             <div class="card shadow d-flex flex-row">
                 <div class="card-body w-60">
-                    <h3 class="text-center mb-4"></h3>
+                    <h3 class="text-center mb-4">Lawyer Plus</h3>
                     <?php
                     header('Cache-Control: no cache');
                     session_cache_limiter('private_no_expire');
@@ -32,6 +32,7 @@
                     if ($conn->connect_error) {
                         die('Connection failed: ' . $conn->connect_error);
                     }
+
                     // Verify login credentials
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $username = $_POST['username'];
@@ -52,35 +53,34 @@
                     ?>
                     <form action="" method="post">
                         <div class="form-group">
-                            <h3 class="text-center mb-4"></h3>
-                            <form action="" method="post">
-                                <input type="text" class="form-control mx-auto" id="username" name="username"
-                                       placeholder="Username" required style="<?php echo $borderColor; ?>">
+                            <h3 class="text-center mb-4">Login</h3>
+                            <input type="text" class="form-control mx-auto" id="username" name="username"
+                                   placeholder="Username" required style="<?php echo $borderColor; ?>">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control mx-auto" id="password" name="password"
                                    placeholder="Password" required style="<?php echo $borderColor; ?>">
-
                         </div>
                         <div class="form-group">
                             <div class="d-flex justify-content-between">
-                                <a href="forgot_password.php" class="text-muted embed-responsive">Forget Password?</a>
+                                <a href="forgot_password.php" class="text-muted embed-responsive">Forgot Password?</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block mx-auto">Login</button>
                         </div>
-                        <hr>
-                            <div class="form-group text-center">
-                                <span class="text-muted">Don't have an account?</span>
-                                <a href="#" class="ml-2">
-                                    <button type="submit" class="btn btn-link">Signup</button>
-                                </a>
-                            </div>
                     </form>
+                    <hr>
+                    <div class="form-group text-center">
+                        <span class="text-muted">Don't have an account?</span>
+                        <a href="#" class="ml-2">
+                            <button type="submit" class="btn btn-link">Signup</button>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body bg-image w-40"></div>
             </div>
         </div>
     </div>
 </div>
+</body>

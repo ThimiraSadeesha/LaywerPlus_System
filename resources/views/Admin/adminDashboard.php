@@ -1,30 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="robots" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
-    <meta property="og:title" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
-    <meta property="og:description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
-    <meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png">
-    <meta name="format-detection" content="telephone=no">
-    <title>CaseType</title>
-    <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="../../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../vendor/nouislider/nouislider.min.css">
-    <link href="../../css/style.css" rel="stylesheet">
-</head>
-<body>
-
-<div id="main-wrapper">
+﻿<div id="main-wrapper">
     <!-- Include the sidebar -->
     <?php include 'sidebar.php'; ?>
     <div class="content-body">
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12">
@@ -125,8 +102,9 @@
                                                             <span class="d-block ms-4">
 																	<svg width="21" height="11" viewbox="0 0 21 11"
                                                                          fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M1.49217 11C0.590508 11 0.149368 9.9006 0.800944 9.27736L9.80878 0.66117C10.1954 0.29136 10.8046 0.291359 11.1912 0.661169L20.1991 9.27736C20.8506 9.9006 20.4095 11 19.5078 11H1.49217Z"
-                                                                              fill="#09BD3C"></path>
+																		<path d="M1.49217 11C0.590508 11 0.149368 9.9006 0.800944 9.27736L9.80878 
+																		0.66117C10.1954 0.29136 10.8046 0.291359 11.1912 0.661169L20.1991 9.27736C20.
+																		8506 9.9006 20.4095 11 19.5078 11H1.49217Z" fill="#09BD3C"></path>
 																	</svg>
 																	<small class="d-block fs-16 font-w400 text-success">+0,5%</small>
 																</span>
@@ -194,7 +172,6 @@
                                                                         class="text-success">-2%</small> than last month</span>
                                                         </div>
                                                     </div>
-                                                    <div id="NewCustomers1"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,22 +182,10 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-xl-6 col-sm-6">
-                                                    <div class=" owl-carousel card-slider">
-                                                        <div class="items">
-                                                            <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
-                                                                Website Project</h4>
-                                                            <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-                                                        </div>
-                                                        <div class="items">
-                                                            <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
-                                                                Website Project</h4>
-                                                            <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-                                                        </div>
-                                                        <div class="items">
-                                                            <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
-                                                                Website Project</h4>
-                                                            <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
-                                                        </div>
+                                                    <div class="items">
+                                                        <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
+                                                            Website Project</h4>
+                                                        <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 redial col-sm-6">
@@ -241,15 +206,14 @@
     </div>
 </div>
 
-<script src="../../vendor/global/global.min.js"></script>
+<!--<script src="../../vendor/global/global.min.js"></script>-->
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 <script src="../../vendor/apexchart/apexchart.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/peity/jquery.peity.min.js"></script>
 <script src="../../js/dashboard/dashboard-1.js"></script>
-<script src="../../vendor/owl-carousel/owl.carousel.js"></script>
-<script src="../../js/custom.min.js"></script>
+<!--<script src="../../js/custom.min.js"></script>-->
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
 <script>
@@ -291,5 +255,4 @@
         }, 1000);
     });
 </script>
-</body>
-</html>
+
