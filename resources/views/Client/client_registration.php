@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Client Registration</title>
+    <title>Registration</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Custom CSS -->
@@ -46,6 +45,10 @@
                                 <input type="email" name="email" class="form-control" placeholder="Email">
                             </div>
                             <div class="mb-3">
+                                <label class="form-label"><strong>Date Of Birth</strong></label>
+                                <input type="date" name="day" class="form-control">
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label"><strong>Password</strong></label>
                                 <input type="password" name="password" class="form-control" placeholder="Password">
                             </div>
@@ -82,23 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $fullName = $_POST['fname'];
     $username = $_POST['uname'];
-    $nationalID = $_POST['nic'];
+    $nic = $_POST['nic'];
     $contactNumber = $_POST['mobile'];
     $address = $_POST['addrss'];
+    $dob = $_POST['day'];
+    $formattedDate = date("Y-m-d", strtotime($dob));
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-
-    //If you Cannot insert data uncomment this code
-//    $fullName = mysqli_real_escape_string($conn, $fullName);
-//    $username = mysqli_real_escape_string($conn, $username);
-//    $nationalID = mysqli_real_escape_string($conn, $nationalID);
-//    $contactNumber = mysqli_real_escape_string($conn, $contactNumber);
-//    $address = mysqli_real_escape_string($conn, $address);
-//    $email = mysqli_real_escape_string($conn, $email);
-//    $password = mysqli_real_escape_string($conn, $password);
-
-    $sql = "INSERT INTO client (client_id ,name, nic, email, contact_number, address, password) VALUES ('$username','$fullName', '$nationalID', '$email','$contactNumber', '$address', '$password')";
+    $sql = "INSERT INTO client (client_id, name, nic, email, DOB, contact_number, address, password) VALUES ('$username', '$nic', '$fullName', '$email', '$formattedDate', '$address', '$contactNumber', '$password')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted successfully.";
