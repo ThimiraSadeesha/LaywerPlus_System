@@ -150,7 +150,7 @@
                 </a>
             </li>
             <li>
-                <a href="lawyers.php">
+                <a href="UserList.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Lawyers</span>
                 </a>
