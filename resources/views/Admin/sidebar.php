@@ -156,7 +156,7 @@
                 </a>
             </li>
             <li>
-                <a href="clients.php">
+                <a href="ClientList.php">
                     <i class="fas fa-users"></i>
                     <span class="nav-text">Clients</span>
                 </a>
