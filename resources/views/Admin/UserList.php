@@ -62,10 +62,8 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
+
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -107,10 +105,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-1">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -152,10 +147,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-2">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -196,10 +188,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-3">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -240,10 +229,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-4">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -284,10 +270,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-5">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -328,10 +311,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-6">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -372,10 +352,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-7">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -416,10 +393,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-8">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -460,10 +434,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-9">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -503,10 +474,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-10">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -546,10 +514,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-11">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -589,10 +554,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-12">
                                                         <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">On Hold</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">Inactive</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
                                                         </div>
@@ -600,12 +562,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
-
-
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -615,8 +571,4 @@
                 </div>
             </div>
         </div>
-    <!-- Content body end -->
-
-
-
 </div>
