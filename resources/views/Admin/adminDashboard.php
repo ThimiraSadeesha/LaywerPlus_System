@@ -237,7 +237,7 @@ $format_progress=number_format($progressofcases,2);
 
                                                     </div>
                                                 </div>
-
+                                                    // Get the progress bar element
                                                 <script>
                                                     // Get the progress bar element
                                                     const progressBar = document.getElementById("progress-bar");
@@ -248,11 +248,6 @@ $format_progress=number_format($progressofcases,2);
 
                                                     // Set the initial progress value
                                                     var lawyerCountElement = '<?= $lawyercount?>';
-
-                                                    // var currentValue =17;
-
-
-
 
                                                     // Update the progress bar width and label
                                                     progressBar.style.width = lawyerCountElement + "%";
