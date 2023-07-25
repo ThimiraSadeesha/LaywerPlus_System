@@ -88,6 +88,7 @@ if ($Unfinished_CaseCount && $Unfinished_CaseCount->num_rows === 1) {
 } else {
     $Countallcase = 0;
 }
+//allcases
 $allcase = "SELECT COUNT(*) AS completed_count FROM `case` ";
 
 $allcases = $conn->query($allcase);
