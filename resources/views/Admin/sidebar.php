@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +81,7 @@
             </h2>
             <span class="brand-sub-title">Welcome Back</span>
         </div>
-            
+
 
     </a>
     <div class="nav-control">
@@ -150,7 +147,7 @@
                 </a>
             </li>
             <li>
-                <a href="UserList.php">
+                <a href="LawyerList.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Lawyers</span>
                 </a>
