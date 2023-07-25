@@ -250,7 +250,7 @@ $format_progress=number_format($progressofcases,2);
                                                     var lawyerCountElement = '<?= $lawyercount?>';
 
                                                     // var currentValue =17;
-                                                    // var currentValue =17;
+
 
 
 
