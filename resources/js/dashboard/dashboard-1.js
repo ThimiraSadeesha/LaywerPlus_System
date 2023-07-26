@@ -17,14 +17,14 @@
 		
 		var options = {
 			  series: [
-				{
-					name: 'Running',
-					data: [50, 18, 70, 40, 90, 70, 20],
+				{ //dashboard eka hadanna
+					name: 'New Projects',
+					data: [20, 18, 70, 40, 90, 70, 20],
 					//radius: 12,	
 				}, 
 				{
-				  name: 'Cycling',
-				  data: [80, 40, 55, 20, 45, 30, 80]
+				  name: 'Completed Projects',
+				  data: [100, 40, 55, 20, 45, 30, 80]
 				}, 
 				
 			],
@@ -120,7 +120,7 @@
 					shade: 'white',
 					type: "vertical",
 					shadeIntensity: 0.2,
-					gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+					gradientToColors: undefined, 
 					inverseColors: true,
 					opacityFrom: 1,
 					opacityTo: 1,
@@ -131,7 +131,8 @@
 			tooltip: {
 			  y: {
 				formatter: function (val) {
-				  return "$ " + val + " thousands"
+				  return  val + " projects" //database eken data ganna
+
 				}
 			  }
 			},

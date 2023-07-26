@@ -25606,6 +25606,10 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
       position: absolute;
       content: ""; }
 
+   /* Style the card as a clickable element and change the cursor on hover */
+ .clickable-card {
+   cursor: pointer;}
+
 .side-bar-profile {
   padding: 0 40px;
   margin: 30px 0px; }
