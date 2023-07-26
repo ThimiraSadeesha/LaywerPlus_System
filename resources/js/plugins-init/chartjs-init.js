@@ -708,48 +708,48 @@
 			});
 		}
 	}
-    var doughnutChart = function(){
-		if(jQuery('#doughnut_chart').length > 0 ){
-			//doughut chart
-			const doughnut_chart = document.getElementById("doughnut_chart").getContext('2d');
-			// doughnut_chart.height = 100;
-			new Chart(doughnut_chart, {
-				type: 'doughnut',
-				data: {
-					weight: 5,	
-					defaultFontFamily: 'Poppins',
-					datasets: [{
-						data: [45, 25, 20],
-						borderWidth: 3, 
-						borderColor: "rgba(255,255,255,1)",
-						backgroundColor: [
-							"rgba(136,108,192, 1)",
-							"rgba(98, 126, 234, 1)",
-							"rgba(238, 60, 60, 1)"
-						],
-						hoverBackgroundColor: [
-							"rgba(136,108,192, 0.9)",
-							"rgba(98, 126, 234, .9)",
-							"rgba(238, 60, 60, .9)"
-						]
-
-					}],
-					// labels: [
-					//     "green",
-					//     "green",
-					//     "green",
-					//     "green"
-					// ]
-				},
-				options: {
-					weight: 1,	
-					 cutoutPercentage: 70,
-					responsive: true,
-					maintainAspectRatio: false
-				}
-			});
-		}
-	}
+    // var doughnutChart = function(){
+	// 	if(jQuery('#doughnut_chart').length > 0 ){
+	// 		//doughut chart
+	// 		const doughnut_chart = document.getElementById("doughnut_chart").getContext('2d');
+	// 		// doughnut_chart.height = 100;
+	// 		new Chart(doughnut_chart, {
+	// 			type: 'doughnut',
+	// 			data: {
+	// 				weight: 5,
+	// 				defaultFontFamily: 'Poppins',
+	// 				datasets: [{
+	// 					data: [45, 25, 20],
+	// 					borderWidth: 3,
+	// 					borderColor: "rgba(255,255,255,1)",
+	// 					backgroundColor: [
+	// 						"rgba(136,108,192, 1)",
+	// 						"rgba(98, 126, 234, 1)",
+	// 						"rgba(238, 60, 60, 1)"
+	// 					],
+	// 					hoverBackgroundColor: [
+	// 						"rgba(136,108,192, 0.9)",
+	// 						"rgba(98, 126, 234, .9)",
+	// 						"rgba(238, 60, 60, .9)"
+	// 					]
+	//
+	// 				}],
+	// 				// labels: [
+	// 				//     "green",
+	// 				//     "green",
+	// 				//     "green",
+	// 				//     "green"
+	// 				// ]
+	// 			},
+	// 			options: {
+	// 				weight: 1,
+	// 				 cutoutPercentage: 70,
+	// 				responsive: true,
+	// 				maintainAspectRatio: false
+	// 			}
+	// 		});
+	// 	}
+	// }
 	var polarChart = function(){
 		if(jQuery('#polar_chart').length > 0 ){
 			//polar chart

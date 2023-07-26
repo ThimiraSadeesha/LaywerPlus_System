@@ -73,10 +73,7 @@ $format_progress = number_format($ProgressOfCases, 2);
                                                             <a class="nav-link" data-bs-toggle="tab" href="#Weekly"
                                                                role="tab">Weekly</a>
                                                         </li>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" data-bs-toggle="tab" href="#Today"
-                                                               role="tab">Today</a>
-                                                        </li>
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -135,9 +132,7 @@ $format_progress = number_format($ProgressOfCases, 2);
                                                 <div class="tab-pane fade" id="Weekly">
                                                     <div id="chartBar1" class="chartBar"></div>
                                                 </div>
-                                                <div class="tab-pane fade" id="Today">
-                                                    <div id="chartBar2" class="chartBar"></div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -579,133 +574,7 @@ $format_progress = number_format($ProgressOfCases, 2);
                 var chartBar1 = new ApexCharts(document.querySelector("#chartBar1"), options);
                 chartBar1.render();
             }
-            var chartBar2 = function(){
 
-                var options = {
-                    series: [
-                        {
-                            name: 'Running',
-                            data: [50, 18, 70, 40, 90, 70, 20],
-                            //radius: 12,
-                        },
-                        {
-                            name: 'Cycling',
-                            data: [80, 40, 55, 20, 45, 30, 80]
-                        },
-
-                    ],
-                    chart: {
-                        type: 'bar',
-                        height: 370,
-
-                        toolbar: {
-                            show: false,
-                        },
-
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '57%',
-                            endingShape: "rounded",
-                            borderRadius: 12,
-                        },
-
-                    },
-                    states: {
-                        hover: {
-                            filter: 'none',
-                        }
-                    },
-                    colors:['#FFA26D', '#FF5ED2'],
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    markers: {
-                        shape: "circle",
-                    },
-
-
-                    legend: {
-                        show: false,
-                        fontSize: '12px',
-                        labels: {
-                            colors: '#000000',
-
-                        },
-                        markers: {
-                            width: 18,
-                            height: 18,
-                            strokeWidth: 10,
-                            strokeColor: '#fff',
-                            fillColors: undefined,
-                            radius: 12,
-                        }
-                    },
-                    stroke: {
-                        show: true,
-                        width: 4,
-                        curve: 'smooth',
-                        lineCap: 'round',
-                        colors: ['transparent']
-                    },
-                    grid: {
-                        borderColor: '#eee',
-                    },
-                    xaxis: {
-                        position: 'bottom',
-                        categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                        labels: {
-                            style: {
-                                colors: '#787878',
-                                fontSize: '13px',
-                                fontFamily: 'poppins',
-                                fontWeight: 100,
-                                cssClass: 'apexcharts-xaxis-label',
-                            },
-                        },
-                        crosshairs: {
-                            show: false,
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            offsetX:-16,
-                            style: {
-                                colors: '#787878',
-                                fontSize: '13px',
-                                fontFamily: 'poppins',
-                                fontWeight: 100,
-                                cssClass: 'apexcharts-xaxis-label',
-                            },
-                        },
-                    },
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            shade: 'white',
-                            type: "vertical",
-                            shadeIntensity: 0.2,
-                            gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
-                            inverseColors: true,
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                            stops: [0, 50, 50],
-                            colorStops: []
-                        }
-                    },
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return "$ " + val + " thousands"
-                            }
-                        }
-                    },
-                };
-
-                var chartBar1 = new ApexCharts(document.querySelector("#chartBar2"), options);
-                chartBar1.render();
-            }
             var revenueMap = function(){
                 var options = {
                     series: [
@@ -1162,10 +1031,12 @@ $format_progress = number_format($ProgressOfCases, 2);
                 chartBar1.render();
 
             }
-
+            var ProG_val = <?php echo json_encode($format_progress); ?>;
             var redial = function(){
                 var options = {
-                    series: [70],
+                    //bigcircle
+
+                    series: [ProG_val],
                     chart: {
                         type: 'radialBar',
                         offsetY: 0,
@@ -1246,47 +1117,7 @@ $format_progress = number_format($ProgressOfCases, 2);
 
 
             }
-            var emailchart = function(){
-                var options = {
-                    series: [27, 11, 22,15,25],
-                    chart: {
-                        type: 'donut',
-                        height:300
-                    },
-                    dataLabels:{
-                        enabled: false
-                    },
-                    stroke: {
-                        width: 0,
-                    },
-                    colors:['var(--primary)', '#26E023', '#61CFF1','#FFDA7C','#FF86B1'],
-                    legend: {
-                        position: 'bottom',
-                        show:false
-                    },
-                    responsive: [{
-                        breakpoint: 1800,
-                        options: {
-                            chart: {
-                                height:200
-                            },
-                        }
-                    },
-                        {
-                            breakpoint: 1800,
-                            options: {
-                                chart: {
-                                    height:200
-                                },
-                            }
-                        }
-                    ]
-                };
 
-                var chart = new ApexCharts(document.querySelector("#emailchart"), options);
-                chart.render();
-
-            }
             /* Function ============ */
             return {
                 init:function(){
@@ -1297,13 +1128,11 @@ $format_progress = number_format($ProgressOfCases, 2);
                     donutChart1();
                     chartBar();
                     chartBar1();
-                    chartBar2();
                     revenueMap();
                     columnChart();
                     NewCustomers();
                     NewCustomers1();
                     redial();
-                    emailchart();
 
                 },
 

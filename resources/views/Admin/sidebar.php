@@ -187,7 +187,7 @@
 <script src="../../js/styleSwitcher.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/apexchart/apexchart.js"></script>
-<script src="../../js/plugins-init/chartjs-init.js"></script>
+<!--<script src="../../js/plugins-init/chartjs-init.js"></script>-->
 
 </body>
 </html>
