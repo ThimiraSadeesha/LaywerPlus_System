@@ -87,6 +87,7 @@
 
     // Function to get the count based on the SQL query
     function getCount($conn, $query)
+        //fixed
     {
         $result = $conn->query($query);
         if ($result && $result->num_rows > 0) {
