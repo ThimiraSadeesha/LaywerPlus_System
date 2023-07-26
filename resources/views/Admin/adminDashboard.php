@@ -1,4 +1,6 @@
-﻿<?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
+﻿<div id="main-wrapper">
+
+<?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
 include 'sidebar.php';
 $host = 'localhost';
 $user = 'root';
@@ -48,7 +50,7 @@ $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
 $format_progress = number_format($ProgressOfCases, 2);
 ?>
 
-<div id="main-wrapper">
+
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
