@@ -25605,8 +25605,12 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
       right: -0.3125rem;
       position: absolute;
       content: ""; }
+.center-card-title {
+  text-align: center;
+}
 
-   /* Style the card as a clickable element and change the cursor on hover */
+
+/* Style the card as a clickable element and change the cursor on hover */
  .clickable-card {
    cursor: pointer;}
 

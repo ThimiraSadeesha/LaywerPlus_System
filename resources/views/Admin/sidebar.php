@@ -25,6 +25,14 @@
 </head>
 
 <body>
+<div id="preloader">
+    <div class="lds-ripple">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
 <div class="nav-header">
     <a class="brand-logo">
         <svg class="logo-abbr" width="55" height="55" viewbox="0 0 55 55" fill="none"
@@ -159,7 +167,7 @@
                 </a>
             </li>
             <li>
-                <a href="reports.php">
+                <a href="AdminReports.php">
                     <i class="fas fa-file-alt"></i>
                     <span class="nav-text">Reports</span>
                 </a>
@@ -177,5 +185,9 @@
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/demo.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/apexchart/apexchart.js"></script>
+<script src="../../js/plugins-init/chartjs-init.js"></script>
+
 </body>
 </html>
