@@ -34,12 +34,21 @@
         exit;
     }
 
+
     // Retrieve data for the first table
     $sql = "SELECT * FROM lawyer";
     $result = $conn->query($sql);
     ?>
     <div class="content-body">
         <div class="container-fluid">
+
+            <div class="row page-titles">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a>Administrator</a></li>
+                    <li class="breadcrumb-item"><a>Active Lawyers</a></li>
+                </ol>
+            </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -154,19 +163,17 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-    <!-- Deleted records Table -->
-    <div class="content-body">
+        <!-- Deleted records Table -->
         <div class="container-fluid">
+            <div class="row page-titles">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a>Administrator</a></li>
+                    <li class="breadcrumb-item"><a>Deleted Lawyers</a></li>
+                </ol>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-center">
-                            <h1 class="card-title">Deleted Lawyer Records</h1>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <form method="post" action="">

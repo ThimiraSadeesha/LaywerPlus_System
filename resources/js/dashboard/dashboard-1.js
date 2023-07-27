@@ -144,8 +144,8 @@ $(function () {
 				},
 			};
 
-			var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
-			chartBar1.render();
+			// var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
+			// chartBar1.render();
 		}
 		var chartBar1 = function(){
 
@@ -271,8 +271,8 @@ $(function () {
 				},
 			};
 
-			var chartBar1 = new ApexCharts(document.querySelector("#chartBar1"), options);
-			chartBar1.render();
+			// var chartBar1 = new ApexCharts(document.querySelector("#chartBar1"), options);
+			// chartBar1.render();
 		}
 		var chartBar2 = function(){
 
@@ -398,8 +398,8 @@ $(function () {
 				},
 			};
 
-			var chartBar1 = new ApexCharts(document.querySelector("#chartBar2"), options);
-			chartBar1.render();
+			// var chartBar1 = new ApexCharts(document.querySelector("#chartBar2"), options);
+			// chartBar1.render();
 		}
 		var revenueMap = function(){
 			var options = {

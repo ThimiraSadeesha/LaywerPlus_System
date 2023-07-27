@@ -47,7 +47,7 @@ if ($result && $result->num_rows > 0) {
 $ongoingProjects = $CountAllCase + $newCountCase;
 $CompleteCase = $CountAllCases - $stoppedCount;
 $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
-$format_progress = number_format($ProgressOfCases, 2);
+$format_progress = intval($ProgressOfCases, 2);
 ?>
 
 

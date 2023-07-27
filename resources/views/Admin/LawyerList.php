@@ -33,6 +33,7 @@
         }
         exit;
     }
+    
 
     // Retrieve data for the first table
     $sql = "SELECT * FROM lawyer";

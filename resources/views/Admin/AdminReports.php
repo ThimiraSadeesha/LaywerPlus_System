@@ -267,7 +267,6 @@
             	if(jQuery('#doughnut_chart').length > 0 ){
             		//doughut chart
             		const doughnut_chart = document.getElementById("doughnut_chart").getContext('2d');
-            		// doughnut_chart.height = 100;
                     var Fam_Value = <?php echo json_encode($familyCases); ?>;
                     var Busi_Value = <?php echo json_encode($businessCases); ?>;
                     var Immi_Value = <?php echo json_encode($immigrationCases); ?>;
@@ -291,18 +290,15 @@
             					borderWidth: 3,
             					borderColor: "rgb(255,255,255)",
             					backgroundColor: [
-            						"rgba(136,108,192, 1)",
+            						"rgb(255, 198, 110)",
             						"rgba(98, 126, 234, 1)",
-            						"rgba(238, 60, 60, 1)",
-            						"rgb(248,245,5)",
-            						"rgb(72,255,1)"
+            						"rgb(115,197,104)",
+            						"rgb(136, 108, 192)",
+            						"rgb(255, 94, 210)"
 
 
             					],
             					hoverBackgroundColor: [
-            						"rgba(136,108,192, 0.9)",
-            						"rgba(98, 126, 234, .9)",
-            						"rgba(238, 60, 60, .9)"
 
             					]
 
