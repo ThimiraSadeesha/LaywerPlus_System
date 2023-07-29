@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2023 at 07:25 PM
+-- Generation Time: Jul 29, 2023 at 09:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -162,31 +162,31 @@ INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`
                                                                                                                          ('44', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
                                                                                                                          ('45', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
                                                                                                                          ('46', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('47', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('48', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('49', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('47', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('48', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('49', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
                                                                                                                          ('5', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 0),
-                                                                                                                         ('50', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('51', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'On Hold', 0),
-                                                                                                                         ('52', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('53', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('55', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('56', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('57', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('58', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('59', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('50', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('51', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Processing', 0),
+                                                                                                                         ('52', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('53', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('55', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('56', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('57', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('58', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('59', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
                                                                                                                          ('6', '', 'E2046022', 'test', 'Immigration ', '2023-06-02', 'Pending', 0),
-                                                                                                                         ('60', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('61', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('62', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('63', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('64', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('65', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('66', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('67', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
-                                                                                                                         ('68', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('60', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('61', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('62', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('63', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('64', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('65', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('66', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('67', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
+                                                                                                                         ('68', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
                                                                                                                          ('7', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 0),
-                                                                                                                         ('70', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('70', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
                                                                                                                          ('8', '', 'E2046022', 'test', 'criminal', '2023-06-10', 'Pending', 0),
                                                                                                                          ('80', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
                                                                                                                          ('81', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
@@ -273,8 +273,19 @@ CREATE TABLE `deleted_lawyers` (
 --
 
 INSERT INTO `deleted_lawyers` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`) VALUES
-                                                                                                                              ('1', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active'),
-                                                                                                                              ('19', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active');
+                                                                                                                              ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Inactive'),
+                                                                                                                              ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Hold');
+
+--
+-- Triggers `deleted_lawyers`
+--
+DELIMITER $$
+CREATE TRIGGER `record_deletion_trigger_to_lawyer` AFTER DELETE ON `deleted_lawyers` FOR EACH ROW BEGIN
+    INSERT INTO lawyer (lawyer_id, title, name, email, category, contact_number, password, status)
+    VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, OLD.status);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -298,27 +309,32 @@ CREATE TABLE `lawyer` (
 --
 
 INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`) VALUES
+                                                                                                                     ('1', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active'),
                                                                                                                      ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active'),
                                                                                                                      ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive'),
                                                                                                                      ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold'),
                                                                                                                      ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', 'Criminal Law', '2223334448', 'secretpass', 'Active'),
                                                                                                                      ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', 'Corporate Law', '7778889992', 'mypassword', 'Block'),
                                                                                                                      ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold'),
-                                                                                                                     ('16', 'Legal Researcher', 'Charlotte Davis', 'charlotte.davis@example.com', 'Real Estate Law', '5556667770', 'passw0rd', 'Inactive'),
                                                                                                                      ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active'),
                                                                                                                      ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive'),
                                                                                                                      ('2', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Active'),
+                                                                                                                     ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active'),
                                                                                                                      ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold'),
                                                                                                                      ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active'),
                                                                                                                      ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active'),
                                                                                                                      ('6', 'Notary', 'Emily Davis', 'emily.davis@example.com', 'Real Estate Law', '7776665558', '12345678', 'Active'),
-                                                                                                                     ('7', 'Prosecutor', 'Robert Taylor', 'robert.taylor@example.com', 'Personal Injury Law', '2223334442', 'passw0rd', 'Block'),
-                                                                                                                     ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Inactive'),
-                                                                                                                     ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Hold');
+                                                                                                                     ('7', 'Prosecutor', 'Robert Taylor', 'robert.taylor@example.com', 'Personal Injury Law', '2223334442', 'passw0rd', 'Block');
 
 --
 -- Triggers `lawyer`
 --
+DELIMITER $$
+CREATE TRIGGER `delete_from_user` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
+    DELETE FROM user WHERE user.user_id = OLD.lawyer_id;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW BEGIN
     -- Insert into user table
@@ -392,13 +408,12 @@ INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `status`) VALUES
                                                                          ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', 'inactive'),
                                                                          ('19', 'James White', 'lawyer', 'securepass', 'inactive'),
                                                                          ('2', 'Galagedra', 'lawyer', '123345', 'inactive'),
+                                                                         ('21', 'James White', 'lawyer', 'securepass', 'inactive'),
                                                                          ('3', 'David Johnson', 'lawyer', 'pass123', 'inactive'),
                                                                          ('4', 'Sarah Williams', 'lawyer', 'secretpass', 'inactive'),
                                                                          ('5', 'Michael Brown', 'lawyer', 'mypassword', 'inactive'),
                                                                          ('6', 'Emily Davis', 'lawyer', '12345678', 'inactive'),
                                                                          ('7', 'Robert Taylor', 'lawyer', 'passw0rd', 'inactive'),
-                                                                         ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', 'inactive'),
-                                                                         ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', 'inactive'),
                                                                          ('E2046014', 'Sadeesha', 'client', 'admin@123', 'inactive'),
                                                                          ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', 'inactive'),
                                                                          ('E2046315', 'Tharuka', 'client', 'admin@123', 'inactive');
@@ -442,6 +457,12 @@ ALTER TABLE `case`
 --
 ALTER TABLE `client`
     ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `deleted_lawyers`
+--
+ALTER TABLE `deleted_lawyers`
+    ADD PRIMARY KEY (`lawyer_id`);
 
 --
 -- Indexes for table `lawyer`
