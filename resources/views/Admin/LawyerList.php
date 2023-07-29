@@ -216,7 +216,7 @@
                                                 echo "<td>" . $row['contact_number'] . "</td>";
                                                 echo '<td class="py-2">
 
-<button type="button" class="btn light btn-danger custom-btn-height" data-lawyer-id="' . $row['lawyer_id'] . '">Delete</button>
+                                            <button type="button" class="btn light btn-success" data-lawyer-id="' . $row['lawyer_id'] . '">Restore</button>
                                                         </td>';
                                                 echo '</tr>';
                                             }
