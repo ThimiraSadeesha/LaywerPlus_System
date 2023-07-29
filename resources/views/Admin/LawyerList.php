@@ -33,7 +33,7 @@
         }
         exit;
     }
-    
+
 
     // Retrieve data for the first table
     $sql = "SELECT * FROM lawyer";
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-    <!-- Deleted records Table -->
+        <!-- Deleted records Table -->
         <div class="container-fluid">
             <div class="row page-titles">
                 <ol class="breadcrumb">
@@ -180,16 +180,65 @@
                                     <table class="table table-sm mb-0">
                                         <thead>
                                         <tr>
-                                            <th class="align-middle"></th>
                                             <th class="align-middle">Lawyer ID</th>
-                                            <th class="align-middle">Name</th>
+                                            <th class="align-middle">Lawyer Name</th>
+                                            <th class="align-middle">Title</th>
                                             <th class="align-middle">Email</th>
+                                            <th class="align-middle">Category</th>
                                             <th class="align-middle">Contact</th>
-                                            <th class="align-middle">Status</th>
+
                                             <th class="align-middle">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <?php
+                                        $sql = "SELECT * FROM `deleted_lawyers` ";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<tr>";
+                                                echo "<tr>";
+                                                echo "<td>" . $row['lawyer_id'] . "</td>";
+                                                echo "<td>" . $row['title'] . "</td>";
+                                                echo "<td>" . $row['name'] . "</td>";
+                                                echo "<td>" . $row['email'] . "</td>";
+                                                echo "<td>" . $row['category'] . "</td>";
+                                                echo "<td>" . $row['contact_number'] . "</td>";
+
+                                                echo '<td class="py-2">
+                                                        <div class="dropdown text-sans-serif">
+                                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                                                                <span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                                            <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                                                            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                                                            <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                                                        </g>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                                                                <div class="py-2">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Restore</a>
+                                                                  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>';
+                                                echo '</tr>';
+
+
+                                            }
+
+                                        } else {
+                                            echo "<tr><td colspan='7'>No data found</td></tr>";
+                                        }
+
+
+                                        ?>
+
                                         </tbody>
                                     </table>
                                 </form>

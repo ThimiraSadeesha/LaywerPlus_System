@@ -24,7 +24,7 @@ function getCount($conn, $query)
 }
 
 // Get counts
-$CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
+$CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
 $clientsCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `client`");
 $newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Pending'");
 $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
@@ -85,14 +85,14 @@ $format_progress = intval($ProgressOfCases, 2);
                                                         <span class="donut1"
                                                                     <?php
                                                                     // Calculate % completed cases
-                                                                    $percentageCompleted = ($CountAllCase / $CountAllCases) * 100;
+                                                                    $percentageCompleted = ($CountAllCase_com / $CountAllCases) * 100;
                                                                     // Calculate % remaining cases
                                                                     $percentageRemaining = 100 - $percentageCompleted;
                                                                     ?>
                                                             data-peity='{ "fill": ["rgba(136,108,192,1)", "rgba(241, 234, 255, 1)"]}'><?php echo $percentageCompleted; ?>/<?php echo $percentageRemaining; ?></span>
                                                     </div>
                                                     <div class="ms-3">
-                                                        <h4 class="fs-24 font-w700 "> <?php echo $CountAllCase ?></h4>
+                                                        <h4 class="fs-24 font-w700 "> <?php echo $CountAllCase_com ?></h4>
                                                         <span class="fs-16 font-w400 d-block">Completed Cases</span>
                                                     </div>
                                                 </div>
@@ -150,7 +150,7 @@ $format_progress = intval($ProgressOfCases, 2);
                                                         <h4 class="fs-18 font-w600 mb-4 text-nowrap">Completed
                                                             Cases</h4>
                                                         <div class="d-flex align-items-center">
-                                                            <h2 class="fs-32 font-w700 mb-0"> <?php echo $CountAllCase; ?> </h2>
+                                                            <h2 class="fs-32 font-w700 mb-0"> <?php echo $CountAllCase_com; ?> </h2>
                                                             <span class="d-block ms-4">
 																	<svg width="21" height="11" viewbox="0 0 21 11"
                                                                          fill="none" xmlns="http://www.w3.org/2000/svg">
