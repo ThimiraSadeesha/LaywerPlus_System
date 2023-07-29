@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2023 at 10:06 PM
+-- Generation Time: Jul 29, 2023 at 07:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -112,92 +112,93 @@ CREATE TABLE `case` (
                         `description` varchar(25) NOT NULL,
                         `C_type` varchar(20) NOT NULL,
                         `submit_date` date NOT NULL,
-                        `satuts` varchar(50) NOT NULL
+                        `satuts` varchar(50) NOT NULL,
+                        `Amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `case`
 --
 
-INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`) VALUES
-                                                                                                               ('1', '', 'E2046022', 'test', 'criminal', '2023-06-01', 'Pending'),
-                                                                                                               ('10', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending'),
-                                                                                                               ('11', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending'),
-                                                                                                               ('12', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending'),
-                                                                                                               ('13', '', 'E2046022', 'test', 'Immigration ', '2023-06-03', 'Pending'),
-                                                                                                               ('14', '', 'E2046022', 'test', 'Immigration ', '2023-06-03', 'Pending'),
-                                                                                                               ('15', '', 'E2046014', 'test', 'Immigration ', '2023-06-03', 'Pending'),
-                                                                                                               ('16', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending'),
-                                                                                                               ('17', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending'),
-                                                                                                               ('18', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending'),
-                                                                                                               ('19', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending'),
-                                                                                                               ('2', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending'),
-                                                                                                               ('20', '', 'E2046014', 'test', 'criminal', '2023-06-02', 'Pending'),
-                                                                                                               ('21', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending'),
-                                                                                                               ('22', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending'),
-                                                                                                               ('23', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed'),
-                                                                                                               ('24', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('25', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed'),
-                                                                                                               ('26', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('27', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed'),
-                                                                                                               ('28', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('29', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed'),
-                                                                                                               ('3', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending'),
-                                                                                                               ('30', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('31', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('32', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('33', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed'),
-                                                                                                               ('34', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed'),
-                                                                                                               ('35', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed'),
-                                                                                                               ('36', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('37', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('38', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('39', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('4', '', 'E2046022', 'test', 'criminal', '2023-06-01', 'Pending'),
-                                                                                                               ('40', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('41', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed'),
-                                                                                                               ('42', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed'),
-                                                                                                               ('43', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('44', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('45', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('46', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed'),
-                                                                                                               ('47', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('48', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('49', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('5', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending'),
-                                                                                                               ('50', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('51', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Ongoing'),
-                                                                                                               ('52', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('53', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('55', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('56', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('57', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('58', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('59', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('6', '', 'E2046022', 'test', 'Immigration ', '2023-06-02', 'Pending'),
-                                                                                                               ('60', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Ongoing'),
-                                                                                                               ('61', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('62', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('63', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('64', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Ongoing'),
-                                                                                                               ('65', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('66', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Ongoing'),
-                                                                                                               ('67', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('68', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Ongoing'),
-                                                                                                               ('7', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending'),
-                                                                                                               ('70', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Ongoing'),
-                                                                                                               ('8', '', 'E2046022', 'test', 'criminal', '2023-06-10', 'Pending'),
-                                                                                                               ('80', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled'),
-                                                                                                               ('81', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('82', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled'),
-                                                                                                               ('83', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('84', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled'),
-                                                                                                               ('85', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('86', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled'),
-                                                                                                               ('87', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('88', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('89', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled'),
-                                                                                                               ('90', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Cancelled');
+INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`, `Amount`) VALUES
+                                                                                                                         ('1', '', 'E2046022', 'test', 'criminal', '2023-06-01', 'Pending', 4530),
+                                                                                                                         ('10', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending', 3540),
+                                                                                                                         ('11', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending', 7532),
+                                                                                                                         ('12', '', 'E2046022', 'test', 'Business ', '2023-06-02', 'Pending', 4500),
+                                                                                                                         ('13', '', 'E2046022', 'test', 'Immigration ', '2023-06-03', 'Pending', 2100),
+                                                                                                                         ('14', '', 'E2046022', 'test', 'Immigration ', '2023-06-03', 'Pending', 2980),
+                                                                                                                         ('15', '', 'E2046014', 'test', 'Immigration ', '2023-06-03', 'Pending', 4500),
+                                                                                                                         ('16', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 5500),
+                                                                                                                         ('17', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 8000),
+                                                                                                                         ('18', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 1420),
+                                                                                                                         ('19', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 2350),
+                                                                                                                         ('2', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 7560),
+                                                                                                                         ('20', '', 'E2046014', 'test', 'criminal', '2023-06-02', 'Pending', 1200),
+                                                                                                                         ('21', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending', 3200),
+                                                                                                                         ('22', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending', 4520),
+                                                                                                                         ('23', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 6320),
+                                                                                                                         ('24', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 2360),
+                                                                                                                         ('25', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 2000),
+                                                                                                                         ('26', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 4500),
+                                                                                                                         ('27', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 1500),
+                                                                                                                         ('28', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 3500),
+                                                                                                                         ('29', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 7400),
+                                                                                                                         ('3', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 5600),
+                                                                                                                         ('30', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 4400),
+                                                                                                                         ('31', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 5000),
+                                                                                                                         ('32', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('33', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('34', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('35', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('36', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('37', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('38', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('39', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('4', '', 'E2046022', 'test', 'criminal', '2023-06-01', 'Pending', 0),
+                                                                                                                         ('40', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('41', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('42', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('43', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('44', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('45', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('46', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
+                                                                                                                         ('47', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('48', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('49', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('5', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 0),
+                                                                                                                         ('50', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('51', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'On Hold', 0),
+                                                                                                                         ('52', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('53', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('55', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('56', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('57', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('58', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('59', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('6', '', 'E2046022', 'test', 'Immigration ', '2023-06-02', 'Pending', 0),
+                                                                                                                         ('60', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('61', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('62', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('63', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('64', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('65', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('66', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('67', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('68', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('7', '', 'E2046022', 'test', 'Family', '2023-06-10', 'Pending', 0),
+                                                                                                                         ('70', '', 'E2046014', 'test', 'type1', '2023-06-10', 'On Hold', 0),
+                                                                                                                         ('8', '', 'E2046022', 'test', 'criminal', '2023-06-10', 'Pending', 0),
+                                                                                                                         ('80', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('81', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('82', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('83', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('84', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('85', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('86', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('87', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('88', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('89', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
+                                                                                                                         ('90', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Cancelled', 0);
 
 -- --------------------------------------------------------
 
@@ -214,17 +215,18 @@ CREATE TABLE `client` (
                           `contact_number` varchar(15) NOT NULL,
                           `address` varchar(252) NOT NULL,
                           `password` varchar(25) NOT NULL,
-                          `registerd_datte` date NOT NULL DEFAULT current_timestamp()
+                          `registerd_datte` date NOT NULL DEFAULT current_timestamp(),
+                          `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`) VALUES
-                                                                                                                                  ('E2046014', 'Sadeesha', '998458213V', 'sadeesha@gmail.com', NULL, '775124523', 'test', 'admin@123', '2023-07-26'),
-                                                                                                                                  ('E2046022', 'Kanishka_Bandara', '992654660V', 'kanishka@gmail.com', NULL, '775756081', 'No 99,welagedra road', 'admin@1234', '2023-07-26'),
-                                                                                                                                  ('E2046315', 'Tharuka', '9845625812', 'tharuka@gmail.com', NULL, '75845125', 'test2', 'admin@123', '2023-07-26');
+INSERT INTO `client` (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`) VALUES
+                                                                                                                                            ('E2046014', 'Sadeesha', '998458213V', 'sadeesha@gmail.com', NULL, '775124523', 'test', 'admin@123', '2023-07-26', 'active'),
+                                                                                                                                            ('E2046022', 'Kanishka_Bandara', '992654660V', 'kanishka@gmail.com', NULL, '775756081', 'No 99,welagedra road', 'admin@1234', '2023-07-26', 'active'),
+                                                                                                                                            ('E2046315', 'Tharuka', '9845625812', 'tharuka@gmail.com', NULL, '75845125', 'test2', 'admin@123', '2023-07-26', 'blocked');
 
 --
 -- Triggers `client`
@@ -252,6 +254,31 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `deleted_lawyers`
+--
+
+CREATE TABLE `deleted_lawyers` (
+                                   `lawyer_id` varchar(50) NOT NULL,
+                                   `title` varchar(50) NOT NULL,
+                                   `name` varchar(50) NOT NULL,
+                                   `email` varchar(50) NOT NULL,
+                                   `category` varchar(50) NOT NULL,
+                                   `contact_number` varchar(50) NOT NULL,
+                                   `password` varchar(50) NOT NULL,
+                                   `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deleted_lawyers`
+--
+
+INSERT INTO `deleted_lawyers` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`) VALUES
+                                                                                                                              ('1', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active'),
+                                                                                                                              ('19', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lawyer`
 --
 
@@ -271,7 +298,6 @@ CREATE TABLE `lawyer` (
 --
 
 INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`) VALUES
-                                                                                                                     ('1', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active'),
                                                                                                                      ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active'),
                                                                                                                      ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive'),
                                                                                                                      ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold'),
@@ -281,7 +307,6 @@ INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contac
                                                                                                                      ('16', 'Legal Researcher', 'Charlotte Davis', 'charlotte.davis@example.com', 'Real Estate Law', '5556667770', 'passw0rd', 'Inactive'),
                                                                                                                      ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active'),
                                                                                                                      ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive'),
-                                                                                                                     ('19', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active'),
                                                                                                                      ('2', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Active'),
                                                                                                                      ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold'),
                                                                                                                      ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active'),
@@ -299,6 +324,13 @@ CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW B
     -- Insert into user table
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.lawyer_id,NEW.name,'lawyer',NEW.password,'inactive');
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `record_deletion_trigger` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
+    INSERT INTO deleted_lawyers (lawyer_id, title, name, email, category, contact_number, password, status)
+    VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, OLD.status);
 END
 $$
 DELIMITER ;
