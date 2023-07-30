@@ -124,7 +124,7 @@
                                           <span class="me-3">
                                               <i class="flaticon-381-user-7"></i>
                                           </span>
-                                        <div class="media-body text-white fa-align-left">
+                                        <div class="media-body text-white align-left">
                                             <p class="mb-1">Total Due Payment</p>
                                             <h3 class="text-white">Rs 3500</h3>
                                         </div>
