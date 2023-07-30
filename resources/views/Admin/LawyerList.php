@@ -283,7 +283,7 @@
         });
 
         // Delete handler for second table
-        $(".delete-deleted-lawyer-btn").click(function() {
+        $(".btn-success").click(function() {
 
             var lawyerId = $(this).data("lawyer-id");
 
