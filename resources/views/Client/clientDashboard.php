@@ -56,7 +56,6 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="row">
-
                         <div class="card">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -71,7 +70,7 @@
                                     </div>
                                     <div class="col-xl-2  col-lg-3 col-sm-4  col-6 mb-3 text-lg-right">
                                         <div class="d-flex project-image">
-                                            <img src="images/customers/11.jpg" alt="">
+                                            <img src="../../images/user.png"  alt="">
                                             <div>
                                                 <small class="d-block fs-16 font-w400">Lawyer in charge</small>
                                                 <span class="fs-18 font-w500">James Jr.</span>
@@ -80,7 +79,7 @@
                                     </div>
                                     <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-3 text-lg-right">
                                         <div class="d-flex project-image">
-                                            <img src="images/customers/22.jpg" alt="">
+                                            <img src="../../images/user.png"  alt="">
                                             <div>
                                                 <small class="d-block fs-16 font-w400">Assistant</small>
                                                 <span class="fs-18 font-w500">Marley Dokidis</span>
@@ -114,26 +113,6 @@
                                             <a href="javascript:void(0);"
                                                class=" btn bg-progress fs-18 font-w600 text-nowrap text-bg-progress">ON
                                                 PROGRESS</a>
-                                            <div class="dropdown ms-4  mt-auto mb-auto">
-                                                <div class="btn-link" data-bs-toggle="dropdown">
-                                                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                                              stroke="#737B8B" stroke-width="2" stroke-linecap="round"
-                                                              stroke-linejoin="round"></path>
-                                                        <path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                                              stroke="#737B8B" stroke-width="2" stroke-linecap="round"
-                                                              stroke-linejoin="round"></path>
-                                                        <path d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                                              stroke="#737B8B" stroke-width="2" stroke-linecap="round"
-                                                              stroke-linejoin="round"></path>
-                                                    </svg>
-                                                </div>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,12 +176,8 @@
                                 const progressLabel = document.getElementById("progress-label");
                                 const progressValue = document.getElementById("progress-value");
 
-                                // Set the initial progress value
                                 const lawyerCountElement = '<?= $lawyerCount?>';
 
-                                // var currentValue =17;
-                                // var currentValue =17;
-                                // Update the progress bar width and label
                                 progressBar.style.width = lawyerCountElement + "%";
                                 progressLabel.textContent = (100 - lawyerCountElement) + " left from target";
                                 progressValue.textContent = lawyerCountElement;
@@ -222,36 +197,88 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-6">
-                            <div class="items">
-                                <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
-                                    Website Project</h4>
-                                <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header d-block">
+                                    <h4 class="card-title">Latest Updates</h4>
+                                    <p class="m-0 subtitle">Latest updates of the case  <code>case id එක ගහපන් මෙතනට</code> </p>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="accordion accordion-danger-solid" id="accordion-two">
+                                        <div class="accordion-item">
+                                            <div class="accordion-header  rounded-lg" id="accord-2One" data-bs-toggle="collapse" data-bs-target="#collapse2One" aria-controls="collapse2One" aria-expanded="true" role="button">
+                                                <span class="accordion-header-text">Masage එකේ Topic එක මෙතනට </span>
+                                                <span class="accordion-header-indicator"></span>
+                                            </div>
+                                            <div id="collapse2One" class="collapse accordion__body show" aria-labelledby="accord-2One" data-bs-parent="#accordion-two">
+                                                <div class="accordion-body-text">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <div class="accordion-header collapsed rounded-lg" id="accord-2Two" data-bs-toggle="collapse" data-bs-target="#collapse2Two" aria-controls="collapse2Two" aria-expanded="true" role="button">
+                                                <span class="accordion-header-text">Message Topic Two</span>
+                                                <span class="accordion-header-indicator"></span>
+                                            </div>
+                                            <div id="collapse2Two" class="collapse accordion__body" aria-labelledby="accord-2Two" data-bs-parent="#accordion-two">
+                                                <div class="accordion-body-text">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <div class="accordion-header collapsed rounded-lg" id="accord-2Three" data-bs-toggle="collapse" data-bs-target="#collapse2Three" aria-controls="collapse2Three" aria-expanded="true" role="button">
+                                                <span class="accordion-header-text">Message Topic Three</span>
+                                                <span class="accordion-header-indicator"></span>
+                                            </div>
+                                            <div id="collapse2Three" class="collapse accordion__body" aria-labelledby="accord-2Three" data-bs-parent="#accordion-two">
+                                                <div class="accordion-body-text">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 redial col-sm-6">
-                            <div id="redial"></div>
-                            <span class="text-center d-block fs-18 font-w600">On Progress <small
-                                        class="text-success"><?php echo $format_progress . "%"; ?></small></span>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header d-block">
+                                    <h4 class="card-title">Send a Statement</h4>
+                                    <p class="m-0 subtitle">Select the case <code>case id එක ගහපන් මෙතනට</code> </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="accordion">
+                                        <div class="basic-form">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control input-default " placeholder="Statement Heading Here">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="basic-form">
+                                            <form>
+                                                <textarea class="form-control input-default fixed-textarea" placeholder=""></textarea>                                            </form>
+                                            <style>
+                                            .fixed-textarea {
+                                            resize: none;
+                                            height: 60%;
+                                            }</style>
+                                            <button type="button" class="btn btn-primary btn-sm">Send Statement</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
-</div>
-</div>
-</div>
+
+
 <!--<script src="../../vendor/global/global.min.js"></script>-->
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
@@ -259,8 +286,6 @@
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/peity/jquery.peity.min.js"></script>
 <!--<script src="../../js/dashboard/dashboard-1.js"></script>-->
-
-
 <!--<script src="../../js/custom.min.js"></script>-->
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
