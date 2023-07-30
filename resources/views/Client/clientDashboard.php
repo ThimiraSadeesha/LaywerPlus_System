@@ -201,7 +201,7 @@
                                         <h4 class="fs-18 font-w600 mb-4 text-nowrap">New Case</h4>
                                         <div class="">
                                             <div class="mb-4">
-                                                <button type="button" class="btn btn-primary">Submit New Case</button>
+                                                <a href="CaseSubmit.php" class="btn btn-primary">Submit New Case</a>
                                             </div>
                                         </div>
                                     </div>
