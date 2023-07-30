@@ -1,54 +1,54 @@
 ﻿<div id="main-wrapper">
 
-<?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
-include 'sidebar.php';
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'lawyerPlus';
+    <?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
+    include 'sidebar.php';
+    $host = 'localhost';
+    $user = 'root';
+    $password = '';
+    $dbname = 'lawyerPlus';
 
-// Connect to database
-$conn = new mysqli($host, $user, $password, $dbname);
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
-}
-
-// Helper function to get count from query
-function getCount($conn, $query)
-{
-    $result = $conn->query($query);
-    if ($result && $result->num_rows === 1) {
-        return $result->fetch_assoc()['completed_count'];
+    // Connect to database
+    $conn = new mysqli($host, $user, $password, $dbname);
+    if ($conn->connect_error) {
+        die('Connection failed: ' . $conn->connect_error);
     }
-    return 0;
-}
 
-// Get counts
-$CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
-$clientsCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `client`");
-$newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Pending'");
-$lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
-$CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Ongoing'");
-$stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Cancelled'");
-$CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case`");
+    // Helper function to get count from query
+    function getCount($conn, $query)
+    {
+        $result = $conn->query($query);
+        if ($result && $result->num_rows === 1) {
+            return $result->fetch_assoc()['completed_count'];
+        }
+        return 0;
+    }
 
-$currentDateTime = date("Y-m-d"); // Get the current date and time in the appropriate format
-$submit_date = '2023-06-01 00:00:00';
-$sql = "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-06-01 00:00:00' AND submit_date <= '2023-07-26 23:59:59' AND satuts = 'Completed'";
-$result = $conn->query($sql);
-if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $value = $row['count'];
+    // Get counts
+    $CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
+    $clientsCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `client`");
+    $newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Pending'");
+    $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
+    $CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Ongoing'");
+    $stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Cancelled'");
+    $CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case`");
 
-} else {
-    echo "0";
-}
+    $currentDateTime = date("Y-m-d"); // Get the current date and time in the appropriate format
+    $submit_date = '2023-06-01 00:00:00';
+    $sql = "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-06-01 00:00:00' AND submit_date <= '2023-07-26 23:59:59' AND satuts = 'Completed'";
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $value = $row['count'];
 
-$ongoingProjects = $CountAllCase + $newCountCase;
-$CompleteCase = $CountAllCases - $stoppedCount;
-$ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
-$format_progress = intval($ProgressOfCases, 2);
-?>
+    } else {
+        echo "0";
+    }
+
+    $ongoingProjects = $CountAllCase + $newCountCase;
+    $CompleteCase = $CountAllCases - $stoppedCount;
+    $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
+    $format_progress = intval($ProgressOfCases, 2);
+    ?>
 
 
     <div class="content-body">
@@ -288,7 +288,6 @@ $format_progress = intval($ProgressOfCases, 2);
 </div>
 
 
-
 <!--<script src="../../vendor/global/global.min.js"></script>-->
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
@@ -304,21 +303,20 @@ $format_progress = intval($ProgressOfCases, 2);
 <script>
 
 
-
-    (function($) {
+    (function ($) {
         /* "use strict" */
 
-        var dlabChartlist = function(){
+        var dlabChartlist = function () {
 
             var screenWidth = $(window).width();
             let draw = Chart.controllers.line.__super__.draw; //draw shadow
-            var donutChart1 = function(){
+            var donutChart1 = function () {
                 $("span.donut1").peity("donut", {
                     width: "70",
                     height: "70"
                 });
             }
-            var chartBar = function(){
+            var chartBar = function () {
 
                 var phpValue = <?php echo json_encode($value); ?>;
                 var options = {
@@ -357,7 +355,7 @@ $format_progress = intval($ProgressOfCases, 2);
                             filter: 'none',
                         }
                     },
-                    colors:['#FFA26D', '#FF5ED2'],
+                    colors: ['#FFA26D', '#FF5ED2'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -410,7 +408,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     },
                     yaxis: {
                         labels: {
-                            offsetX:-16,
+                            offsetX: -16,
                             style: {
                                 colors: '#787878',
                                 fontSize: '13px',
@@ -437,7 +435,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     tooltip: {
                         y: {
                             formatter: function (val) {
-                                return  val + " projects" //database eken data ganna
+                                return val + " projects" //database eken data ganna
 
                             }
                         }
@@ -447,7 +445,7 @@ $format_progress = intval($ProgressOfCases, 2);
                 var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
                 chartBar1.render();
             }
-            var chartBar1 = function(){
+            var chartBar1 = function () {
 
                 var options = {
                     series: [
@@ -485,7 +483,7 @@ $format_progress = intval($ProgressOfCases, 2);
                             filter: 'none',
                         }
                     },
-                    colors:['#FFA26D', '#FF5ED2'],
+                    colors: ['#FFA26D', '#FF5ED2'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -538,7 +536,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     },
                     yaxis: {
                         labels: {
-                            offsetX:-16,
+                            offsetX: -16,
                             style: {
                                 colors: '#787878',
                                 fontSize: '13px',
@@ -575,7 +573,7 @@ $format_progress = intval($ProgressOfCases, 2);
                 chartBar1.render();
             }
 
-            var revenueMap = function(){
+            var revenueMap = function () {
                 var options = {
                     series: [
                         {
@@ -599,7 +597,7 @@ $format_progress = intval($ProgressOfCases, 2);
                             endingShape: 'rounded'
                         },
                     },
-                    colors:['#886CC0'],
+                    colors: ['#886CC0'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -613,8 +611,8 @@ $format_progress = intval($ProgressOfCases, 2);
                     stroke: {
                         show: true,
                         width: 10,
-                        curve:'smooth',
-                        colors:['var(--primary)'],
+                        curve: 'smooth',
+                        colors: ['var(--primary)'],
                     },
 
                     grid: {
@@ -648,7 +646,7 @@ $format_progress = intval($ProgressOfCases, 2);
                         }
                     },
                     yaxis: {
-                        show:true,
+                        show: true,
                         labels: {
                             offsetX: -15,
                             style: {
@@ -665,7 +663,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     },
                     fill: {
                         opacity: 1,
-                        colors:'#FAC7B6'
+                        colors: '#FAC7B6'
                     },
                     tooltip: {
                         y: {
@@ -681,14 +679,14 @@ $format_progress = intval($ProgressOfCases, 2);
 
 
             }
-            var columnChart = function(){
+            var columnChart = function () {
                 var options = {
                     series: [{
                         name: 'Aplication Sent',
-                        data: [40, 55, 15,55]
+                        data: [40, 55, 15, 55]
                     }, {
                         name: 'Appllication Answered',
-                        data: [40, 55, 35,55]
+                        data: [40, 55, 35, 55]
                     }, {
                         name: 'Hired',
                         data: [40, 17, 55, 55]
@@ -727,13 +725,13 @@ $format_progress = intval($ProgressOfCases, 2);
                         },
 
                     },
-                    colors:['#ECECEC', '#886CC0', '#886CC0'],
+                    colors: ['#ECECEC', '#886CC0', '#886CC0'],
                     xaxis: {
                         show: false,
                         axisBorder: {
                             show: false,
                         },
-                        axisTicks:{
+                        axisTicks: {
                             show: false,
                         },
                         labels: {
@@ -766,7 +764,7 @@ $format_progress = intval($ProgressOfCases, 2);
                         enabled: false
                     },
                     legend: {
-                        show:false
+                        show: false
                     },
                     fill: {
                         opacity: 1
@@ -777,12 +775,12 @@ $format_progress = intval($ProgressOfCases, 2);
                 chart.render();
             }
 
-            var NewCustomers = function(){
+            var NewCustomers = function () {
                 var options = {
                     series: [
                         {
                             name: 'Net Profit',
-                            data: [100,300, 100, 400, 200, 400],
+                            data: [100, 300, 100, 400, 200, 400],
                             /* radius: 30,	 */
                         },
                     ],
@@ -802,7 +800,7 @@ $format_progress = intval($ProgressOfCases, 2);
 
                     },
 
-                    colors:['var(--primary)'],
+                    colors: ['var(--primary)'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -813,12 +811,12 @@ $format_progress = intval($ProgressOfCases, 2);
                     stroke: {
                         show: true,
                         width: 6,
-                        curve:'smooth',
-                        colors:['var(--primary)'],
+                        curve: 'smooth',
+                        colors: ['var(--primary)'],
                     },
 
                     grid: {
-                        show:false,
+                        show: false,
                         borderColor: '#eee',
                         padding: {
                             top: 0,
@@ -885,15 +883,15 @@ $format_progress = intval($ProgressOfCases, 2);
                     },
                     fill: {
                         opacity: 1,
-                        colors:'#FB3E7A'
+                        colors: '#FB3E7A'
                     },
                     tooltip: {
-                        enabled:false,
+                        enabled: false,
                         style: {
                             fontSize: '12px',
                         },
                         y: {
-                            formatter: function(val) {
+                            formatter: function (val) {
                                 return "$" + val + " thousands"
                             }
                         }
@@ -904,12 +902,12 @@ $format_progress = intval($ProgressOfCases, 2);
                 chartBar1.render();
 
             }
-            var NewCustomers1 = function(){
+            var NewCustomers1 = function () {
                 var options = {
                     series: [
                         {
                             name: 'Net Profit',
-                            data: [100,300, 200, 400, 100, 400],
+                            data: [100, 300, 200, 400, 100, 400],
                             /* radius: 30,	 */
                         },
                     ],
@@ -929,7 +927,7 @@ $format_progress = intval($ProgressOfCases, 2);
 
                     },
 
-                    colors:['#0E8A74'],
+                    colors: ['#0E8A74'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -940,12 +938,12 @@ $format_progress = intval($ProgressOfCases, 2);
                     stroke: {
                         show: true,
                         width: 6,
-                        curve:'smooth',
-                        colors:['var(--primary)'],
+                        curve: 'smooth',
+                        colors: ['var(--primary)'],
                     },
 
                     grid: {
-                        show:false,
+                        show: false,
                         borderColor: '#eee',
                         padding: {
                             top: 0,
@@ -1012,15 +1010,15 @@ $format_progress = intval($ProgressOfCases, 2);
                     },
                     fill: {
                         opacity: 1,
-                        colors:'#FB3E7A'
+                        colors: '#FB3E7A'
                     },
                     tooltip: {
-                        enabled:false,
+                        enabled: false,
                         style: {
                             fontSize: '12px',
                         },
                         y: {
-                            formatter: function(val) {
+                            formatter: function (val) {
                                 return "$" + val + " thousands"
                             }
                         }
@@ -1032,7 +1030,7 @@ $format_progress = intval($ProgressOfCases, 2);
 
             }
             var ProG_val = <?php echo json_encode($format_progress); ?>;
-            var redial = function(){
+            var redial = function () {
                 var options = {
                     //bigcircle
 
@@ -1040,7 +1038,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     chart: {
                         type: 'radialBar',
                         offsetY: 0,
-                        height:350,
+                        height: 350,
                         sparkline: {
                             enabled: true
                         }
@@ -1072,8 +1070,8 @@ $format_progress = intval($ProgressOfCases, 2);
                                 value: {
                                     offsetY: 5,
                                     fontSize: '22px',
-                                    color:'#886CC0',
-                                    fontWeight:700,
+                                    color: '#886CC0',
+                                    fontWeight: 700,
                                 }
                             }
                         }
@@ -1082,7 +1080,7 @@ $format_progress = intval($ProgressOfCases, 2);
                         breakpoint: 1600,
                         options: {
                             chart: {
-                                height:250
+                                height: 250
                             },
                         }
                     }
@@ -1099,7 +1097,7 @@ $format_progress = intval($ProgressOfCases, 2);
                     }, */
                     fill: {
                         type: 'gradient',
-                        colors:'#FF63E6',
+                        colors: '#FF63E6',
                         gradient: {
                             shade: 'white',
                             shadeIntensity: 0.15,
@@ -1120,11 +1118,11 @@ $format_progress = intval($ProgressOfCases, 2);
 
             /* Function ============ */
             return {
-                init:function(){
+                init: function () {
                 },
 
 
-                load:function(){
+                load: function () {
                     donutChart1();
                     chartBar();
                     chartBar1();
@@ -1136,13 +1134,13 @@ $format_progress = intval($ProgressOfCases, 2);
 
                 },
 
-                resize:function(){
+                resize: function () {
                 }
             }
 
         }();
-        jQuery(window).on('load',function(){
-            setTimeout(function(){
+        jQuery(window).on('load', function () {
+            setTimeout(function () {
                 dlabChartlist.load();
             }, 1000);
 
