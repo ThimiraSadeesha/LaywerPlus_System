@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <title>LawyerPlus - Client Area</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>LawyerPlus - Client Area</title>
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <link href="../../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../vendor/nouislider/nouislider.min.css">
     <link href="../../css/style.css" rel="stylesheet">
-    
-
+    <link href="../../vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+    <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/51900a2fdc.js" crossorigin="anonymous"></script>
 
@@ -149,7 +151,7 @@
                 </a>
             </li>
             <li>
-                <a href="LawyerList.php">
+                <a href="findLawyer.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Lawyers</span>
                 </a>
@@ -175,7 +177,7 @@
 <script src="../../js/styleSwitcher.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/apexchart/apexchart.js"></script>
-<!--<script src="../../js/plugins-init/chartjs-init.js"></script>-->
+<script src="../../js/plugins-init/chartjs-init.js"></script>
 
 </body>
 </html>
