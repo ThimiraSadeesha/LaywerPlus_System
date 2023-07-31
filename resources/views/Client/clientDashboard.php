@@ -1,7 +1,7 @@
 ﻿<div id="main-wrapper">
-
-    <?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
+    <?php global $conn, $lawyerCount;
     include 'sidebar.php';
+
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -12,8 +12,6 @@
     if ($conn->connect_error) {
         die('Connection failed: ' . $conn->connect_error);
     }
-
-    // Helper function to get count from query
     function getCount($conn, $query)
     {
         $result = $conn->query($query);
@@ -23,34 +21,95 @@
         return 0;
     }
 
-    // Get counts
-    $CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
-    $clientsCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `client`");
-    $newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Pending'");
     $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
-    $CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Ongoing'");
-    $stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Cancelled'");
-    $CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case`");
 
-    $currentDateTime = date("Y-m-d"); // Get the current date and time in the appropriate format
-    $submit_date = '2023-06-01 00:00:00';
-    $sql = "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-06-01 00:00:00' AND submit_date <= '2023-07-26 23:59:59' AND satuts = 'Completed'";
-    $result = $conn->query($sql);
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $value = $row['count'];
-
-    } else {
-        echo "0";
+    function generate_statement_id() {
+        include '../Admin/db_connection.php';
+        global $conn;
+        $sql = "SELECT MAX(SUBSTRING(statement_id, 5)) as max_id FROM client_statement";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $max_id = intval($row["max_id"]);
+            $next_id = $max_id + 1;
+            $statement_id = 'SMT-' . str_pad($next_id, 3, '0', STR_PAD_LEFT);
+            return $statement_id;
+        } else {
+            return "SMT-001";
+        }
     }
 
-    $ongoingProjects = $CountAllCase + $newCountCase;
-    $CompleteCase = $CountAllCases - $stoppedCount;
-    $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
-    $format_progress = intval($ProgressOfCases, 2);
+    if (isset($_POST['submit'])) {
+        $topic = $_POST['topic'];
+        $message = $_POST['message'];
+
+        insert_statement($topic, $message);
+    }
+
+    function insert_statement($topic, $message) {
+        include '../Admin/db_connection.php';
+        global $conn;
+
+        $topic = $conn->real_escape_string($topic);
+        $message = $conn->real_escape_string($message);
+        $statement_id = generate_statement_id();
+        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '', '', '$message', '$topic', 16)";
+        if ($conn->query($sql) === TRUE) {
+            echo "Data inserted successfully.";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    function getLatestStatements($conn)
+    {
+        $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
+        $result = $conn->query($query);
+        if ($result && $result->num_rows > 0) {
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+            return $rows;
+        }
+        return [];
+    }
+
+    $latestStatements = getLatestStatements($conn);
+
+    if (!empty($latestStatements)) {
+        $firstTopic = $latestStatements[0]['Topic'];
+        $firstMessage = $latestStatements[0]['message'];
+        $secondTopic = $latestStatements[1]['Topic'];
+        $secondMessage = $latestStatements[1]['message'];
+        $thirdTopic = $latestStatements[2]['Topic'];
+        $thirdMessage = $latestStatements[2]['message'];
+
+    } else {
+        echo "No statements found.";
+    }
+
+    $query2 = "SELECT c.`case_id`, c.`lawyer_id`, c.`submit_date`, c.`C_type`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
+          FROM `case` c
+          LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
+          WHERE c.`client_id` = 'E2046014'
+          ORDER BY c.`case_id` DESC
+          LIMIT 1";
+
+    // Execute the query and store the result in $result_case_lawyer
+    $result_case_lawyer = $conn->query($query2);
+
+    // Display the results
+    if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
+        $row = $result_case_lawyer->fetch_assoc();
+        $Case_ID= $row['case_id'] ;
+        $law_id= $row['lawyer_id'] ;
+        $date= $row['submit_date'] ;
+        $status= $row['satuts'] ;
+        $l_type= $row['category'] ;
+        $c_type= $row['C_type'] ;
+        $amount= $row['Amount'] ;
+        $title= $row['title'] ;
+        $name= $row['name'] ;
+    }
+
     ?>
-
-
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
@@ -59,19 +118,19 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3  col-lg-6 col-sm-12 align-items-center customers">
                                 <div class="media-body">
-                                    <span class="text-primary d-block fs-18 font-w500 mb-1">#P-000441425</span>
-                                    <h3 class="fs-18 text-black font-w600">Redesign Owlio Landing Page
-                                        Web..</h3>
+                                    <span class="text-primary d-block fs-18 font-w500 mb-1"><?php echo $Case_ID?></span>
+                                    <h3 class="fs-18 text-black font-w600"><?php echo $c_type?></h3>
                                     <span class="d-block mb-lg-0 mb-0 fs-16"><i
-                                                class="fas fa-calendar me-3"></i>Created on Sep 8th, 2020</span>
+                                                class="fas fa-calendar me-3"></i>Created on <?php echo $date?></span>
                                 </div>
                             </div>
                             <div class="col-xl-2  col-lg-3 col-sm-4  col-6 mb-3 text-lg-right">
                                 <div class="d-flex project-image">
                                     <img src="../../images/user.png" alt="">
                                     <div>
-                                        <small class="d-block fs-16 font-w400">Lawyer in charge</small>
-                                        <span class="fs-18 font-w500">James Jr.</span>
+                                        <h3 class="fs-18 text-black font-w600"><?php echo $l_type?></h3>
+                                        <!--                                        <small class="d-block fs-16 font-w400">--><?php //echo $l_type?><!--</small>-->
+                                        <span class="fs-18 font-w500"><?php echo $title." ".$name?></span>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +167,7 @@
                             </div>
                             <div class="col-xl-2  col-lg-6 col-sm-4 mb-sm-3 mb-3 text-end">
                                 <div class="d-flex justify-content-end project-btn">
-                                    <a class=" btn bg-progress fs-18 font-w600 text-nowrap text-bg-progress">ON
-                                        PROGRESS</a>
+                                    <a class=" btn bg-progress fs-18 font-w600 text-nowrap text-bg-progress"><?php echo $status?></a>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +184,7 @@
                                           </span>
                                         <div class="media-body text-white align-left">
                                             <p class="mb-1">Total Due Payment</p>
-                                            <h3 class="text-white">Rs 3500</h3>
+                                            <h3 class="text-white"><?php echo "RS ".$amount?></h3>
                                         </div>
                                         <script>
                                             function redirectToPayment() {
@@ -143,7 +201,7 @@
                                     <div>
                                         <h4 class="fs-18 font-w600 mb-4 text-nowrap">Find A Lawyer</h4>
                                         <div class="">
-                                            <h2 class="text-success fs-32 font-w700"><?php echo "+ " . $clientsCount; ?></h2>
+                                            <h2 class="text-success fs-32 font-w700"><?php echo "+ " . $lawyerCount; ?></h2>
                                             <span class="d-block fs-16 font-w400">
                                                 <small class="text-success">Available lawyers</small></span>
                                         </div>
@@ -166,19 +224,19 @@
                                         <div class="progress default-progress flex-grow-1">
                                             <div id="progress-bar" class="progress-bar bg-gradient1 progress-animated"
                                                  role="progressbar">
-                                                <span class="sr-only">0% Complete</span>
+                                                <span class="sr-only"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <span class="mb-2">Sep 8th, 2023</span>
                                     <p class="fs-14 text-muted mb-0">Don't forget to prepare for the meeting.</p>
                                 </div>
-                            <script>
-                                // navigate to "ClientList.php"
-                                function redirectToClientList() {
-                                    window.location.href = 'clientAppointment.php';
-                                }
-                            </script>
+                                <script>
+                                    // navigate to "ClientList.php"
+                                    function redirectToClientList() {
+                                        window.location.href = 'clientAppointment.php';
+                                    }
+                                </script>
                             </div>
                         </div>
                         <script>
@@ -212,8 +270,7 @@
                             <div class="card">
                                 <div class="card-header d-block">
                                     <h4 class="card-title">Latest Updates</h4>
-                                    <p class="m-0 subtitle">Latest updates of the case <code>case id එක ගහපන්
-                                            මෙතනට</code></p>
+                                    <p class="m-0 subtitle">Latest updates of the case <code><?php echo $Case_ID?></code></p>
                                 </div>
                                 <div class="card-body">
 
@@ -222,15 +279,12 @@
                                             <div class="accordion-header  rounded-lg" id="accord-2One"
                                                  data-bs-toggle="collapse" data-bs-target="#collapse2One"
                                                  aria-controls="collapse2One" aria-expanded="true" role="button">
-                                                <span class="accordion-header-text">Masage එකේ Topic එක මෙතනට </span>
-                                                <span class="accordion-header-indicator"></span>
+                                                <span class="accordion-header-text"> <?php echo $firstTopic; ?></span>
                                             </div>
                                             <div id="collapse2One" class="collapse accordion__body show"
                                                  aria-labelledby="accord-2One" data-bs-parent="#accordion-two">
                                                 <div class="accordion-body-text">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                    <?php echo $firstMessage; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,15 +292,13 @@
                                             <div class="accordion-header collapsed rounded-lg" id="accord-2Two"
                                                  data-bs-toggle="collapse" data-bs-target="#collapse2Two"
                                                  aria-controls="collapse2Two" aria-expanded="true" role="button">
-                                                <span class="accordion-header-text">Message Topic Two</span>
+                                                <span class="accordion-header-text">  <?php echo $secondTopic; ?></span>
                                                 <span class="accordion-header-indicator"></span>
                                             </div>
                                             <div id="collapse2Two" class="collapse accordion__body"
                                                  aria-labelledby="accord-2Two" data-bs-parent="#accordion-two">
                                                 <div class="accordion-body-text">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                    <?php echo $secondMessage; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,15 +306,13 @@
                                             <div class="accordion-header collapsed rounded-lg" id="accord-2Three"
                                                  data-bs-toggle="collapse" data-bs-target="#collapse2Three"
                                                  aria-controls="collapse2Three" aria-expanded="true" role="button">
-                                                <span class="accordion-header-text">Message Topic Three</span>
+                                                <span class="accordion-header-text">  <?php echo $thirdTopic; ?></span>
                                                 <span class="accordion-header-indicator"></span>
                                             </div>
                                             <div id="collapse2Three" class="collapse accordion__body"
                                                  aria-labelledby="accord-2Three" data-bs-parent="#accordion-two">
                                                 <div class="accordion-body-text">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                    <?php echo $thirdMessage; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,33 +324,32 @@
                             <div class="card">
                                 <div class="card-header d-block">
                                     <h4 class="card-title">Send a Statement</h4>
-                                    <p class="m-0 subtitle">Select the case <code>case id එක ගහපන් මෙතනට</code></p>
+                                    <p class="m-0 subtitle">Select the case <code><?php echo $Case_ID?></code></p>
                                 </div>
                                 <div class="card-body">
                                     <div class="accordion">
                                         <div class="basic-form">
-                                            <form>
+                                            <form method="post">
                                                 <div class="input-group mb-3 input-primary">
-                                                    <input type="text" class="form-control input-default "
+                                                    <input type="text"  name="topic" class="form-control input-default "
                                                            placeholder="Statement Heading Here">
                                                 </div>
+                                        </div>
+                                        <!--                                        < class="basic-form">-->
 
-                                            </form>
-                                        </div>
-                                        <div class="basic-form">
-                                            <form>
-                                                <textarea class="form-control input-default fixed-textarea"
-                                                          placeholder=""></textarea></form>
-                                            <style>
-                                                .fixed-textarea {
-                                                    resize: none;
-                                                    height: 60%;
-                                                    border: 1px solid #6c4bae;
-                                                }</style>
-                                        </div>
-                                        <button type="button" class="btn btn-primary btn-sm">Send Statement</button>
+                                        <textarea name="message" class="form-control input-default fixed-textarea"
+                                                  placeholder=""></textarea>
+                                        <style>
+                                            .fixed-textarea {
+                                                resize: none;
+                                                height: 60%;
+                                                border: 1px solid #6c4bae;
+                                            }</style>
+                                        <br>
+                                        <button type="submit"  name="submit" class="btn btn-primary btn-sm">Send Statement</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -308,904 +357,19 @@
             </div>
         </div>
     </div>
+</div>
 
 
-    <!--<script src="../../vendor/global/global.min.js"></script>-->
-    <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="../../vendor/apexchart/apexchart.js"></script>
-    <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../../vendor/peity/jquery.peity.min.js"></script>
-    <!--<script src="../../js/dashboard/dashboard-1.js"></script>-->
-    <!--<script src="../../js/custom.min.js"></script>-->
-    <script src="../../js/dlabnav-init.js"></script>
-    <script src="../../js/styleSwitcher.js"></script>
-    <script>
+<!--<script src="../../vendor/global/global.min.js"></script>-->
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../vendor/apexchart/apexchart.js"></script>
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/peity/jquery.peity.min.js"></script>
+<!--<script src="../../js/dashboard/dashboard-1.js"></script>-->
+<!--<script src="../../js/custom.min.js"></script>-->
+<script src="../../js/dlabnav-init.js"></script>
+<script src="../../js/styleSwitcher.js"></script>
 
 
-        (function ($) {
-            /* "use strict" */
-
-            var dlabChartlist = function () {
-
-                var screenWidth = $(window).width();
-                let draw = Chart.controllers.line.__super__.draw; //draw shadow
-                var donutChart1 = function () {
-                    $("span.donut1").peity("donut", {
-                        width: "70",
-                        height: "70"
-                    });
-                }
-                var chartBar = function () {
-
-                    var phpValue = <?php echo json_encode($value); ?>;
-                    var options = {
-                        series: [
-                            { //dashboard eka hadanna
-                                name: 'New Projects',
-                                data: [phpValue, phpValue, phpValue, phpValue, phpValue, phpValue, 20],
-                                //radius: 12,
-                            },
-                            {
-                                name: 'Completed Projects',
-                                data: [100, 40, 55, 20, 45, 30, 80]
-                            },
-
-                        ],
-                        chart: {
-                            type: 'bar',
-                            height: 400,
-
-                            toolbar: {
-                                show: false,
-                            },
-
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '57%',
-                                endingShape: "rounded",
-                                borderRadius: 12,
-                            },
-
-                        },
-                        states: {
-                            hover: {
-                                filter: 'none',
-                            }
-                        },
-                        colors: ['#FFA26D', '#FF5ED2'],
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        markers: {
-                            shape: "circle",
-                        },
-
-
-                        legend: {
-                            show: false,
-                            fontSize: '12px',
-                            labels: {
-                                colors: '#000000',
-
-                            },
-                            markers: {
-                                width: 18,
-                                height: 18,
-                                strokeWidth: 10,
-                                strokeColor: '#fff',
-                                fillColors: undefined,
-                                radius: 12,
-                            }
-                        },
-                        stroke: {
-                            show: true,
-                            width: 4,
-                            curve: 'smooth',
-                            lineCap: 'round',
-                            colors: ['transparent']
-                        },
-                        grid: {
-                            borderColor: '#eee',
-                        },
-                        xaxis: {
-                            position: 'bottom',
-                            categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                            labels: {
-                                style: {
-                                    colors: '#787878',
-                                    fontSize: '13px',
-                                    fontFamily: 'poppins',
-                                    fontWeight: 100,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                            crosshairs: {
-                                show: false,
-                            }
-                        },
-                        yaxis: {
-                            labels: {
-                                offsetX: -16,
-                                style: {
-                                    colors: '#787878',
-                                    fontSize: '13px',
-                                    fontFamily: 'poppins',
-                                    fontWeight: 100,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                        },
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                shade: 'white',
-                                type: "vertical",
-                                shadeIntensity: 0.2,
-                                gradientToColors: undefined,
-                                inverseColors: true,
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                                stops: [0, 50, 50],
-                                colorStops: []
-                            }
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return val + " projects" //database eken data ganna
-
-                                }
-                            }
-                        },
-                    };
-
-                    var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
-                    chartBar1.render();
-                }
-                var chartBar1 = function () {
-
-                    var options = {
-                        series: [
-                            {
-                                name: 'Running',
-                                data: [50, 18, 70, 40, 90, 70, 20],
-                                //radius: 12,
-                            },
-                            {
-                                name: 'Cycling',
-                                data: [80, 40, 55, 20, 45, 30, 80]
-                            },
-
-                        ],
-                        chart: {
-                            type: 'bar',
-                            height: 370,
-
-                            toolbar: {
-                                show: false,
-                            },
-
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '57%',
-                                endingShape: "rounded",
-                                borderRadius: 12,
-                            },
-
-                        },
-                        states: {
-                            hover: {
-                                filter: 'none',
-                            }
-                        },
-                        colors: ['#FFA26D', '#FF5ED2'],
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        markers: {
-                            shape: "circle",
-                        },
-
-
-                        legend: {
-                            show: false,
-                            fontSize: '12px',
-                            labels: {
-                                colors: '#000000',
-
-                            },
-                            markers: {
-                                width: 18,
-                                height: 18,
-                                strokeWidth: 10,
-                                strokeColor: '#fff',
-                                fillColors: undefined,
-                                radius: 12,
-                            }
-                        },
-                        stroke: {
-                            show: true,
-                            width: 4,
-                            curve: 'smooth',
-                            lineCap: 'round',
-                            colors: ['transparent']
-                        },
-                        grid: {
-                            borderColor: '#eee',
-                        },
-                        xaxis: {
-                            position: 'bottom',
-                            categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                            labels: {
-                                style: {
-                                    colors: '#787878',
-                                    fontSize: '13px',
-                                    fontFamily: 'poppins',
-                                    fontWeight: 100,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                            crosshairs: {
-                                show: false,
-                            }
-                        },
-                        yaxis: {
-                            labels: {
-                                offsetX: -16,
-                                style: {
-                                    colors: '#787878',
-                                    fontSize: '13px',
-                                    fontFamily: 'poppins',
-                                    fontWeight: 100,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                        },
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                shade: 'white',
-                                type: "vertical",
-                                shadeIntensity: 0.2,
-                                gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
-                                inverseColors: true,
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                                stops: [0, 50, 50],
-                                colorStops: []
-                            }
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return "$ " + val + " thousands"
-                                }
-                            }
-                        },
-                    };
-
-                    var chartBar1 = new ApexCharts(document.querySelector("#chartBar1"), options);
-                    chartBar1.render();
-                }
-
-                var revenueMap = function () {
-                    var options = {
-                        series: [
-                            {
-                                name: 'Net Profit',
-                                data: [20, 40, 20, 30, 50, 40, 60,],
-                                //radius: 12,
-                            },
-                        ],
-                        chart: {
-                            type: 'line',
-                            height: 300,
-                            toolbar: {
-                                show: false,
-                            },
-
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '70%',
-                                endingShape: 'rounded'
-                            },
-                        },
-                        colors: ['#886CC0'],
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        markers: {
-                            shape: "circle",
-                        },
-
-                        legend: {
-                            show: false,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 10,
-                            curve: 'smooth',
-                            colors: ['var(--primary)'],
-                        },
-
-                        grid: {
-                            borderColor: '#eee',
-                            show: true,
-                            xaxis: {
-                                lines: {
-                                    show: true,
-                                }
-                            },
-                            yaxis: {
-                                lines: {
-                                    show: false,
-                                }
-                            },
-                        },
-                        xaxis: {
-
-                            categories: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                            labels: {
-                                style: {
-                                    colors: '#7E7F80',
-                                    fontSize: '13px',
-                                    fontFamily: 'Poppins',
-                                    fontWeight: 100,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                            crosshairs: {
-                                show: false,
-                            }
-                        },
-                        yaxis: {
-                            show: true,
-                            labels: {
-                                offsetX: -15,
-                                style: {
-                                    colors: '#7E7F80',
-                                    fontSize: '14px',
-                                    fontFamily: 'Poppins',
-                                    fontWeight: 100,
-
-                                },
-                                formatter: function (y) {
-                                    return y.toFixed(0) + "k";
-                                }
-                            },
-                        },
-                        fill: {
-                            opacity: 1,
-                            colors: '#FAC7B6'
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return "$ " + val + " hundred"
-                                }
-                            }
-                        }
-                    };
-
-                    var chartBar1 = new ApexCharts(document.querySelector("#revenueMap"), options);
-                    chartBar1.render();
-
-
-                }
-                var columnChart = function () {
-                    var options = {
-                        series: [{
-                            name: 'Aplication Sent',
-                            data: [40, 55, 15, 55]
-                        }, {
-                            name: 'Appllication Answered',
-                            data: [40, 55, 35, 55]
-                        }, {
-                            name: 'Hired',
-                            data: [40, 17, 55, 55]
-                        }],
-                        chart: {
-                            type: 'bar',
-                            height: 150,
-                            stacked: true,
-                            toolbar: {
-                                show: false,
-                            }
-                        },
-                        responsive: [{
-                            breakpoint: 480,
-                            options: {
-                                legend: {
-                                    position: 'bottom',
-                                    offsetX: -10,
-                                    offsetY: 0
-                                }
-                            }
-                        }],
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '20%',
-
-                                endingShape: "rounded",
-                                startingShape: "rounded",
-                                backgroundRadius: 20,
-                                colors: {
-                                    backgroundBarColors: ['#ECECEC', '#ECECEC', '#ECECEC', '#ECECEC'],
-                                    backgroundBarOpacity: 1,
-                                    backgroundBarRadius: 10,
-                                },
-                            },
-
-                        },
-                        colors: ['#ECECEC', '#886CC0', '#886CC0'],
-                        xaxis: {
-                            show: false,
-                            axisBorder: {
-                                show: false,
-                            },
-                            axisTicks: {
-                                show: false,
-                            },
-                            labels: {
-                                show: false,
-                                style: {
-                                    colors: '#828282',
-                                    fontSize: '14px',
-                                    fontFamily: 'Poppins',
-                                    fontWeight: 'light',
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-
-                            crosshairs: {
-                                show: false,
-                            },
-
-                            categories: ['Sun', 'Mon', 'Tue'],
-                        },
-                        yaxis: {
-                            show: false
-                        },
-                        grid: {
-                            show: false,
-                        },
-                        toolbar: {
-                            enabled: false,
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        legend: {
-                            show: false
-                        },
-                        fill: {
-                            opacity: 1
-                        }
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#columnChart"), options);
-                    chart.render();
-                }
-
-                var NewCustomers = function () {
-                    var options = {
-                        series: [
-                            {
-                                name: 'Net Profit',
-                                data: [100, 300, 100, 400, 200, 400],
-                                /* radius: 30,	 */
-                            },
-                        ],
-                        chart: {
-                            type: 'line',
-                            height: 50,
-                            width: 100,
-                            toolbar: {
-                                show: false,
-                            },
-                            zoom: {
-                                enabled: false
-                            },
-                            sparkline: {
-                                enabled: true
-                            }
-
-                        },
-
-                        colors: ['var(--primary)'],
-                        dataLabels: {
-                            enabled: false,
-                        },
-
-                        legend: {
-                            show: false,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 6,
-                            curve: 'smooth',
-                            colors: ['var(--primary)'],
-                        },
-
-                        grid: {
-                            show: false,
-                            borderColor: '#eee',
-                            padding: {
-                                top: 0,
-                                right: 0,
-                                bottom: 0,
-                                left: 0
-
-                            }
-                        },
-                        states: {
-                            normal: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            },
-                            hover: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            },
-                            active: {
-                                allowMultipleDataPointsSelection: false,
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            }
-                        },
-                        xaxis: {
-                            categories: ['Jan', 'feb', 'Mar', 'Apr', 'May'],
-                            axisBorder: {
-                                show: false,
-                            },
-                            axisTicks: {
-                                show: false
-                            },
-                            labels: {
-                                show: false,
-                                style: {
-                                    fontSize: '12px',
-                                }
-                            },
-                            crosshairs: {
-                                show: false,
-                                position: 'front',
-                                stroke: {
-                                    width: 1,
-                                    dashArray: 3
-                                }
-                            },
-                            tooltip: {
-                                enabled: true,
-                                formatter: undefined,
-                                offsetY: 0,
-                                style: {
-                                    fontSize: '12px',
-                                }
-                            }
-                        },
-                        yaxis: {
-                            show: false,
-                        },
-                        fill: {
-                            opacity: 1,
-                            colors: '#FB3E7A'
-                        },
-                        tooltip: {
-                            enabled: false,
-                            style: {
-                                fontSize: '12px',
-                            },
-                            y: {
-                                formatter: function (val) {
-                                    return "$" + val + " thousands"
-                                }
-                            }
-                        }
-                    };
-
-                    var chartBar1 = new ApexCharts(document.querySelector("#NewCustomers"), options);
-                    chartBar1.render();
-
-                }
-                var NewCustomers1 = function () {
-                    var options = {
-                        series: [
-                            {
-                                name: 'Net Profit',
-                                data: [100, 300, 200, 400, 100, 400],
-                                /* radius: 30,	 */
-                            },
-                        ],
-                        chart: {
-                            type: 'line',
-                            height: 50,
-                            width: 80,
-                            toolbar: {
-                                show: false,
-                            },
-                            zoom: {
-                                enabled: false
-                            },
-                            sparkline: {
-                                enabled: true
-                            }
-
-                        },
-
-                        colors: ['#0E8A74'],
-                        dataLabels: {
-                            enabled: false,
-                        },
-
-                        legend: {
-                            show: false,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 6,
-                            curve: 'smooth',
-                            colors: ['var(--primary)'],
-                        },
-
-                        grid: {
-                            show: false,
-                            borderColor: '#eee',
-                            padding: {
-                                top: 0,
-                                right: 0,
-                                bottom: 0,
-                                left: 0
-
-                            }
-                        },
-                        states: {
-                            normal: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            },
-                            hover: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            },
-                            active: {
-                                allowMultipleDataPointsSelection: false,
-                                filter: {
-                                    type: 'none',
-                                    value: 0
-                                }
-                            }
-                        },
-                        xaxis: {
-                            categories: ['Jan', 'feb', 'Mar', 'Apr', 'May'],
-                            axisBorder: {
-                                show: false,
-                            },
-                            axisTicks: {
-                                show: false
-                            },
-                            labels: {
-                                show: false,
-                                style: {
-                                    fontSize: '12px',
-                                }
-                            },
-                            crosshairs: {
-                                show: false,
-                                position: 'front',
-                                stroke: {
-                                    width: 1,
-                                    dashArray: 3
-                                }
-                            },
-                            tooltip: {
-                                enabled: true,
-                                formatter: undefined,
-                                offsetY: 0,
-                                style: {
-                                    fontSize: '12px',
-                                }
-                            }
-                        },
-                        yaxis: {
-                            show: false,
-                        },
-                        fill: {
-                            opacity: 1,
-                            colors: '#FB3E7A'
-                        },
-                        tooltip: {
-                            enabled: false,
-                            style: {
-                                fontSize: '12px',
-                            },
-                            y: {
-                                formatter: function (val) {
-                                    return "$" + val + " thousands"
-                                }
-                            }
-                        }
-                    };
-
-                    var chartBar1 = new ApexCharts(document.querySelector("#NewCustomers1"), options);
-                    chartBar1.render();
-
-                }
-                var ProG_val = <?php echo json_encode($format_progress); ?>;
-                var redial = function () {
-                    var options = {
-                        //bigcircle
-
-                        series: [ProG_val],
-                        chart: {
-                            type: 'radialBar',
-                            offsetY: 0,
-                            height: 350,
-                            sparkline: {
-                                enabled: true
-                            }
-                        },
-                        plotOptions: {
-                            radialBar: {
-                                startAngle: -130,
-                                endAngle: 130,
-                                track: {
-                                    background: "#F1EAFF",
-                                    strokeWidth: '100%',
-                                    margin: 5,
-                                },
-
-                                hollow: {
-                                    margin: 30,
-                                    size: '45%',
-                                    background: '#F1EAFF',
-                                    image: undefined,
-                                    imageOffsetX: 0,
-                                    imageOffsetY: 0,
-                                    position: 'front',
-                                },
-
-                                dataLabels: {
-                                    name: {
-                                        show: false
-                                    },
-                                    value: {
-                                        offsetY: 5,
-                                        fontSize: '22px',
-                                        color: '#886CC0',
-                                        fontWeight: 700,
-                                    }
-                                }
-                            }
-                        },
-                        responsive: [{
-                            breakpoint: 1600,
-                            options: {
-                                chart: {
-                                    height: 250
-                                },
-                            }
-                        }
-
-                        ],
-                        grid: {
-                            padding: {
-                                top: -10
-                            }
-                        },
-                        /* stroke: {
-                          dashArray: 4,
-                          colors:'#6EC51E'
-                        }, */
-                        fill: {
-                            type: 'gradient',
-                            colors: '#FF63E6',
-                            gradient: {
-                                shade: 'white',
-                                shadeIntensity: 0.15,
-                                inverseColors: false,
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                                stops: [0, 50, 65, 91]
-                            },
-                        },
-                        labels: ['Average Results'],
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#redial"), options);
-                    chart.render();
-
-
-                }
-
-                /* Function ============ */
-                return {
-                    init: function () {
-                    },
-
-
-                    load: function () {
-                        donutChart1();
-                        chartBar();
-                        chartBar1();
-                        revenueMap();
-                        columnChart();
-                        NewCustomers();
-                        NewCustomers1();
-                        redial();
-
-                    },
-
-                    resize: function () {
-                    }
-                }
-
-            }();
-            jQuery(window).on('load', function () {
-                setTimeout(function () {
-                    dlabChartlist.load();
-                }, 1000);
-
-            });
-
-        })(jQuery);
-    </script>
-
-    <script>
-        function cardsCenter() {
-            jQuery('.card-slider').owlCarousel({
-                loop: true,
-                margin: 0,
-                nav: true,
-                slideSpeed: 3000,
-                paginationSpeed: 3000,
-                dots: true,
-                navText: ['<i class="fas fa-arrow-left"></i>', '<i class="fas fa-arrow-right"></i>'],
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    576: {
-                        items: 1
-                    },
-                    800: {
-                        items: 1
-                    },
-                    991: {
-                        items: 1
-                    },
-                    1200: {
-                        items: 1
-                    },
-                    1600: {
-                        items: 1
-                    }
-                }
-            })
-        }
-
-        jQuery(window).on('load', function () {
-            setTimeout(function () {
-                cardsCenter();
-            }, 1000);
-        });
-    </script>
 

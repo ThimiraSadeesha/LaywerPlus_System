@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2023 at 08:25 AM
+-- Generation Time: Jul 31, 2023 at 02:43 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -85,7 +85,7 @@ CREATE TRIGGER `insert_user_from_assistant` AFTER INSERT ON `assistant` FOR EACH
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.assistant_id,NEW.name,'assistant',NEW.password,'inactive');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW BEGIN
@@ -96,7 +96,7 @@ CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW 
         status = 'inactive'
     WHERE user_id = NEW.assistant_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -121,6 +121,7 @@ CREATE TABLE `case` (
 --
 
 INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`, `Amount`) VALUES
+                                                                                                                         ('100', 'LW12', 'E2046014', 'Devorce', 'Family', '2023-06-30', 'Processing', 5800),
                                                                                                                          ('15', '', 'E2046014', 'test', 'Immigration ', '2023-06-03', 'Pending', 4500),
                                                                                                                          ('16', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 5500),
                                                                                                                          ('17', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 8000),
@@ -184,8 +185,7 @@ INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`
                                                                                                                          ('86', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
                                                                                                                          ('87', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
                                                                                                                          ('88', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('89', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('90', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Cancelled', 0);
+                                                                                                                         ('89', 'LW13', 'E2046014', 'Murder ', 'Criminal', '2023-06-10', 'Processing', 7690);
 
 -- --------------------------------------------------------
 
@@ -213,7 +213,8 @@ CREATE TABLE `client` (
 INSERT INTO `client` (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`) VALUES
                                                                                                                                             ('E2046014', 'Sadeesha', '998458213V', 'sadeesha@gmail.com', NULL, '775124523', 'test', 'admin@123', '2023-07-26', 'Blocked'),
                                                                                                                                             ('E2046022', 'Kanishka_Bandara', '992654660V', 'kanishka@gmail.com', NULL, '775756081', 'No 99,welagedra road', 'admin@1234', '2023-07-26', 'Active'),
-                                                                                                                                            ('E2046315', 'Tharuka', '9845625812', 'tharuka@gmail.com', NULL, '75845125', 'test2', 'admin@123', '2023-07-26', 'Active');
+                                                                                                                                            ('E2046315', 'Tharuka', '9845625812', 'tharuka@gmail.com', NULL, '75845125', 'test2', 'admin@123', '2023-07-26', 'Active'),
+                                                                                                                                            ('sdeelz', 'ddcd', 'Thimira Sa', 'sadeeshathimira2000@', '1970-01-01', '228,\"sadeesha\",', '0769371701', '', '2023-07-30', '');
 
 --
 -- Triggers `client`
@@ -222,7 +223,7 @@ DELIMITER $$
 CREATE TRIGGER `delete_from_user_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.client_id;
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW BEGIN
@@ -230,14 +231,14 @@ CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.client_id,NEW.name,'client',NEW.password,'Active');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     INSERT INTO deleted_client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, OLD.status);
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
@@ -248,7 +249,7 @@ CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW B
         status = 'Active'
     WHERE user_id = NEW.client_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -261,8 +262,27 @@ CREATE TABLE `client_statement` (
                                     `statement_id` varchar(50) NOT NULL,
                                     `client_id` varchar(50) NOT NULL,
                                     `lawyer_id` varchar(50) NOT NULL,
-                                    `message` varchar(100) NOT NULL
+                                    `message` varchar(100) NOT NULL,
+                                    `Topic` varchar(500) NOT NULL,
+                                    `Case_Id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `client_statement`
+--
+
+INSERT INTO `client_statement` (`statement_id`, `client_id`, `lawyer_id`, `message`, `Topic`, `Case_Id`) VALUES
+                                                                                                             ('SMT-001', '', '', 'Apple Inc. is an American multinational technology company headquartered in Cupertino, California. A', 'Sadeesha', '15'),
+                                                                                                             ('SMT-002', '', '', 'Discover the innovative world of Apple and shop everything iPhone, iPad, Apple Watch, Mac, and Apple', 'sdsdsd', '16'),
+                                                                                                             ('SMT-003', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
+                                                                                                             ('SMT-004', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
+                                                                                                             ('SMT-005', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
+                                                                                                             ('SMT-006', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
+                                                                                                             ('SMT-007', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
+                                                                                                             ('SMT-008', '', '', 'Orange S.A., formerly France Télécom S.A. is a French multinational telecommunications corporation. ', 'soooriyo', '16'),
+                                                                                                             ('SMT-009', '', '', 'Orange S.A., formerly France Télécom S.A. is a French multinational telecommunications corporation. ', 'soooriyo', '16'),
+                                                                                                             ('SMT-010', '', '', 'Hi', 'Test0_Sadee', '16'),
+                                                                                                             ('SMT-011', '', '', 'Hi', 'Test0_Sadee', '16');
 
 -- --------------------------------------------------------
 
@@ -291,7 +311,7 @@ CREATE TRIGGER `insert _to_client` AFTER DELETE ON `deleted_client` FOR EACH ROW
     INSERT INTO client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, 'Active');
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -327,7 +347,7 @@ CREATE TRIGGER `record_deletion_trigger_to_lawyer` AFTER DELETE ON `deleted_lawy
     INSERT INTO lawyer (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, 'Active');
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -361,13 +381,13 @@ INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contac
                                                                                                                      ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold'),
                                                                                                                      ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active'),
                                                                                                                      ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive'),
-                                                                                                                     ('2', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Active'),
                                                                                                                      ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active'),
                                                                                                                      ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold'),
                                                                                                                      ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active'),
                                                                                                                      ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active'),
                                                                                                                      ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active'),
-                                                                                                                     ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active');
+                                                                                                                     ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active'),
+                                                                                                                     ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Active');
 
 --
 -- Triggers `lawyer`
@@ -376,7 +396,7 @@ DELIMITER $$
 CREATE TRIGGER `delete_from_user` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.lawyer_id;
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW BEGIN
@@ -384,14 +404,14 @@ CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.lawyer_id,NEW.name,'lawyer',NEW.password,'Active');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     INSERT INTO deleted_lawyers (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, OLD.status);
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
@@ -402,7 +422,7 @@ CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
         status = 'Active'
     WHERE user_id = NEW.lawyer_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -439,7 +459,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `status`) VALUES
-                                                                         ('1', 'John Doe', 'lawyer', 'password123', 'inactive'),
+                                                                         ('1', 'John Doe', 'lawyer', 'password123', 'Active'),
                                                                          ('10', 'Olivia Lewis', 'lawyer', 'mypassword', 'inactive'),
                                                                          ('11', 'William Turner', 'lawyer', 'securepass', 'inactive'),
                                                                          ('12', 'Sophia Hernandez', 'lawyer', 'pass123', 'inactive'),
@@ -459,7 +479,8 @@ INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `status`) VALUES
                                                                          ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', 'inactive'),
                                                                          ('E2046014', 'Sadeesha', 'client', 'admin@123', 'Active'),
                                                                          ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', 'Active'),
-                                                                         ('E2046315', 'Tharuka', 'client', 'admin@123', 'Active');
+                                                                         ('E2046315', 'Tharuka', 'client', 'admin@123', 'Active'),
+                                                                         ('sdeelz', 'ddcd', 'client', '', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -476,30 +497,36 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `appoinment`
     ADD PRIMARY KEY (`appoinment_id`),
-    ADD KEY `case_id` (`case_id`),
-    ADD KEY `client_id` (`client_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `case_id` (`case_id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `assistant`
 --
 ALTER TABLE `assistant`
     ADD PRIMARY KEY (`assistant_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `case`
 --
 ALTER TABLE `case`
     ADD PRIMARY KEY (`case_id`),
-    ADD KEY `client_id` (`client_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `client`
 --
 ALTER TABLE `client`
     ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `client_statement`
+--
+ALTER TABLE `client_statement`
+    ADD PRIMARY KEY (`statement_id`);
 
 --
 -- Indexes for table `deleted_client`
@@ -524,7 +551,7 @@ ALTER TABLE `lawyer`
 --
 ALTER TABLE `payment`
     ADD PRIMARY KEY (`payment_id`),
-    ADD KEY `client_id` (`client_id`);
+  ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `user`
@@ -541,8 +568,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `appoinment`
     ADD CONSTRAINT `appoinment_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `case` (`case_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `appoinment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `appoinment_ibfk_3` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `appoinment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appoinment_ibfk_3` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `assistant`
