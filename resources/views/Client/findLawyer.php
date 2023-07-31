@@ -21,6 +21,7 @@ include "sidebar.php";
                                     <p>Category: <span class="item">Traffic Lawyer</span></p>
                                     <p>Location: <span class="item">Colombo</span></p>
                                     <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+                                    <br>
                                     <button type="button" class="btn btn-primary btn-xs">Hire Lawyer</button>
                                 </div>
                             </div>
@@ -45,8 +46,8 @@ include "sidebar.php";
                                     <p>Category: <span class="item">Traffic Lawyer</span></p>
                                     <p>Location: <span class="item">Colombo</span></p>
                                     <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+                                    <br>
                                     <button type="button" class="btn btn-primary btn-xs">Hire Lawyer</button>
-
                                 </div>
                             </div>
                         </div>
