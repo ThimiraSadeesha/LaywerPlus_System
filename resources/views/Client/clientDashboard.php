@@ -173,12 +173,12 @@
                                     <span class="mb-2">Sep 8th, 2023</span>
                                     <p class="fs-14 text-muted mb-0">Don't forget to prepare for the meeting.</p>
                                 </div>
-                            <script>
-                                // navigate to "ClientList.php"
-                                function redirectToClientList() {
-                                    window.location.href = 'clientAppointment.php';
-                                }
-                            </script>
+                                <script>
+                                    // navigate to "ClientList.php"
+                                    function redirectToClientList() {
+                                        window.location.href = 'clientAppointment.php';
+                                    }
+                                </script>
                             </div>
                         </div>
                         <script>
