@@ -54,11 +54,6 @@
 
 */
 
-@import url("../../css.css");
-@import url("../../css-1.css");
-@import url("../../css-2.css");
-@import url("../../css-3.css");
-@import url("../../css-4.css");
 @import url("../icons/simple-line-icons/css/simple-line-icons.css");
 @import url("../icons/font-awesome/css/all.min.css");
 @import url("../icons/material-design-iconic-font/css/materialdesignicons.min.css");
@@ -73,7 +68,6 @@
 @import url(../vendor/aos/css/aos.min.css);
 @import url(../vendor/perfect-scrollbar/css/perfect-scrollbar.css);
 @import url(../vendor/metismenu/css/metisMenu.min.css);
-@import url("../../css2.css");
 
 :root {
   --primary: #886CC0;
@@ -225,22 +219,6 @@
   background: linear-gradient(to right, #a15cff 0%, #ce82fd 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a15cff', endColorstr='#ce82fd',GradientType=1 ); }
 
-/*
-0 - 600: Phone
-600 - 900: Tablet portrait
-900 - 1200: Tablet landscape
-1200 - 1800: Normal styles
-1800+ : Big Desktop
-1em = 16px
-The smaller device rules always should write below the bigger device rules
-Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Component
-*/
-/*!
- * Bootstrap v5.0.0-beta2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --bs-blue: #5e72e4;
   --bs-indigo: #6610f2;
@@ -26274,19 +26252,15 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
     border-left: 0rem solid #c8c8c8;
     border-right: 0rem solid #c8c8c8; }
 
-.new-arrival-product .new-arrivals-img-contnent {
+.new-lawyer .new-lawyer-img-contnent {
   overflow: hidden; }
-  .new-arrival-product .new-arrivals-img-contnent img {
+  .new-lawyer .new-lawyer-img-contnent img {
     width: 100%;
     -webkit-transition: all 0.5s;
     -ms-transition: all 0.5s;
     transition: all 0.5s; }
-.new-arrival-product:hover .new-arrivals-img-contnent img {
-  transform: scale(1.5) translateY(12%);
-  -moz-transform: scale(1.5) translateY(12%);
-  -webkit-transform: scale(1.5) translateY(12%);
-  -ms-transform: scale(1.5) translateY(12%);
-  -o-transform: scale(1.5) translateY(12%); }
+.new-lawyer:hover .new-lawyer-img-contnent img {
+  transform: scale(1.5) translateY(12%);}
 
 /*
 ===================================
