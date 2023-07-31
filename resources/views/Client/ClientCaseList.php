@@ -60,7 +60,7 @@
                                             ?>
                                             <tr>
                                                 <td class="align-middle"><?php echo $Case_ID; ?></td>
-                                                <td class="align-middle"><?php echo $name; ?></td>
+                                                <td class="align-middle"><?php echo $title." ".$name; ?></td>
                                                 <td class="align-middle"><?php echo $c_type; ?></td>
                                                 <td class="align-middle"><?php echo $date; ?></td>
                                                 <td class="align-middle"><?php echo $status; ?></td>
