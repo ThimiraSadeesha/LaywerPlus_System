@@ -188,7 +188,7 @@
                                         </div>
                                         <script>
                                             function redirectToPayment() {
-                                                window.location.href = 'payment.php';
+                                                window.location.href = 'ClientPayment.php';
                                             }
                                         </script>
                                     </div>

@@ -1,4 +1,12 @@
-<div id="main-wrapper">
+
+<html lang="">
+<head>
+    <script src="https://www.paypal.com/sdk/js?client-id=ASqJsZpigthEn9d45s51cpwgiJER-sjMjSdfGx5tomC-GE-tj8JgnWtDUJT-kHwxg2LKwzMpeyZMi8Xv&currency=USD"></script>
+    
+    <title></title>
+</head>
+
+<div id="main-wrapper" xmlns="http://www.w3.org/1999/html">
     <?php
     include "sidebar.php";
     $host = 'localhost';
@@ -89,9 +97,9 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <form action="ClientPayment.php" method="post">
+                                        <form id="paypal-button" method="post">
                                             <input type="hidden" name="totalAmount" value="<?php echo $totalAmount; ?>">
-                                            <input type="submit" name="pay" value="Pay Amount" class="btn btn-primary btn-sm">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -100,3 +108,29 @@
                 </div>
             </div>
         </div>
+
+
+    <script>
+        // Load the PayPal JavaScript SDK asynchronously
+        paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '<?php echo $totalAmount; ?>' // Use the PHP variable to set the total amount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Payment completed successfully!');
+                    });
+                },
+                onError: function(err) {
+                    alert('An error occurred while processing the payment. Please try again.');
+                }
+            })
+            .render('#paypal-button');
+    </script>
+
