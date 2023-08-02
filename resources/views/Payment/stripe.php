@@ -16,7 +16,7 @@
         }
 
         .payment-form {
-            max-width: 400px;
+            max-width: 100%;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
