@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $result->fetch_assoc();
             switch ($user['role']) {
                 case 'lawyer':
-                    header('Location: lawyerDashboard.php');
+                    header('Location: ../Lawyer/lawyerDashboard.php');
                     break;
                 case 'admin':
-                    header('Location: adminDashboard.php');
+                    header('Location: ../Admin/adminDashboard.php');
                     break;
                 case 'client':
-                    header('Location: clientDashboard.php');
+                    header('Location: ../Client/clientDashboard.php');
                     break;
                 default:
                     break;
