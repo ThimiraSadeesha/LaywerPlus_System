@@ -24,6 +24,7 @@ class ComposerStaticInit76b19879afbe7fce3519fdf1169591a5
         array (
             'Psr\\Log\\' => 8,
             'PhpOption\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
         array (
@@ -67,6 +68,10 @@ class ComposerStaticInit76b19879afbe7fce3519fdf1169591a5
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Localhost\\LawyerPlus\\' => 
         array (
