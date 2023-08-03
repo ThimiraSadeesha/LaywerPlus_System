@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2023 at 02:43 PM
+-- Generation Time: Aug 03, 2023 at 01:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -85,7 +85,7 @@ CREATE TRIGGER `insert_user_from_assistant` AFTER INSERT ON `assistant` FOR EACH
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.assistant_id,NEW.name,'assistant',NEW.password,'inactive');
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW BEGIN
@@ -96,7 +96,7 @@ CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW 
         status = 'inactive'
     WHERE user_id = NEW.assistant_id;
 END
-    $$
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -127,64 +127,8 @@ INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`
                                                                                                                          ('17', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 8000),
                                                                                                                          ('18', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 1420),
                                                                                                                          ('19', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 2350),
-                                                                                                                         ('20', '', 'E2046014', 'test', 'criminal', '2023-06-02', 'Pending', 1200),
-                                                                                                                         ('21', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending', 3200),
-                                                                                                                         ('22', '', 'E2046014', 'test', 'criminal', '2023-06-01', 'Pending', 4520),
-                                                                                                                         ('23', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 6320),
-                                                                                                                         ('24', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 2360),
-                                                                                                                         ('25', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 2000),
-                                                                                                                         ('26', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 4500),
-                                                                                                                         ('27', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 1500),
-                                                                                                                         ('28', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 3500),
-                                                                                                                         ('29', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Completed', 7400),
                                                                                                                          ('30', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 4400),
                                                                                                                          ('31', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 5000),
-                                                                                                                         ('32', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('33', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('34', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('35', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('36', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('37', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('38', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('39', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('40', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('41', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('42', '', 'E2046014', 'test', 'Tax', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('43', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('44', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('45', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('46', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 0),
-                                                                                                                         ('47', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('48', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('49', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('50', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('51', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Processing', 0),
-                                                                                                                         ('52', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('53', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('55', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('56', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('57', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('58', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('59', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('60', '', 'E2046014', 'test', 'Civil Litigation', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('61', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('62', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('63', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('64', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('65', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('66', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('67', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('68', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('70', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Processing', 0),
-                                                                                                                         ('80', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('81', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('82', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('83', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('84', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('85', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('86', '', 'E2046014', 'test', 'Labor', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('87', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
-                                                                                                                         ('88', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Cancelled', 0),
                                                                                                                          ('89', 'LW13', 'E2046014', 'Murder ', 'Criminal', '2023-06-10', 'Processing', 7690);
 
 -- --------------------------------------------------------
@@ -223,7 +167,7 @@ DELIMITER $$
 CREATE TRIGGER `delete_from_user_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.client_id;
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW BEGIN
@@ -231,14 +175,14 @@ CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.client_id,NEW.name,'client',NEW.password,'Active');
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     INSERT INTO deleted_client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, OLD.status);
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
@@ -249,7 +193,7 @@ CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW B
         status = 'Active'
     WHERE user_id = NEW.client_id;
 END
-    $$
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -311,7 +255,7 @@ CREATE TRIGGER `insert _to_client` AFTER DELETE ON `deleted_client` FOR EACH ROW
     INSERT INTO client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, 'Active');
 END
-    $$
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -347,7 +291,7 @@ CREATE TRIGGER `record_deletion_trigger_to_lawyer` AFTER DELETE ON `deleted_lawy
     INSERT INTO lawyer (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, 'Active');
 END
-    $$
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -396,7 +340,7 @@ DELIMITER $$
 CREATE TRIGGER `delete_from_user` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.lawyer_id;
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW BEGIN
@@ -404,14 +348,14 @@ CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.lawyer_id,NEW.name,'lawyer',NEW.password,'Active');
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     INSERT INTO deleted_lawyers (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, OLD.status);
 END
-    $$
+$$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
@@ -422,7 +366,7 @@ CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
         status = 'Active'
     WHERE user_id = NEW.lawyer_id;
 END
-    $$
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -451,36 +395,40 @@ CREATE TABLE `user` (
                         `name` varchar(50) NOT NULL,
                         `role` varchar(50) NOT NULL,
                         `password` varchar(50) NOT NULL,
-                        `status` varchar(50) NOT NULL
+                        `Email` varchar(25) NOT NULL,
+                        `status` varchar(50) NOT NULL,
+                        `otp` varchar(10) DEFAULT NULL,
+                        `otp_expiration` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `status`) VALUES
-                                                                         ('1', 'John Doe', 'lawyer', 'password123', 'Active'),
-                                                                         ('10', 'Olivia Lewis', 'lawyer', 'mypassword', 'inactive'),
-                                                                         ('11', 'William Turner', 'lawyer', 'securepass', 'inactive'),
-                                                                         ('12', 'Sophia Hernandez', 'lawyer', 'pass123', 'inactive'),
-                                                                         ('13', 'Ethan Clark', 'lawyer', 'secretpass', 'inactive'),
-                                                                         ('14', 'Ava Roberts', 'lawyer', 'mypassword', 'inactive'),
-                                                                         ('15', 'Benjamin Thompson', 'lawyer', '12345678', 'inactive'),
-                                                                         ('16', 'Charlotte Davis', 'lawyer', 'passw0rd', 'inactive'),
-                                                                         ('17', 'Henry Wilson', 'lawyer', 'mysecretpass', 'inactive'),
-                                                                         ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', 'inactive'),
-                                                                         ('19', 'James White', 'lawyer', 'securepass', 'inactive'),
-                                                                         ('2', 'Galagedra', 'lawyer', '123345', 'inactive'),
-                                                                         ('21', 'James White', 'lawyer', 'securepass', 'inactive'),
-                                                                         ('3', 'David Johnson', 'lawyer', 'pass123', 'inactive'),
-                                                                         ('4', 'Sarah Williams', 'lawyer', 'secretpass', 'inactive'),
-                                                                         ('5', 'Michael Brown', 'lawyer', 'mypassword', 'inactive'),
-                                                                         ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', 'inactive'),
-                                                                         ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', 'inactive'),
-                                                                         ('E2046014', 'Sadeesha', 'client', 'admin@123', 'Active'),
-                                                                         ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', 'Active'),
-                                                                         ('E2046315', 'Tharuka', 'client', 'admin@123', 'Active'),
-                                                                         ('sdeelz', 'ddcd', 'client', '', 'Active');
+INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `Email`, `status`, `otp`, `otp_expiration`) VALUES
+                                                                                                           ('1', 'John Doe', 'lawyer', 'password123', '', 'Active', NULL, NULL),
+                                                                                                           ('10', 'Olivia Lewis', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
+                                                                                                           ('11', 'William Turner', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
+                                                                                                           ('12', 'Sophia Hernandez', 'lawyer', 'pass123', '', 'inactive', NULL, NULL),
+                                                                                                           ('13', 'Ethan Clark', 'lawyer', 'secretpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('14', 'Ava Roberts', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
+                                                                                                           ('15', 'Benjamin Thompson', 'lawyer', '12345678', '', 'inactive', NULL, NULL),
+                                                                                                           ('16', 'Charlotte Davis', 'lawyer', 'passw0rd', '', 'inactive', NULL, NULL),
+                                                                                                           ('17', 'Henry Wilson', 'lawyer', 'mysecretpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('19', 'James White', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
+                                                                                                           ('2', 'Galagedra', 'lawyer', '123345', '', 'inactive', NULL, NULL),
+                                                                                                           ('21', 'James White', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
+                                                                                                           ('3', 'David Johnson', 'lawyer', 'pass123', '', 'inactive', NULL, NULL),
+                                                                                                           ('4', 'Sarah Williams', 'lawyer', 'secretpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('5', 'Michael Brown', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
+                                                                                                           ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('E2046014', 'Sadeesha', 'client', 'admin@123', '', 'Active', NULL, NULL),
+                                                                                                           ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', '', 'Active', NULL, NULL),
+                                                                                                           ('E2046315', 'Tharuka', 'client', 'admin@123', '', 'Active', NULL, NULL),
+                                                                                                           ('sdeelz', 'ddcd', 'client', '', '', 'Active', NULL, NULL),
+                                                                                                           ('soori', 'Tharuka', 'client', 'soori', 'tharukaravisara@gmail.com', 'active', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -497,24 +445,24 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `appoinment`
     ADD PRIMARY KEY (`appoinment_id`),
-  ADD KEY `case_id` (`case_id`),
-  ADD KEY `client_id` (`client_id`),
-  ADD KEY `lawyer_id` (`lawyer_id`);
+    ADD KEY `case_id` (`case_id`),
+    ADD KEY `client_id` (`client_id`),
+    ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `assistant`
 --
 ALTER TABLE `assistant`
     ADD PRIMARY KEY (`assistant_id`),
-  ADD KEY `lawyer_id` (`lawyer_id`);
+    ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `case`
 --
 ALTER TABLE `case`
     ADD PRIMARY KEY (`case_id`),
-  ADD KEY `client_id` (`client_id`),
-  ADD KEY `lawyer_id` (`lawyer_id`);
+    ADD KEY `client_id` (`client_id`),
+    ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `client`
@@ -551,7 +499,7 @@ ALTER TABLE `lawyer`
 --
 ALTER TABLE `payment`
     ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `client_id` (`client_id`);
+    ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `user`
@@ -568,8 +516,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `appoinment`
     ADD CONSTRAINT `appoinment_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `case` (`case_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `appoinment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `appoinment_ibfk_3` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `appoinment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `appoinment_ibfk_3` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `assistant`
