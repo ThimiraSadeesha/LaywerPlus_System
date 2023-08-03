@@ -23,8 +23,16 @@ $conn = new mysqli($host, $user, $password, $dbname);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    
 
-    $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
+    // Check Email or Username
+    if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$password'";
+    } else {
+        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
+    }
+    
+    
     $result = $conn->query($sql);
 
     if ($result) {
@@ -118,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <h3 class="text-center mb-4">Login</h3>
                             <input type="text" class="form-control mx-auto" id="username" name="username"
-                                   placeholder="Username" required style="<?php echo $borderColor ?? ''; ?>">
+                                   placeholder="Email or Username" required style="<?php echo $borderColor ?? ''; ?>">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control mx-auto" id="password" name="password"
