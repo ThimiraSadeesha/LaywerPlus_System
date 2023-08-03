@@ -121,10 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-8">
             <div class="card shadow d-flex flex-row">
                 <div class="card-body w-60">
-                    <h3 class="text-center mb-4">Lawyer Plus</h3>
                     <form action="" method="post">
                         <div class="form-group">
-                            <h3 class="text-center mb-4">Login</h3>
+                            <h3 class="text-center mb-4"></h3>
                             <input type="text" class="form-control mx-auto" id="username" name="username"
                                    placeholder="Email or Username" required style="<?php echo $borderColor ?? ''; ?>">
                         </div>
