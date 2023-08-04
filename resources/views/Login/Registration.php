@@ -20,28 +20,30 @@
                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <div class="mb-3">
                                 <label class="form-label"><strong>Full Name</strong></label>
-                                <input type="text" name="name" class="form-control" placeholder="Full Name">
+                                <input type="text" name="name" class="form-control" placeholder="Full Name" pattern="[A-Za-z ]+" title="Please enter only letters" required>
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>National ID</strong></label>
-                                <input type="text" name="nic" class="form-control" placeholder="National ID">
+                                <input type="text" name="nic" class="form-control" placeholder="National ID" required>
                                 <span id="availability"></span>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Contact Number</strong></label>
-                                <input type="text" name="phone" class="form-control" placeholder="Contact Number">
+                                <input type="tel" name="phone" class="form-control" placeholder="Contact Number" pattern="[0-9]{10}" title="Please Enter  Mobile number In correct Format" maxlength="10" required>
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Address</strong></label>
-                                <input type="text" name="address" class="form-control" placeholder="Contact Number">
+                                <input type="text" name="address" class="form-control" placeholder="Address" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Email</strong></label>
-                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><strong>Password</strong></label>
-                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
@@ -102,7 +104,7 @@ $last_numeric_id = null;
 
     // Insert the data into the database
     $sql = "INSERT INTO client (client_id, name, nic, email, contact_number, address, Password, status) 
-            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$password', 'active')";
+            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '" . md5($password) . "', 'active')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted successfully.";
@@ -116,6 +118,23 @@ $conn->close();
 
 
 ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var phoneInput = document.getElementById("phoneInput");
+
+        phoneInput.addEventListener("input", function() {
+            var inputValue = phoneInput.value;
+            var onlyDigits = /^\d+$/.test(inputValue);
+
+            if (!onlyDigits) {
+                phoneInput.setCustomValidity("Please enter numbers only");
+            } else {
+                phoneInput.setCustomValidity("");
+            }
+        });
+    });
+</script>
+
 
 
 
