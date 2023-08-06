@@ -22,11 +22,11 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="51900a2fdc" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
-    <orderEntry type="library" name="font-awesome" level="application" />
-    <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="dropin" level="application" />
-    <orderEntry type="library" name="font-awesome" level="application" />
     <orderEntry type="library" name="checkout" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>
