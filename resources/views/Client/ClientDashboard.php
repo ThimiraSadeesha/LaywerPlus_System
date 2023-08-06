@@ -1,6 +1,6 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
-    include 'sidebar.php';
+    include 'Sidebar.php';
 //done by sadeesha
     $host = 'localhost';
     $user = 'root';
@@ -24,7 +24,7 @@
     $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
 
     function generate_statement_id() {
-        include '../Admin/db_connection.php';
+        include '../Admin/DB_Connection.php';
         global $conn;
         $sql = "SELECT MAX(SUBSTRING(statement_id, 5)) as max_id FROM client_statement";
         $result = $conn->query($sql);
@@ -47,7 +47,7 @@
     }
 
     function insert_statement($topic, $message) {
-        include '../Admin/db_connection.php';
+        include '../Admin/DB_Connection.php';
         global $conn;
 
         $topic = $conn->real_escape_string($topic);

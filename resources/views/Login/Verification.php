@@ -37,10 +37,10 @@ if (isset($_POST['submit_otp'])) {
 
         // Compare the entered OTP with the stored OTP
         if ($enteredOTP === $storedOTP) {
-            // Correct OTP, show congratulations message
+            // Correct OTP, show congratulation message
             $verificationMessage = '<div class="alert alert-success text-center" role="alert">Your account has been successfully activated. You will now be automatically redirected to the login page.</div>';
             $Completed = 'Congratulations!';
-            header("refresh:3;url=../Login/login.php"); // Redirect to login page after
+            header("refresh:3;url=../Login/Login.php"); // Redirect to login page after
 
             // Set otp and otp_expiration to NULL for the entered user ID
             $updateQuery = "UPDATE inactive_users SET otp = NULL, otp_expiration = NULL WHERE client_id = '$storedUserID'";

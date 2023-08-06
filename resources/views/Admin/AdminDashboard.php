@@ -1,7 +1,7 @@
 ﻿<div id="main-wrapper">
 
     <?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
-    include 'sidebar.php';
+    include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
     $password = '';

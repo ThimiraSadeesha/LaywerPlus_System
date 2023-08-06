@@ -1,6 +1,6 @@
 <div id="main-wrapper">
     <!-- Include the sidebar -->
-    <?php include 'sidebar.php';
+    <?php include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
     $password = '';

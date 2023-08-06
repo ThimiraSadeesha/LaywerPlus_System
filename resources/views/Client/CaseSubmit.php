@@ -2,7 +2,7 @@
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 
 <?php
-    include "sidebar.php"
+include "Sidebar.php"
  ?>
     <!DOCTYPE html>
     <html lang="en">

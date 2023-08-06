@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <title>LawyerPlus - Client Area</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="robots" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
-    <meta property="og:title" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
-    <meta property="og:description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
     <meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Admin Dashboard</title>
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <link href="../../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../vendor/nouislider/nouislider.min.css">
     <link href="../../css/style.css" rel="stylesheet">
-    
-
+    <link href="../../vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+    <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/51900a2fdc.js" crossorigin="anonymous"></script>
 
@@ -143,33 +139,27 @@
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
             <li class="active">
-                <a href="adminDashboard.php">
+                <a href="ClientDashboard.php">
                     <i class="fas fa-home"></i>
-                    <span class="nav-text">Dashboard</span>
+                    <span class="nav-text">Home</span>
                 </a>
             </li>
             <li>
-                <a href="caseList.php">
+                <a href="ClientCaseList.php">
                     <i class="fa-solid fa-clipboard-list"></i>
-                    <span class="nav-text">Cases</span>
+                    <span class="nav-text">My Cases</span>
                 </a>
             </li>
             <li>
-                <a href="LawyerList.php">
+                <a href="FindLawyer.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Lawyers</span>
                 </a>
             </li>
             <li>
-                <a href="ClientList.php">
-                    <i class="fas fa-users"></i>
-                    <span class="nav-text">Clients</span>
-                </a>
-            </li>
-            <li>
-                <a href="AdminReports.php">
-                    <i class="fas fa-file-alt"></i>
-                    <span class="nav-text">Reports</span>
+                <a href="LawyerList.php">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Appointment</span>
                 </a>
             </li>
         </ul>
@@ -187,7 +177,7 @@
 <script src="../../js/styleSwitcher.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/apexchart/apexchart.js"></script>
-<!--<script src="../../js/plugins-init/chartjs-init.js"></script>-->
+<script src="../../js/plugins-init/chartjs-init.js"></script>
 
 </body>
 </html>

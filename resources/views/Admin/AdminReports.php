@@ -1,5 +1,5 @@
 <div id="main-wrapper">
-    <?php include 'sidebar.php'; ?>
+    <?php include 'Sidebar.php'; ?>
 
     <div class="content-body">
         <div class="container-fluid">

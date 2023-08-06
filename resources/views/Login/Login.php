@@ -44,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header('Location: ../Lawyer/lawyerDashboard.php');
                     break;
                 case 'admin':
-                    header('Location: ../Admin/adminDashboard.php');
+                    header('Location: ../Admin/AdminDashboard.php');
                     break;
                 case 'client':
-                    header('Location: ../Client/clientDashboard.php');
+                    header('Location: ../Client/ClientDashboard.php');
                     break;
                 default:
                     break;

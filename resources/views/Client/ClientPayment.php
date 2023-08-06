@@ -8,7 +8,7 @@
 
 <div id="main-wrapper" xmlns="http://www.w3.org/1999/html">
     <?php
-    include "sidebar.php";
+    include "Sidebar.php";
     $host = 'localhost';
     $user = 'root';
     $password = '';

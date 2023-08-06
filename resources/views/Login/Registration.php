@@ -148,7 +148,7 @@ $conn->close();
                                 </div>
                             </form>
                             <div class="text-center mt-3">
-                                <p>Already have an account? <a class="text-primary" href="../Login/login.php">Sign
+                                <p>Already have an account? <a class="text-primary" href="Login.php">Sign
                                         in</a></p>
                             </div>
                         <?php } ?>

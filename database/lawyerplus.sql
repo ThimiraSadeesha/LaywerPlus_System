@@ -294,6 +294,48 @@ END
 $$
 DELIMITER ;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `  inactive_users`
+--
+
+CREATE TABLE inactive_users (
+                                user_id varchar(50) NOT NULL,
+                                name varchar(50) NOT NULL,
+                                nic varchar(10) DEFAULT NULL,
+                                email varchar(50) NOT NULL,
+                                contact_number varchar(50) NOT NULL,
+                                address varchar(252) NOT NULL,
+                                password varchar(25) NOT NULL,
+                                registerd_datte date NOT NULL DEFAULT current_timestamp(),
+                                role varchar(50) NOT NULL,
+                                status varchar(50) NOT NULL,
+                                otp varchar(10) DEFAULT NULL,
+                                otp_expiration datetime DEFAULT NULL,
+                                PRIMARY KEY (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `deleted_lawyers`
+--
+DELIMITER $$
+
+CREATE TRIGGER `trigger_insert_active_clients` AFTER INSERT ON `client`
+    FOR EACH ROW
+BEGIN
+    IF NEW.status = 'Active' AND NEW.role = 'client' THEN
+        INSERT INTO client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
+        VALUES (NEW.user_id, NEW.name, NEW.nic, NEW.email, NEW.DOB, NEW.contact_number, NEW.address, NEW.password, NEW.registerd_datte, NEW.status);
+    END IF;
+END;
+$$
+
+DELIMITER ;
+
+
+
 -- --------------------------------------------------------
 
 --

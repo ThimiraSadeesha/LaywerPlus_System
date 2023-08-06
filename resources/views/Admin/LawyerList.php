@@ -2,8 +2,8 @@
     <?php
     global $conn;
 
-    include 'sidebar.php';
-    require_once 'db_connection.php';
+    include 'Sidebar.php';
+    require_once 'DB_Connection.php';
 
     // Check if the delete form is submitted for the first table
     if (isset($_POST['delete_lawyers'])) {
