@@ -34,16 +34,7 @@
                         die('Connection failed: ' . $conn->connect_error);
                     }
 
-                    function generateOTP() //generate a otp code
-                    {
-                        $otpLength = 6;
-                        $otp = '';
-                        for ($i = 0; $i < $otpLength; $i++) {
-                            $otp .= mt_rand(0, 9);
-                        }
-                        return $otp;
-                    }
-
+                    include 'LoginFunctions.php';
                     function isOTPValid($email, $otp)
                     {
                         global $conn;
@@ -51,7 +42,7 @@
                         $result = $conn->query($sql);
                         return $result->num_rows === 1;
                     }
-
+                    
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if (!empty($_POST['otp'])) {
                             // OTP validation form submission
