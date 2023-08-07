@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 01:40 PM
+-- Generation Time: Aug 07, 2023 at 08:38 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,19 +47,24 @@ INSERT INTO `admin` (`name`, `contact_number`, `username`, `password`, `email`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appoinment`
+-- Table structure for table `appointment`
 --
 
-CREATE TABLE `appoinment` (
-                              `appoinment_id` varchar(50) NOT NULL,
-                              `case_id` varchar(50) NOT NULL,
-                              `time` varchar(50) NOT NULL,
-                              `date` varchar(50) NOT NULL,
-                              `court` varchar(50) NOT NULL,
-                              `place` varchar(50) NOT NULL,
-                              `client_id` varchar(50) NOT NULL,
-                              `lawyer_id` varchar(50) NOT NULL
+CREATE TABLE `appointment` (
+                               `Appoinmnet_id` varchar(20) NOT NULL,
+                               `Case_Type` varchar(50) NOT NULL,
+                               `Lawyer_Id` varchar(50) NOT NULL,
+                               `Description` varchar(100) NOT NULL,
+                               `client_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`Appoinmnet_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`) VALUES
+                                                                                                      ('APMT-000', '', '', 'Your_Description_Here', ''),
+                                                                                                      ('APMT-001', '', '', 'Your_Description_Here', '');
 
 -- --------------------------------------------------------
 
@@ -102,34 +107,41 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `case`
+-- Table structure for table `cases`
 --
 
-CREATE TABLE `case` (
-                        `case_id` varchar(20) NOT NULL,
-                        `lawyer_id` varchar(50) NOT NULL,
-                        `client_id` varchar(20) NOT NULL,
-                        `description` varchar(25) NOT NULL,
-                        `C_type` varchar(20) NOT NULL,
-                        `submit_date` date NOT NULL,
-                        `satuts` varchar(50) NOT NULL,
-                        `Amount` double NOT NULL
+CREATE TABLE `cases` (
+                         `case_id` varchar(20) NOT NULL,
+                         `lawyer_id` varchar(50) NOT NULL,
+                         `client_id` varchar(20) NOT NULL,
+                         `description` varchar(25) NOT NULL,
+                         `C_type` varchar(20) NOT NULL,
+                         `submit_date` date NOT NULL,
+                         `satuts` varchar(50) NOT NULL,
+                         `Amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `case`
+-- Dumping data for table `cases`
 --
 
-INSERT INTO `case` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`, `Amount`) VALUES
-                                                                                                                         ('100', 'LW12', 'E2046014', 'Devorce', 'Family', '2023-06-30', 'Processing', 5800),
-                                                                                                                         ('15', '', 'E2046014', 'test', 'Immigration ', '2023-06-03', 'Pending', 4500),
-                                                                                                                         ('16', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 5500),
-                                                                                                                         ('17', '', 'E2046014', 'test', 'Employment', '2023-06-03', 'Pending', 8000),
-                                                                                                                         ('18', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 1420),
-                                                                                                                         ('19', '', 'E2046014', 'test', 'Business ', '2023-06-10', 'Pending', 2350),
-                                                                                                                         ('30', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 4400),
-                                                                                                                         ('31', '', 'E2046014', 'test', 'type1', '2023-06-10', 'Completed', 5000),
-                                                                                                                         ('89', 'LW13', 'E2046014', 'Murder ', 'Criminal', '2023-06-10', 'Processing', 7690);
+INSERT INTO `cases` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`, `Amount`) VALUES
+                                                                                                                          ('CS-004', 'LW01', 'CLT-0003', 'Devorce', 'Family', '2023-02-01', 'Processing', 7690),
+                                                                                                                          ('CS-005', 'LW01', 'CLT-0003', 'Devorce', 'Family', '2023-02-01', 'Processing', 7690),
+                                                                                                                          ('CS-006', 'LW05', 'CLT-0003', 'Devorce', 'Family', '2023-02-01', 'Processing', 7690),
+                                                                                                                          ('CSE-0001', '', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0002', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0003', 'LW13', 'CLT-0006', 'divorces wife', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0004', 'LW13', 'CLT-0006', 'divorces wife', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0005', '3', 'CLT-0006', 'Murder', 'Criminal Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0006', '3', 'CLT-0006', 'Murder', 'Criminal Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0007', '3', 'CLT-0006', 'Murder', 'Criminal Law', '1970-01-01', 'Pending', 8970),
+                                                                                                                          ('CSE-0008', '3', 'CLT-0006', 'divorces', 'Criminal Law', '1970-01-01', 'Pending', 8970),
+                                                                                                                          ('CSE-0009', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970),
+                                                                                                                          ('CSE-0010', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0011', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
+                                                                                                                          ('CSE-0012', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970),
+                                                                                                                          ('CSE-0013', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970);
 
 -- --------------------------------------------------------
 
@@ -155,14 +167,26 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`) VALUES
-                                                                                                                                            ('E2046014', 'Sadeesha', '998458213V', 'sadeesha@gmail.com', NULL, '775124523', 'test', 'admin@123', '2023-07-26', 'Blocked'),
+                                                                                                                                            ('CLT-0003', 'Thimira Sadeesha', '1234', 'sadeeshathimira2000@', NULL, '0769371701', '228,\"sadeesha\",', 'e2fc714c4727ee9395f324cd2', '2023-08-05', 'active'),
+                                                                                                                                            ('CLT-0004', 'abcd', '1234', 'sadeeshathimira2000@', NULL, '0769371701', '228,\"sadeesha\",', 'e10adc3949ba59abbe56e057f', '2023-08-05', 'active'),
+                                                                                                                                            ('CLT-0005', 'xxxx', '1234', 'sadeeshathimira2000@', NULL, '0769371701', '228,\"sadeesha\",', 'e10adc3949ba59abbe56e057f', '2023-08-05', 'active'),
+                                                                                                                                            ('CLT-0006', 'Admin', '1234', 'sadeeshathimira2000@', NULL, '0769371701', '228,\"sadeesha\",', '25f9e794323b453885f5181f1', '2023-08-05', 'active'),
                                                                                                                                             ('E2046022', 'Kanishka_Bandara', '992654660V', 'kanishka@gmail.com', NULL, '775756081', 'No 99,welagedra road', 'admin@1234', '2023-07-26', 'Active'),
                                                                                                                                             ('E2046315', 'Tharuka', '9845625812', 'tharuka@gmail.com', NULL, '75845125', 'test2', 'admin@123', '2023-07-26', 'Active'),
+                                                                                                                                            ('E23456', 'bandara', '23232223', 'cxvvs', '2000-10-02', '23456786', 'dfghbb', '', '2023-08-04', ''),
                                                                                                                                             ('sdeelz', 'ddcd', 'Thimira Sa', 'sadeeshathimira2000@', '1970-01-01', '228,\"sadeesha\",', '0769371701', '', '2023-07-30', '');
 
 --
 -- Triggers `client`
 --
+DELIMITER $$
+CREATE TRIGGER `after_update_inactive_user` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
+    UPDATE client
+    SET status = 'Active'
+    WHERE client_id = NEW.client_id;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `delete_from_user_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.client_id;
@@ -206,7 +230,7 @@ CREATE TABLE `client_statement` (
                                     `statement_id` varchar(50) NOT NULL,
                                     `client_id` varchar(50) NOT NULL,
                                     `lawyer_id` varchar(50) NOT NULL,
-                                    `message` varchar(100) NOT NULL,
+                                    `message` varchar(500) NOT NULL,
                                     `Topic` varchar(500) NOT NULL,
                                     `Case_Id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -246,6 +270,16 @@ CREATE TABLE `deleted_client` (
                                   `registerd_datte` date NOT NULL DEFAULT current_timestamp(),
                                   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deleted_client`
+--
+
+INSERT INTO `deleted_client` (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`) VALUES
+                                                                                                                                                    ('', '', '', '', NULL, '', '', 'xcxcxcx', '2023-08-04', ''),
+                                                                                                                                                    ('CLT-0001', '', '', '', NULL, '1234567890', '', '', '2023-08-05', 'active'),
+                                                                                                                                                    ('CLT-0002', '', '', '', NULL, '1234567890', '', '', '2023-08-05', 'active'),
+                                                                                                                                                    ('E2046014', 'Sadeesha', '998458213V', 'sadeesha@gmail.com', NULL, '775124523', 'test', 'admin@123', '2023-07-26', 'Blocked');
 
 --
 -- Triggers `deleted_client`
@@ -294,47 +328,33 @@ END
 $$
 DELIMITER ;
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `  inactive_users`
+-- Table structure for table `inactive_users`
 --
 
-CREATE TABLE inactive_users (
-                                user_id varchar(50) NOT NULL,
-                                name varchar(50) NOT NULL,
-                                nic varchar(10) DEFAULT NULL,
-                                email varchar(50) NOT NULL,
-                                contact_number varchar(50) NOT NULL,
-                                address varchar(252) NOT NULL,
-                                password varchar(25) NOT NULL,
-                                registerd_datte date NOT NULL DEFAULT current_timestamp(),
-                                role varchar(50) NOT NULL,
-                                status varchar(50) NOT NULL,
-                                otp varchar(10) DEFAULT NULL,
-                                otp_expiration datetime DEFAULT NULL,
-                                PRIMARY KEY (user_id)
+CREATE TABLE `inactive_users` (
+                                  `user_id` varchar(50) NOT NULL,
+                                  `name` varchar(50) NOT NULL,
+                                  `nic` varchar(10) DEFAULT NULL,
+                                  `email` varchar(50) NOT NULL,
+                                  `contact_number` varchar(50) NOT NULL,
+                                  `address` varchar(252) NOT NULL,
+                                  `password` varchar(25) NOT NULL,
+                                  `registerd_datte` date NOT NULL DEFAULT current_timestamp(),
+                                  `role` varchar(50) NOT NULL,
+                                  `status` varchar(50) NOT NULL,
+                                  `otp` varchar(10) DEFAULT NULL,
+                                  `otp_expiration` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Triggers `deleted_lawyers`
+-- Dumping data for table `inactive_users`
 --
-DELIMITER $$
 
-CREATE TRIGGER `trigger_insert_active_clients` AFTER INSERT ON `client`
-    FOR EACH ROW
-BEGIN
-    IF NEW.status = 'Active' AND NEW.role = 'client' THEN
-        INSERT INTO client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
-        VALUES (NEW.user_id, NEW.name, NEW.nic, NEW.email, NEW.DOB, NEW.contact_number, NEW.address, NEW.password, NEW.registerd_datte, NEW.status);
-    END IF;
-END;
-$$
-
-DELIMITER ;
-
-
+INSERT INTO `inactive_users` (`user_id`, `name`, `nic`, `email`, `contact_number`, `address`, `password`, `registerd_datte`, `role`, `status`, `otp`, `otp_expiration`) VALUES
+    ('001', 'sadeee', '23232223', 'sadee@gmail.com', '23456786', 'dwdwdwwdwdwdw', '12345', '2023-08-06', 'client', 'Active', '11111', '2023-08-06 10:41:29');
 
 -- --------------------------------------------------------
 
@@ -350,30 +370,31 @@ CREATE TABLE `lawyer` (
                           `category` varchar(50) NOT NULL,
                           `contact_number` varchar(50) NOT NULL,
                           `password` varchar(50) NOT NULL,
-                          `status` varchar(10) NOT NULL
+                          `status` varchar(10) NOT NULL,
+                          `Avilable_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lawyer`
 --
 
-INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`) VALUES
-                                                                                                                     ('1', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active'),
-                                                                                                                     ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active'),
-                                                                                                                     ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive'),
-                                                                                                                     ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold'),
-                                                                                                                     ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', 'Criminal Law', '2223334448', 'secretpass', 'Active'),
-                                                                                                                     ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', 'Corporate Law', '7778889992', 'mypassword', 'Block'),
-                                                                                                                     ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold'),
-                                                                                                                     ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active'),
-                                                                                                                     ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive'),
-                                                                                                                     ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active'),
-                                                                                                                     ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold'),
-                                                                                                                     ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active'),
-                                                                                                                     ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active'),
-                                                                                                                     ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active'),
-                                                                                                                     ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active'),
-                                                                                                                     ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Active');
+INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`, `Avilable_date`) VALUES
+                                                                                                                                      ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active', '2023-08-08'),
+                                                                                                                                      ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive', '2023-08-09'),
+                                                                                                                                      ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold', '2023-08-16'),
+                                                                                                                                      ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', 'Criminal Law', '2223334448', 'secretpass', 'Active', '2023-08-16'),
+                                                                                                                                      ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', 'Corporate Law', '7778889992', 'mypassword', 'Block', '2023-08-17'),
+                                                                                                                                      ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold', '2023-08-14'),
+                                                                                                                                      ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active', '2023-08-20'),
+                                                                                                                                      ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive', '2023-08-19'),
+                                                                                                                                      ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active', '2023-08-24'),
+                                                                                                                                      ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold', '2023-08-30'),
+                                                                                                                                      ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active', '2023-08-28'),
+                                                                                                                                      ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active', '2023-08-31'),
+                                                                                                                                      ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active', '2023-08-27'),
+                                                                                                                                      ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active', '2023-08-12'),
+                                                                                                                                      ('LW01', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active', '2023-08-31'),
+                                                                                                                                      ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Inactive', '2023-08-21');
 
 --
 -- Triggers `lawyer`
@@ -449,26 +470,30 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `Email`, `status`, `otp`, `otp_expiration`) VALUES
                                                                                                            ('1', 'John Doe', 'lawyer', 'password123', '', 'Active', NULL, NULL),
-                                                                                                           ('10', 'Olivia Lewis', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
-                                                                                                           ('11', 'William Turner', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
-                                                                                                           ('12', 'Sophia Hernandez', 'lawyer', 'pass123', '', 'inactive', NULL, NULL),
-                                                                                                           ('13', 'Ethan Clark', 'lawyer', 'secretpass', '', 'inactive', NULL, NULL),
-                                                                                                           ('14', 'Ava Roberts', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
-                                                                                                           ('15', 'Benjamin Thompson', 'lawyer', '12345678', '', 'inactive', NULL, NULL),
+                                                                                                           ('10', 'Olivia Lewis', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
+                                                                                                           ('11', 'William Turner', 'lawyer', 'securepass', '', 'Active', NULL, NULL),
+                                                                                                           ('12', 'Sophia Hernandez', 'lawyer', 'pass123', '', 'Active', NULL, NULL),
+                                                                                                           ('13', 'Ethan Clark', 'lawyer', 'secretpass', '', 'Active', NULL, NULL),
+                                                                                                           ('14', 'Ava Roberts', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
+                                                                                                           ('15', 'Benjamin Thompson', 'lawyer', '12345678', '', 'Active', NULL, NULL),
                                                                                                            ('16', 'Charlotte Davis', 'lawyer', 'passw0rd', '', 'inactive', NULL, NULL),
-                                                                                                           ('17', 'Henry Wilson', 'lawyer', 'mysecretpass', '', 'inactive', NULL, NULL),
-                                                                                                           ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', '', 'inactive', NULL, NULL),
+                                                                                                           ('17', 'Henry Wilson', 'lawyer', 'mysecretpass', '', 'Active', NULL, NULL),
+                                                                                                           ('18', 'Lily Anderson', 'lawyer', 'lawyerpass', '', 'Active', NULL, NULL),
                                                                                                            ('19', 'James White', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
                                                                                                            ('2', 'Galagedra', 'lawyer', '123345', '', 'inactive', NULL, NULL),
-                                                                                                           ('21', 'James White', 'lawyer', 'securepass', '', 'inactive', NULL, NULL),
-                                                                                                           ('3', 'David Johnson', 'lawyer', 'pass123', '', 'inactive', NULL, NULL),
-                                                                                                           ('4', 'Sarah Williams', 'lawyer', 'secretpass', '', 'inactive', NULL, NULL),
-                                                                                                           ('5', 'Michael Brown', 'lawyer', 'mypassword', '', 'inactive', NULL, NULL),
-                                                                                                           ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', '', 'inactive', NULL, NULL),
-                                                                                                           ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', '', 'inactive', NULL, NULL),
-                                                                                                           ('E2046014', 'Sadeesha', 'client', 'admin@123', '', 'Active', NULL, NULL),
+                                                                                                           ('21', 'James White', 'lawyer', 'securepass', '', 'Active', NULL, NULL),
+                                                                                                           ('3', 'David Johnson', 'lawyer', 'pass123', '', 'Active', NULL, NULL),
+                                                                                                           ('4', 'Sarah Williams', 'lawyer', 'secretpass', '', 'Active', NULL, NULL),
+                                                                                                           ('5', 'Michael Brown', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
+                                                                                                           ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', '', 'Active', NULL, NULL),
+                                                                                                           ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', '', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0003', 'Thimira Sadeesha', 'client', 'e2fc714c4727ee9395f324cd2', '', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0004', 'abcd', 'client', 'e10adc3949ba59abbe56e057f', '', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0005', 'xxxx', 'client', 'e10adc3949ba59abbe56e057f', '', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0006', 'Admin', 'client', '25f9e794323b453885f5181f1', '', 'Active', NULL, NULL),
                                                                                                            ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', '', 'Active', NULL, NULL),
                                                                                                            ('E2046315', 'Tharuka', 'client', 'admin@123', '', 'Active', NULL, NULL),
+                                                                                                           ('E23456', 'bandara', 'client', '', '', 'Active', NULL, NULL),
                                                                                                            ('sdeelz', 'ddcd', 'client', '', '', 'Active', NULL, NULL),
                                                                                                            ('soori', 'Tharuka', 'client', 'soori', 'tharukaravisara@gmail.com', 'active', NULL, NULL);
 
@@ -483,13 +508,10 @@ ALTER TABLE `admin`
     ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `appoinment`
+-- Indexes for table `appointment`
 --
-ALTER TABLE `appoinment`
-    ADD PRIMARY KEY (`appoinment_id`),
-    ADD KEY `case_id` (`case_id`),
-    ADD KEY `client_id` (`client_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+ALTER TABLE `appointment`
+    ADD PRIMARY KEY (`Appoinmnet_id`);
 
 --
 -- Indexes for table `assistant`
@@ -499,9 +521,9 @@ ALTER TABLE `assistant`
     ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
--- Indexes for table `case`
+-- Indexes for table `cases`
 --
-ALTER TABLE `case`
+ALTER TABLE `cases`
     ADD PRIMARY KEY (`case_id`),
     ADD KEY `client_id` (`client_id`),
     ADD KEY `lawyer_id` (`lawyer_id`);
@@ -531,6 +553,12 @@ ALTER TABLE `deleted_lawyers`
     ADD PRIMARY KEY (`lawyer_id`);
 
 --
+-- Indexes for table `inactive_users`
+--
+ALTER TABLE `inactive_users`
+    ADD PRIMARY KEY (`user_id`);
+
+--
 -- Indexes for table `lawyer`
 --
 ALTER TABLE `lawyer`
@@ -554,24 +582,16 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `appoinment`
---
-ALTER TABLE `appoinment`
-    ADD CONSTRAINT `appoinment_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `case` (`case_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `appoinment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `appoinment_ibfk_3` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `assistant`
 --
 ALTER TABLE `assistant`
     ADD CONSTRAINT `assistant_ibfk_1` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyer` (`lawyer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `case`
+-- Constraints for table `cases`
 --
-ALTER TABLE `case`
-    ADD CONSTRAINT `case_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `cases`
+    ADD CONSTRAINT `cases_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
