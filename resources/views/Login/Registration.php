@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UNION
                 (SELECT client_id FROM deleted_client WHERE client_id = '$client_id')
                 UNION
-                (SELECT client_id FROM inactive_users WHERE client_id = '$client_id')";
+                (SELECT user_id FROM inactive_users WHERE user_id = '$client_id')";
 
         $check_result = $conn->query($check_query);
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } while (true);
 
     // Insert the data into the database
-    $sql = "INSERT INTO inactive_users (client_id, name, nic, email, contact_number, address, Password, role, status) 
+    $sql = "INSERT INTO inactive_users (user_id, name, nic, email, contact_number, address, Password, role, status) 
             VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$password','client', 'inactive')";
 
     if ($conn->query($sql) === TRUE) {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $expirationTime = date('Y-m-d H:i:s', strtotime('+15 minutes')); 
 
         // Update the OTP and OTP expiration only for the registered user
-        $update_otp_sql = "UPDATE inactive_users SET otp = '$otp', otp_expiration = '$expirationTime' WHERE email = '$email' AND client_id = LAST_INSERT_ID()";
+        $update_otp_sql = "UPDATE inactive_users SET otp = '$otp', otp_expiration = '$expirationTime' WHERE email = '$email' AND user_id = LAST_INSERT_ID()";
         $conn->query($update_otp_sql);
         $showForm = false;
         $mail = new PHPMailer(true);

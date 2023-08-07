@@ -25,13 +25,13 @@ if (isset($_POST['submit_otp'])) {
     $enteredOTP = $_POST['otp'];
 
     // Query the database to retrieve the username, OTP, and OTP expiration from inactive_users table
-    $query = "SELECT client_id, otp, otp_expiration FROM inactive_users WHERE client_id = '$enteredUsername' LIMIT 1";
+    $query = "SELECT user_id, otp, otp_expiration FROM inactive_users WHERE user_id = '$enteredUsername' LIMIT 1";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         // User exists in the inactive_users table
         $row = $result->fetch_assoc();
-        $storedUserID = $row['client_id'];
+        $storedUserID = $row['user_id'];
         $storedOTP = $row['otp'];
         $storedOTPExpiration = $row['otp_expiration'];
 
@@ -43,7 +43,7 @@ if (isset($_POST['submit_otp'])) {
             header("refresh:3;url=../Login/Login.php"); // Redirect to login page after
 
             // Set otp and otp_expiration to NULL for the entered user ID
-            $updateQuery = "UPDATE inactive_users SET otp = NULL, otp_expiration = NULL WHERE client_id = '$storedUserID'";
+            $updateQuery = "UPDATE inactive_users SET otp = NULL, otp_expiration = NULL WHERE USER_id = '$storedUserID'";
             $conn->query($updateQuery);
 
             // Hide the form
