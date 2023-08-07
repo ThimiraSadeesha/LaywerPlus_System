@@ -1,11 +1,35 @@
 <div id="main-wrapper">
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <?php
+    include "Sidebar.php";
 
-<?php
-include "Sidebar.php"
- ?>
-    <!DOCTYPE html>
-    <html lang="en">
+    $host = 'localhost';
+    $user = 'root';
+    $password = '';
+    $dbname = 'lawyerPlus';
+    $conn = new mysqli($host, $user, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $query = "SELECT category FROM lawyer";
+    $result = $conn->query($query);
+
+    if ($result) {
+        $caseOptions = "";
+        while ($row = $result->fetch_assoc()) {
+            $category = $row['category'];
+            $caseOptions .= "<option value='$category'>$category</option>";
+        }
+    } else {
+        $caseOptions = "<option value='' disabled selected>No case categories found</option>";
+    }
+
+
+    $conn->close();
+    ?>
+    <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles">
@@ -18,114 +42,61 @@ include "Sidebar.php"
                 <div class="col-xl-12 col-xxl-12">
                     <div class="card">
                         <div class="card-body">
-                            <div id="smartwizard" class="form-wizard order-create">
-                                <ul class="nav nav-wizard">
-                                    <li><a class="nav-link" href="#wizard_Selection">
-                                            <span>?</span>
-                                        </a></li>
-                                    <li><a class="nav-link" href="#wizard_Service">
-                                            <span>1</span>
-                                        </a></li>
-                                    <li><a class="nav-link" href="#wizard_Time">
-                                            <span>2</span>
-                                        </a></li>
-                                    <li><a class="nav-link" href="#wizard_Details">
-                                            <span>3</span>
-                                        </a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    
-                                    <div id="wizard_Selection" class="tab-pane" role="tabpanel">
-                                        <div class="row" align="center">
-                                            <h3>Are you currently involved in a lawsuit? </h3>
-                                        <form>
-                                            <div class="mb-2 mb-0">
-                                                <label class="radio-inline me-3"><input type="radio" name="optradio">  Yes, I have an ongoing lawsuit</label>
-                                                <label class="radio-inline me-3"><input type="radio" name="optradio">  No, I'm looking for a lawyer</label>
-                                            </div>
-                                        </form>
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Case Category</label>
+                                            <select name="category" class="form-control" id="categorySelect" required="" onchange="updateLawyerOptions(this.value)">
+                                                <?php echo $caseOptions; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Description</label>
+                                            <input type="text" name="description" class="form-control"
+                                                   placeholder="Briefly describe the case nature" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Select Lawyer</label>
+                                            <select name="lawyer" class="form-control" id="lawyerSelect" required="">
+                                                <!-- Lawyer options will be dynamically updated here -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Next Court date</label>
+                                            <input type="date" class="form-control" id="date" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Contact Number*</label>
+                                            <input type="text" name="phoneNumber" class="form-control"
+                                                   placeholder="(+94)77 123 4567" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <div class="mb-3">
+                                            <label class="text-label form-label">Email*</label>
+                                            <input type="text" name="place" class="form-control" required="">
+                                        </div>
                                     </div>
                                 </div>
-                    <div id="wizard_Service" role="tabpanel">
-                        <div class="row">
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Case Category</label>
-                                    <select name="Description" class="form-control" required="">
-                                        <option value="" selected disabled>Select a case nature</option>
-                                        <option value="nature1">Nature 1</option>
-                                        <option value="nature2">Nature 2</option>
-                                        <option value="nature3">Nature 3</option>
-                                    </select>
-                                </div> //s
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Description</label>
-                                    <input type="text" name="lastName" class="form-control"
-                                           placeholder="Briefly describe the case nature" required="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Type of Court</label>
-                                    <select name="Description" class="form-control" required="">
-                                        <option value="" selected disabled>Select a District</option>
-                                        <option value="nature1">Nature 1</option>
-                                        <option value="nature2">Nature 2</option>
-                                        <option value="nature3">Nature 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">District of Court</label>
-                                    <select name="Description" class="form-control" required="">
-                                        <option value="" selected disabled>Select a District</option>
-                                        <option value="nature1">Nature 1</option>
-                                        <option value="nature2">Nature 2</option>
-                                        <option value="nature3">Nature 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="wizard_Time" class="tab-pane" role="tabpanel">
-                        <div class="row">
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Select Lawyer</label>
-                                    <select name="Description" class="form-control" required="">
-                                        <option value="" selected disabled>Select a lawyer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Next Court date</label>
-                                    <input type="date" class="form-control" id="date" required="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Contact Number*</label>
-                                    <input type="text" name="phoneNumber" class="form-control"
-                                           placeholder="(+94)77 123 4567" required="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                                <div class="mb-3">
-                                    <label class="text-label form-label">Email*</label>
-                                    <input type="text" name="place" class="form-control" required="">
-                                </div>
-                            </div>  </div>
-                    </div>
-                    <div id="wizard_Details" class="tab-pane" role="tabpanel">
-                            <div class="row" align="center">
-                            <h3>Are you sure all the detailed you submitted are correct? </h3>
-                            <form>
-                                <div class="mb-2 mb-0">
-                                    <label class="checkbox-inline me-3"><input type="radio" name="optradio">  Yes, I am sure! </label>
+                                <div class="row mt-4">
+                                    <div class="col-12" align="center">
+                                        <label>
+                                            <div class="alert alert-danger text-center" role="alert"> By clicking the "Submit Case" button, I confirm that I have reviewed the
+                                                provided details and affirm their accuracy for the purpose of submitting this case.</div>
+                                        </label>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit Case</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -136,7 +107,23 @@ include "Sidebar.php"
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+    function updateLawyerOptions(category) {
+        $.ajax({
+            url: 'GetLawyers.php',
+            type: 'GET', 
+            data: { category: category }, // Data to be sent along with the request
+            success: function(response) {
+                $('#lawyerSelect').html(response);  // Update the HTML element with id 
+            }
+        });
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Include JS -->
 <script src="../../vendor/global/global.min.js"></script>
@@ -152,10 +139,3 @@ include "Sidebar.php"
 <script src="../../js/custom.min.js"></script>
 <script src="../../js/dlabnav-init.js"></script>
 <script src="../../js/styleSwitcher.js"></script>
-                
-  <script>
-                    $(document).ready(function () {
-                        $('#smartwizard').smartWizard();
-                    });
-                </script>
-        

@@ -1,7 +1,7 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
     include 'Sidebar.php';
-//done by sadeesha
+
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -86,7 +86,7 @@
     }
 
     $query2 = "SELECT c.`case_id`, c.`lawyer_id`, c.`submit_date`, c.`C_type`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
-          FROM `case` c
+          FROM `cases` c
           LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
           WHERE c.`client_id` = 'E2046014'
           ORDER BY c.`case_id` DESC
