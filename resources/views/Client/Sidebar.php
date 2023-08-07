@@ -157,7 +157,7 @@
                 </a>
             </li>
             <li>
-                <a href="LawyerList.php">
+                <a href="ClientAppointment.php">
                     <i class="fas fa-calendar"></i>
                     <span class="nav-text">Appointment</span>
                 </a>
