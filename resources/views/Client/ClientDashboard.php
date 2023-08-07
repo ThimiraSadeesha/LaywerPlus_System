@@ -1,7 +1,6 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
     include 'Sidebar.php';
-
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -88,7 +87,7 @@
     $query2 = "SELECT c.`case_id`, c.`lawyer_id`, c.`submit_date`, c.`C_type`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
           FROM `cases` c
           LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
-          WHERE c.`client_id` = 'E2046014'
+          WHERE c.`client_id` = 'CLT-0003'
           ORDER BY c.`case_id` DESC
           LIMIT 1";
 
@@ -98,7 +97,7 @@
     // Display the results
     if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
         $row = $result_case_lawyer->fetch_assoc();
-        $Case_ID= $row['case_id'] ;
+        $Case_ID= $row['case_id'];
         $law_id= $row['lawyer_id'] ;
         $date= $row['submit_date'] ;
         $status= $row['satuts'] ;
@@ -129,7 +128,7 @@
                                     <img src="../../images/user.png" alt="">
                                     <div>
                                         <h3 class="fs-18 text-black font-w600"><?php echo $l_type?></h3>
-                                        <!--                                        <small class="d-block fs-16 font-w400">--><?php //echo $l_type?><!--</small>-->
+                                        <!--<small class="d-block fs-16 font-w400">--><?php //echo $l_type?><!--</small>-->
                                         <span class="fs-18 font-w500"><?php echo $title." ".$name?></span>
                                     </div>
                                 </div>
@@ -335,7 +334,7 @@
                                                            placeholder="Statement Heading Here">
                                                 </div>
                                         </div>
-                                        <!--                                        < class="basic-form">-->
+                                        <!--   < class="basic-form">-->
 
                                         <textarea name="message" class="form-control input-default fixed-textarea"
                                                   placeholder=""></textarea>
@@ -358,7 +357,6 @@
         </div>
     </div>
 </div>
-
 
 <!--<script src="../../vendor/global/global.min.js"></script>-->
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
