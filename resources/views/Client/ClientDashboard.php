@@ -1,7 +1,7 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
     include 'Sidebar.php';
-//done by sadeesha
+
     $host = 'localhost';
     $user = 'root';
     $password = '';
