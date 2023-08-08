@@ -1,6 +1,7 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
-    include 'Sidebar.php';
+    $currentDateTime = date("Y-m-d H:i:s");
+    include '../Admin/Sidebar.php';
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -18,6 +19,12 @@
             return $result->fetch_assoc()['completed_count'];
         }
         return 0;
+    }
+    $selectcase="SELECT `Case_Id` FROM `client_statement` ORDER BY `statement_id` DESC LIMIT 1";
+    $result = $conn->query($selectcase);
+    if ($result && $result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $cases_id = $row['Case_Id'];
     }
 
     $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
@@ -40,28 +47,47 @@
     }
 
     if (isset($_POST['submit'])) {
+        $selectedCase = $_POST['selectedCaseInput']; // Retrieve the selected case ID
         $topic = $_POST['topic'];
         $message = $_POST['message'];
+        $client_id = $row['client_id'];
 
-        insert_statement($topic, $message);
+        insert_statement($client_id,$topic, $message,$selectedCase,);
     }
 
-    function insert_statement($topic, $message)
+    $selectclient="SELECT `client_id` FROM `cases` WHERE `case_id`='CSE-0003'";
+    $result = $conn->query($selectclient);
+    if ($result && $result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+    }
+
+    function encryptMessage($message, $key): string
+    {
+        $iv = random_bytes(16);
+        $encrypted = openssl_encrypt($message, "AES-256-CBC", $key, 0, $iv);
+        return base64_encode($iv . $encrypted);
+    }
+
+    function insert_statement($client_id,$topic, $message,$selectedCase)
     {
         include '../Admin/DB_Connection.php';
         global $conn;
-
+        $secretKey = "Lawyer_Plus_System";
+        $encryptedMessage = encryptMessage($message, $secretKey);
         $topic = $conn->real_escape_string($topic);
         $message = $conn->real_escape_string($message);
+        $client_id = $conn->real_escape_string($client_id);
+
+        $selectedCase = $conn->real_escape_string($selectedCase);
         $statement_id = generate_statement_id();
-        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '', '', '$message', '$topic', 16)";
+        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '$client_id', '', '$encryptedMessage', '$topic', '$selectedCase')";
         if ($conn->query($sql) === TRUE) {
             echo "Data inserted successfully.";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
-
     function getLatestStatements($conn)
     {
         $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
@@ -72,46 +98,78 @@
         }
         return [];
     }
-
     $latestStatements = getLatestStatements($conn);
-
+    function decryptMessage($latestStatements, $key) {
+        $data = base64_decode($latestStatements);
+        $iv = substr($data, 0, 16);
+        $encrypted = substr($data, 16);
+        return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+    }
     if (!empty($latestStatements)) {
+        $secretKey = "Lawyer_Plus_System";
         $firstTopic = $latestStatements[0]['Topic'];
-        $firstMessage = $latestStatements[0]['message'];
+        $firstEncryptedMessage = $latestStatements[0]['message'];
+        $firstMessage = decryptMessage($firstEncryptedMessage, $secretKey);
         $secondTopic = $latestStatements[1]['Topic'];
-        $secondMessage = $latestStatements[1]['message'];
-        $thirdTopic = $latestStatements[2]['Topic'];
-        $thirdMessage = $latestStatements[2]['message'];
+        $secondEncryptedMessage = $latestStatements[1]['message'];
+        $secondMessage = decryptMessage($secondEncryptedMessage, $secretKey);
 
+        $thirdTopic = $latestStatements[2]['Topic'];
+        $thirdEncryptedMessage = $latestStatements[2]['message'];
+        $thirdMessage = decryptMessage($thirdEncryptedMessage, $secretKey);
     } else {
         echo "No statements found.";
     }
 
-    $query2 = "SELECT c.`case_id`, c.`lawyer_id`, c.`submit_date`, c.`C_type`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
-          FROM `cases` c
-          LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
-          WHERE c.`client_id` = 'CLT-0003'
-          ORDER BY c.`case_id` DESC
-          LIMIT 1";
-
-    // Execute the query and store the result in $result_case_lawyer
+    $query2 = "SELECT c.`case_id`, c.`client_id`, c.`C_type`, c.`satuts`, c.`Amount`, cl.`name`, cl.`contact_number`, cl.`registerd_datte` FROM `cases` c JOIN `client` cl ON c.`client_id` = cl.`client_id` WHERE c.`lawyer_id` = 'LW13' ORDER BY c.`case_id` DESC LIMIT 1;";
     $result_case_lawyer = $conn->query($query2);
 
     // Display the results
     if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
         $row = $result_case_lawyer->fetch_assoc();
         $Case_ID = $row['case_id'];
-        $law_id = $row['lawyer_id'];
-        $date = $row['submit_date'];
+        $client_ID = $row['client_id'];
+        $date = $row['registerd_datte'];
         $status = $row['satuts'];
-        $l_type = $row['category'];
-        $c_type = $row['C_type'];
+        $l_type = $row['C_type'];
         $amount = $row['Amount'];
-        $title = $row['title'];
         $name = $row['name'];
     }
+    function getCasesIds($conn)
+    {
+        $query = "SELECT `case_id` FROM `cases` WHERE `lawyer_id` = 'LW13'";
+        $result = $conn->query($query);
 
+        $caseIds = array();
+        while ($row = $result->fetch_assoc()) {
+            $caseIds[] = $row['case_id'];
+        }
+
+        return $caseIds;
+    }
+    $caseIds = getCasesIds($conn);
+    function getProfit($conn)
+    {
+        $query = "SELECT SUM(`Amount`) AS total_profit FROM `cases` WHERE `lawyer_id` = 'LW13'";
+        $result = $conn->query($query);
+        if ($result && $result->num_rows === 1) {
+            return $result->fetch_assoc()['total_profit'];
+        }
+        return 0;
+    }
+    $profit = getProfit($conn);
+    function getcountcases($conn)
+    {
+        $query = "SELECT COUNT(`case_id`) AS total_cases FROM `cases` WHERE `satuts` = 'Pending'";
+        $result = $conn->query($query);
+        if ($result && $result->num_rows === 1) {
+            return $result->fetch_assoc()['total_cases'];
+        }
+        return 0;
+    }
+    $countcases = getcountcases($conn);
     ?>
+
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
@@ -120,8 +178,9 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3  col-lg-6 col-sm-12 align-items-center customers">
                                 <div class="media-body">
+                                    <h3 class="fs-18 text-black font-w600"></h3>
                                     <span class="text-primary d-block fs-18 font-w500 mb-1"><?php echo $Case_ID ?></span>
-                                    <h3 class="fs-18 text-black font-w600"><?php echo $c_type ?></h3>
+                                    <h3 class="fs-18 text-black font-w600"></h3>
                                     <span class="d-block mb-lg-0 mb-0 fs-16"><i
                                                 class="fas fa-calendar me-3"></i>Created on <?php echo $date ?></span>
                                 </div>
@@ -131,18 +190,15 @@
                                     <img src="../../images/user.png" alt="">
                                     <div>
                                         <h3 class="fs-18 text-black font-w600"><?php echo $l_type ?></h3>
-                                        <!--<small class="d-block fs-16 font-w400">-->
-                                        <?php //echo $l_type?><!--</small>-->
-                                        <span class="fs-18 font-w500"><?php echo $title . " " . $name ?></span>
+                                        <span class="fs-18 font-w500"><?php echo  $name ?></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-3 text-lg-right">
                                 <div class="d-flex project-image">
-                                    <img src="../../images/user.png" alt="">
+
                                     <div>
-                                        <small class="d-block fs-16 font-w400">Assistant</small>
-                                        <span class="fs-18 font-w500">Marley Dokidis</span>
+                                        <h3 class="fs-18 text-black font-w600"><?php echo "RS " . $amount ?></h3>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +220,7 @@
                                     </svg>
                                     <div>
                                         <small class="d-block fs-16 font-w400">Last Update</small>
-                                        <span class="fs-18 font-w500">Tuesday,  Sep 29th 2020</span>
+                                        <span class="fs-18 font-w500"><?php echo $currentDateTime; ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -186,8 +242,9 @@
                                               <i class="flaticon-381-user-7"></i>
                                           </span>
                                         <div class="media-body text-white align-left">
-                                            <p class="mb-1">Total Due Payment</p>
-                                            <h3 class="text-white"><?php echo "RS " . $amount ?></h3>
+                                            <p class="mb-1">Total</p>
+                                            <h2 class="text-white"><?php echo "RS " ?></h2>
+                                            <h3 class="text-white"><?php echo $profit ?></h3>
                                         </div>
                                         <script>
                                             function redirectToPayment() {
@@ -204,9 +261,9 @@
                                     <div>
                                         <h4 class="fs-18 font-w600 mb-4 text-nowrap">New Cases</h4>
                                         <div class="">
-                                            <h2 class="text-success fs-32 font-w700"><?php echo "+ " . $lawyerCount; ?></h2>
+                                            <h3 class="text-success fs-32 font-w700"><?php echo "+ " . $countcases; ?></h3>
                                             <span class="d-block fs-16 font-w400">
-                                                <small class="text-success">Total Cases To Manage</small></span>
+                                                <small class="text-success">Total New Cases To Manage</small></span>
                                         </div>
                                     </div>
                                     <div id="NewCustomers"></div>
@@ -274,7 +331,7 @@
                                 <div class="card-header d-block">
                                     <h4 class="card-title">Latest Updates</h4>
                                     <p class="m-0 subtitle">Latest updates of the case
-                                        <code><?php echo $Case_ID ?></code></p>
+                                        <code><?php echo $cases_id ?></code></p>
                                 </div>
                                 <div class="card-body">
 
@@ -328,50 +385,58 @@
                             <div class="card">
                                 <div class="card-header d-block">
                                     <h4 class="card-title">Send a Statement</h4>
-                                    <div class="dropdown custom-dropdown">
-                                        <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                            Select The Case: &nbsp;<code id="selectedCase">Case ID</code>
+                                    <form method="POST">
+                                        <div class="dropdown custom-dropdown">
+                                            <div class="dropdown-toggle" data-bs-toggle="dropdown">
+                                                Select The Case: &nbsp;<code id="selectedCase">Case ID</code>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <?php foreach ($caseIds as $caseId) : ?>
+                                                    <a class="dropdown-item case-item" href="#" data-case="<?php echo $caseId; ?>"><?php echo $caseId; ?></a>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <input type="hidden" id="selectedCaseInput" name="selectedCaseInput">
                                         </div>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#" data-case="Case 1">Case 1</a>
-                                            <a class="dropdown-item" href="#" data-case="Case 2">Case 2</a>
-                                            <a class="dropdown-item" href="#" data-case="Case 3">Case 3</a>
+                                        <div class="basic-form">
+                                            <div class="input-group mb-3 input-primary">
+                                                <input type="text" name="topic" class="form-control input-default" placeholder="Statement Heading Here">
+                                                <button type="submit" name="submit" class="btn btn-primary btn-sm">
+                                                    Send Statement
+                                                </button>
+                                            </div>
+                                            <textarea name="message"
+                                                      class="form-control input-default fixed-textarea"
+                                                      placeholder="Statement Here"></textarea>
                                         </div>
-                                    </div>
+                                        <style>
+                                            .fixed-textarea {
+                                                resize: none;
+                                                height: 60%;
+                                                border: 1px solid #6c4bae;
+                                            }
+                                        </style>
+                                        <br>
+
+
+                                    </form>
                                     <script>
-                                        const dropdownItems = document.querySelectorAll('.dropdown-item');
+                                        const dropdownItems = document.querySelectorAll('.case-item');
                                         const selectedCase = document.getElementById('selectedCase');
+                                        const selectedCaseInput = document.getElementById('selectedCaseInput');
 
                                         dropdownItems.forEach(item => {
-                                            item.addEventListener('click', function () {
+                                            item.addEventListener('click', function (event) {
+                                                event.preventDefault();
                                                 const caseText = this.getAttribute('data-case');
                                                 selectedCase.textContent = caseText;
+                                                selectedCaseInput.value = caseText; // Update the hidden input value
                                             });
                                         });
                                     </script>
                                 </div>
                                 <div class="card-body">
                                     <div class="accordion">
-                                        <form method="post">
-                                            <div class="basic-form">
-                                                <div class="input-group mb-3 input-primary">
-                                                    <input type="text" name="topic" class="form-control input-default"
-                                                           placeholder="Statement Heading Here">
-                                                    <button type="submit" name="submit" class="btn btn-primary btn-sm">Send Statement</button>
-                                                </div>
-                                                <textarea name="message"
-                                                          class="form-control input-default fixed-textarea"
-                                                          placeholder=""></textarea>
-                                            </div>
-                                            <style>
-                                                .fixed-textarea {
-                                                    resize: none;
-                                                    height: 60%;
-                                                    border: 1px solid #6c4bae;
-                                                }
-                                            </style>
-                                            <br>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -383,15 +448,13 @@
     </div>
 </div>
 
-
-
-                        <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-                        <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-                        <script src="../../vendor/apexchart/apexchart.js"></script>
-                        <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-                        <script src="../../vendor/peity/jquery.peity.min.js"></script>
-                        <script src="../../js/dlabnav-init.js"></script>
-                        <script src="../../js/styleSwitcher.js"></script>
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../vendor/apexchart/apexchart.js"></script>
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/peity/jquery.peity.min.js"></script>
+<script src="../../js/dlabnav-init.js"></script>
+<script src="../../js/styleSwitcher.js"></script>
 
 
 
