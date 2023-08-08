@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2023 at 08:38 PM
+-- Generation Time: Aug 08, 2023 at 02:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,20 +51,22 @@ INSERT INTO `admin` (`name`, `contact_number`, `username`, `password`, `email`, 
 --
 
 CREATE TABLE `appointment` (
-                               `Appoinmnet_id` varchar(20) NOT NULL,
+                               `Appointment_id` varchar(20) NOT NULL,
                                `Case_Type` varchar(50) NOT NULL,
                                `Lawyer_Id` varchar(50) NOT NULL,
                                `Description` varchar(100) NOT NULL,
-                               `client_id` varchar(50) NOT NULL
+                               `client_id` varchar(50) DEFAULT NULL,
+                               `time` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`Appoinmnet_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`) VALUES
-                                                                                                      ('APMT-000', '', '', 'Your_Description_Here', ''),
-                                                                                                      ('APMT-001', '', '', 'Your_Description_Here', '');
+INSERT INTO `appointment` (`Appointment_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`, `time`) VALUES
+                                                                                                               ('APM-0001', 'Employment Law', '9', 'This is testing', NULL, '2023-08-12'),
+                                                                                                               ('APM-0002', 'Corporate Law', '14', 'Testing 2', NULL, '2023-08-17'),
+                                                                                                               ('CLT-0001', 'Corporate Law', '11', 'Testing date', NULL, '2023-08-09');
 
 -- --------------------------------------------------------
 
@@ -246,11 +248,9 @@ INSERT INTO `client_statement` (`statement_id`, `client_id`, `lawyer_id`, `messa
                                                                                                              ('SMT-004', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
                                                                                                              ('SMT-005', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
                                                                                                              ('SMT-006', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
-                                                                                                             ('SMT-007', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
-                                                                                                             ('SMT-008', '', '', 'Orange S.A., formerly France Télécom S.A. is a French multinational telecommunications corporation. ', 'soooriyo', '16'),
-                                                                                                             ('SMT-009', '', '', 'Orange S.A., formerly France Télécom S.A. is a French multinational telecommunications corporation. ', 'soooriyo', '16'),
-                                                                                                             ('SMT-010', '', '', 'Hi', 'Test0_Sadee', '16'),
-                                                                                                             ('SMT-011', '', '', 'Hi', 'Test0_Sadee', '16');
+                                                                                                             ('SMT-007', '', '', 'Empty Testing', 'Empty Testing', '16'),
+                                                                                                             ('SMT-008', '', '', 'Empty Testing', 'Empty Testing2', '16'),
+                                                                                                             ('SMT-009', '', '', 'DuU9U+KlrA1kaLVAU9f3LzVTT1dXcjV3TGNuWDkxbTZ5NmVxck9mdzltQlNlNHlzSlUxbjF4dFBUT0E9', 'Empty Testing', '16');
 
 -- --------------------------------------------------------
 
@@ -371,30 +371,30 @@ CREATE TABLE `lawyer` (
                           `contact_number` varchar(50) NOT NULL,
                           `password` varchar(50) NOT NULL,
                           `status` varchar(10) NOT NULL,
-                          `Avilable_date` date DEFAULT NULL
+                          `Available_Date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lawyer`
 --
 
-INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`, `Avilable_date`) VALUES
-                                                                                                                                      ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active', '2023-08-08'),
-                                                                                                                                      ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive', '2023-08-09'),
-                                                                                                                                      ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold', '2023-08-16'),
-                                                                                                                                      ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', 'Criminal Law', '2223334448', 'secretpass', 'Active', '2023-08-16'),
-                                                                                                                                      ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', 'Corporate Law', '7778889992', 'mypassword', 'Block', '2023-08-17'),
-                                                                                                                                      ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold', '2023-08-14'),
-                                                                                                                                      ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active', '2023-08-20'),
-                                                                                                                                      ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive', '2023-08-19'),
-                                                                                                                                      ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active', '2023-08-24'),
-                                                                                                                                      ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold', '2023-08-30'),
-                                                                                                                                      ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active', '2023-08-28'),
-                                                                                                                                      ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active', '2023-08-31'),
-                                                                                                                                      ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active', '2023-08-27'),
-                                                                                                                                      ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active', '2023-08-12'),
-                                                                                                                                      ('LW01', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active', '2023-08-31'),
-                                                                                                                                      ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Inactive', '2023-08-21');
+INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `password`, `status`, `Available_Date`) VALUES
+                                                                                                                                       ('10', 'Paralegal', 'Olivia Lewis', 'olivia.lewis@example.com', 'Immigration Law', '7778889990', 'mypassword', 'Active', '2023-08-08'),
+                                                                                                                                       ('11', 'Arbitrator', 'William Turner', 'william.turner@example.com', 'Corporate Law', '3334445556', 'securepass', 'Inactive', '2023-08-09'),
+                                                                                                                                       ('12', 'Legal Consultant', 'Sophia Hernandez', 'sophia.hernandez@example.com', 'Family Law', '9990001112', 'pass123', 'Hold', '2023-08-16'),
+                                                                                                                                       ('13', 'Trial Lawyer', 'Ethan Clark', 'ethan.clark@example.com', 'Criminal Law', '2223334448', 'secretpass', 'Active', '2023-08-16'),
+                                                                                                                                       ('14', 'Legal Analyst', 'Ava Roberts', 'ava.roberts@example.com', 'Corporate Law', '7778889992', 'mypassword', 'Block', '2023-08-17'),
+                                                                                                                                       ('15', 'Legal Officer', 'Benjamin Thompson', 'benjamin.thompson@example.com', 'Intellectual Property Law', '1112223338', '12345678', 'Hold', '2023-08-14'),
+                                                                                                                                       ('17', 'Legal Counselor', 'Henry Wilson', 'henry.wilson@example.com', 'Personal Injury Law', '9998887772', 'mysecretpass', 'Active', '2023-08-20'),
+                                                                                                                                       ('18', 'Legal Advocate', 'Lily Anderson', 'lily.anderson@example.com', 'Tax Law', '3332221114', 'lawyerpass', 'Inactive', '2023-08-19'),
+                                                                                                                                       ('21', 'Legal Specialist', 'James White', 'james.white@example.com', 'Employment Law', '7776665556', 'securepass', 'Active', '2023-08-24'),
+                                                                                                                                       ('3', 'Advocate', 'David Johnson', 'david.johnson@example.com', 'Criminal Law', '5551234567', 'pass123', 'Hold', '2023-08-30'),
+                                                                                                                                       ('4', 'Barrister', 'Sarah Williams', 'sarah.williams@example.com', 'Immigration Law', '9998887776', 'secretpass', 'Active', '2023-08-28'),
+                                                                                                                                       ('5', 'Solicitor', 'Michael Brown', 'michael.brown@example.com', 'Intellectual Property Law', '1112223334', 'mypassword', 'Active', '2023-08-31'),
+                                                                                                                                       ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active', '2023-08-27'),
+                                                                                                                                       ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active', '2023-08-12'),
+                                                                                                                                       ('LW01', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active', '2023-08-31'),
+                                                                                                                                       ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Inactive', '2023-08-21');
 
 --
 -- Triggers `lawyer`
@@ -511,7 +511,7 @@ ALTER TABLE `admin`
 -- Indexes for table `appointment`
 --
 ALTER TABLE `appointment`
-    ADD PRIMARY KEY (`Appoinmnet_id`);
+    ADD PRIMARY KEY (`Appointment_id`);
 
 --
 -- Indexes for table `assistant`
