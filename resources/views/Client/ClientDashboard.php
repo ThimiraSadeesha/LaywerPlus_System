@@ -44,21 +44,28 @@
 
         insert_statement($topic, $message);
     }
-
+    function encryptMessage($message, $key): string
+    {
+        $iv = random_bytes(16);
+        $encrypted = openssl_encrypt($message, "AES-256-CBC", $key, 0, $iv);
+        return base64_encode($iv . $encrypted);
+    }
     function insert_statement($topic, $message) {
         include '../Admin/DB_Connection.php';
         global $conn;
-
+        $secretKey = "Lawyer_Plus_System";
+        $encryptedMessage = encryptMessage($message, $secretKey);
         $topic = $conn->real_escape_string($topic);
         $message = $conn->real_escape_string($message);
         $statement_id = generate_statement_id();
-        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '', '', '$message', '$topic', 16)";
+        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '', '', '$encryptedMessage', '$topic', 16)";
         if ($conn->query($sql) === TRUE) {
             echo "Data inserted successfully.";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
+
     function getLatestStatements($conn)
     {
         $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
@@ -71,15 +78,29 @@
     }
 
     $latestStatements = getLatestStatements($conn);
+    function decryptMessage($latestStatements, $key) {
+        $data = base64_decode($latestStatements);
+        $iv = substr($data, 0, 16);
+        $encrypted = substr($data, 16);
+        return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+    }
 
     if (!empty($latestStatements)) {
+        $secretKey = "Lawyer_Plus_System";
+        // Decrypt and process the first statement
         $firstTopic = $latestStatements[0]['Topic'];
-        $firstMessage = $latestStatements[0]['message'];
-        $secondTopic = $latestStatements[1]['Topic'];
-        $secondMessage = $latestStatements[1]['message'];
-        $thirdTopic = $latestStatements[2]['Topic'];
-        $thirdMessage = $latestStatements[2]['message'];
+        $firstEncryptedMessage = $latestStatements[0]['message'];
+        $firstMessage = decryptMessage($firstEncryptedMessage, $secretKey);
 
+        // Decrypt and process the second statement
+        $secondTopic = $latestStatements[1]['Topic'];
+        $secondEncryptedMessage = $latestStatements[1]['message'];
+        $secondMessage = decryptMessage($secondEncryptedMessage, $secretKey);
+
+        // Decrypt and process the third statement
+        $thirdTopic = $latestStatements[2]['Topic'];
+        $thirdEncryptedMessage = $latestStatements[2]['message'];
+        $thirdMessage = decryptMessage($thirdEncryptedMessage, $secretKey);
     } else {
         echo "No statements found.";
     }
