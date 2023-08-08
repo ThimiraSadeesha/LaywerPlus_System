@@ -12,13 +12,13 @@ if ($conn->connect_error) {
 
 $lawyerId = $_GET['lawyerId'];
 
-$timeQuery = "SELECT DISTINCT `Available_Date` FROM `lawyer` WHERE `lawyer_id` = '$lawyerId'";
+$timeQuery = "SELECT DISTINCT `Available_time` FROM `lawyer_availablility` WHERE `lawyer_id` = '$lawyerId' AND `status` = 'free'";
 $timeResult = $conn->query($timeQuery);
 
 $timeOptions = array();
 if ($timeResult->num_rows > 0) {
     while ($row = $timeResult->fetch_assoc()) {
-        $timeOptions[] = $row['Available_Date'];
+        $timeOptions[] = $row['Available_time'];
     }
 }
 
