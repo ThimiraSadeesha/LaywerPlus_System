@@ -355,8 +355,6 @@
                                                            placeholder="Statement Heading Here">
                                                 </div>
                                         </div>
-                                        <!--   < class="basic-form">-->
-
                                         <textarea name="message" class="form-control input-default fixed-textarea"
                                                   placeholder=""></textarea>
                                         <style>
