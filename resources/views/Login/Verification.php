@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize variables to store messages
+// Initialize variables
 $verificationMessage = '';
 $Completed = '';
 $hideForm = false;
@@ -46,14 +46,11 @@ if (isset($_POST['submit_otp'])) {
             $updateQuery = "UPDATE inactive_users SET otp = NULL, otp_expiration = NULL WHERE USER_id = '$storedUserID'";
             $conn->query($updateQuery);
 
-            // Hide the form
             $hideForm = true;
         } else {
-            // Incorrect OTP, show sorry message
             $verificationMessage = '<div class="alert alert-danger text-center" role="alert">Sorry, the entered verification code is incorrect. Please try again.</div>';
         }
     } else {
-        // User does not exist in the inactive_users table
         $verificationMessage = '<div class="alert alert-danger text-center" role="alert">Sorry, the entered username is not found in our records.</div>';
     }
 }
