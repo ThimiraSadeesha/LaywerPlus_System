@@ -1,4 +1,5 @@
 <?php
+session_start();
 global $conn;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -10,9 +11,15 @@ require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../login/LoginFunctions.php';
 
 
-session_start();
+
 $showForm = true;
 
+function encryptMessage($password, $key): string
+{
+    $iv = random_bytes(16);
+    $encrypted = openssl_encrypt($password, "AES-256-CBC", $key, 0, $iv);
+    return base64_encode($iv . $encrypted);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullName = $_POST['name'];
@@ -21,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = $_POST['address'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $secretKey = "Lawyer_Plus_System";
+    $encryptedPassword = encryptMessage($password, $secretKey);
 
 
     $last_numeric_id = null;
@@ -46,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert the data into the database
     $sql = "INSERT INTO inactive_users (user_id, name, nic, email, contact_number, address, Password, role, status) 
-            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$password','client', 'inactive')";
+            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$encryptedPassword','client', 'inactive')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['account_created'] = true;
@@ -121,27 +130,27 @@ $conn->close();
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Full Name</strong></label>
-                                    <input type="text" name="name" class="form-control" placeholder="Full Name">
+                                    <input type="text" name="name" class="form-control" placeholder="Full Name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>National ID</strong></label>
-                                    <input type="text" name="nic" class="form-control" placeholder="National ID">
+                                    <input type="text" name="nic" class="form-control" placeholder="National ID" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Contact Number</strong></label>
-                                    <input type="text" name="phone" class="form-control" placeholder="Contact Number">
+                                    <input type="text" name="phone" class="form-control" placeholder="Contact Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Address</strong></label>
-                                    <input type="text" name="address" class="form-control" placeholder="Address">
+                                    <input type="text" name="address" class="form-control" placeholder="Address" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Email</strong></label>
-                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Password</strong></label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
                                 </div>
                                 <div class="text-center mt-4">
                                     <button type="submit" name="submit" class="btn btn-primary btn-block">Sign Up</button>

@@ -7,6 +7,8 @@
     require_once 'db_connection.php';
 
 
+
+
     // Check if the status update form is submitted
     if (isset($_POST['update_status'])) {
         $lawyerId = $_POST['lawyer_id'];

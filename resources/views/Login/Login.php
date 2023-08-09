@@ -19,19 +19,27 @@ $user = 'root';
 $password = '';
 $dbname = 'lawyerPlus';
 $conn = new mysqli($host, $user, $password, $dbname);
+function decryptMessage($password, $key)
+{
+    $data = base64_decode($password);
+    $iv = substr($data, 0, 16);
+    $encrypted = substr($data, 16);
+    return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+}
 
 // Verify login credentials
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $hashedInputPassword = Md5($password);
+    $secretKey = "Lawyer_Plus_System";
+    $decryptedPassword = decryptMessage($password, $secretKey);
 
 
     // Check Email or Username
     if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$password'";
+        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$decryptedPassword'";
     } else {
-        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
+        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$decryptedPassword'";
     }
 
 
