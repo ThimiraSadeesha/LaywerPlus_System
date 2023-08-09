@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2023 at 04:37 PM
+-- Generation Time: Aug 09, 2023 at 11:55 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -64,7 +64,9 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`Appointment_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`, `time`) VALUES
-    ('APM-0004', 'Corporate Law', '14', 'Need legal representation. Kindly schedule a consultation at your earliest convenience. Time-sensiti', NULL, '2023-08-04 18:00:00');
+                                                                                                               ('APM-0001', 'Corporate Law', '14', 'hJ2CiLmHHz2mcPdw9pFbElpFNnVlWFg0VTNPQ2oxMlFhN0VDK1E9PQ==', NULL, '2023-08-04 18:00:00'),
+                                                                                                               ('APM-0002', 'Immigration Law', '10', 'nUe1g7n/7CEWkUb636iDNkZLdXZVbENOVzNST0pvTUFFaUFUUEE9PQ==', NULL, '2023-08-01 09:00:00'),
+                                                                                                               ('APM-0004', 'Corporate Law', '14', 'Need legal representation. Kindly schedule a consultation at your earliest convenience. Time-sensiti', NULL, '2023-08-04 18:00:00');
 
 -- --------------------------------------------------------
 
@@ -90,7 +92,7 @@ CREATE TRIGGER `insert_user_from_assistant` AFTER INSERT ON `assistant` FOR EACH
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.assistant_id,NEW.name,'assistant',NEW.password,'inactive');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW BEGIN
@@ -101,7 +103,7 @@ CREATE TRIGGER `update_user_assistant` AFTER UPDATE ON `assistant` FOR EACH ROW 
         status = 'inactive'
     WHERE user_id = NEW.assistant_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -141,7 +143,8 @@ INSERT INTO `cases` (`case_id`, `lawyer_id`, `client_id`, `description`, `C_type
                                                                                                                           ('CSE-0010', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
                                                                                                                           ('CSE-0011', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '0000-00-00', 'Pending', 8970),
                                                                                                                           ('CSE-0012', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970),
-                                                                                                                          ('CSE-0013', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970);
+                                                                                                                          ('CSE-0013', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970),
+                                                                                                                          ('CSE-0014', 'LW13', 'CLT-0006', 'divorces', 'Family Law', '1970-01-01', 'Pending', 8970);
 
 -- --------------------------------------------------------
 
@@ -185,13 +188,13 @@ CREATE TRIGGER `after_update_inactive_user` AFTER UPDATE ON `client` FOR EACH RO
     SET status = 'Active'
     WHERE client_id = NEW.client_id;
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `delete_from_user_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.client_id;
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW BEGIN
@@ -199,14 +202,14 @@ CREATE TRIGGER `insert_user_from_client` AFTER INSERT ON `client` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.client_id,NEW.name,'client',NEW.password,'Active');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger_client` AFTER DELETE ON `client` FOR EACH ROW BEGIN
     INSERT INTO deleted_client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, OLD.status);
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
@@ -217,7 +220,7 @@ CREATE TRIGGER `update_user_from_client` AFTER UPDATE ON `client` FOR EACH ROW B
         status = 'Active'
     WHERE user_id = NEW.client_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -248,7 +251,15 @@ INSERT INTO `client_statement` (`statement_id`, `client_id`, `lawyer_id`, `messa
                                                                                                              ('SMT-006', '', '', 'The most powerful Mac laptops and desktops ever ..', 'thimi', '16'),
                                                                                                              ('SMT-007', '', '', 'Empty Testing', 'Empty Testing', '16'),
                                                                                                              ('SMT-008', '', '', 'Empty Testing', 'Empty Testing2', '16'),
-                                                                                                             ('SMT-009', '', '', 'DuU9U+KlrA1kaLVAU9f3LzVTT1dXcjV3TGNuWDkxbTZ5NmVxck9mdzltQlNlNHlzSlUxbjF4dFBUT0E9', 'Empty Testing', '16');
+                                                                                                             ('SMT-009', '', '', 'DuU9U+KlrA1kaLVAU9f3LzVTT1dXcjV3TGNuWDkxbTZ5NmVxck9mdzltQlNlNHlzSlUxbjF4dFBUT0E9', 'Empty Testing', '16'),
+                                                                                                             ('SMT-010', '', '', '8y4QO0hybQb8LAM/+UdONzFadk9pcndPV1FTenROVUZwOHhUeHJxOS9YZnpCZEx6MStrdUE4UnhHYTA9', 'thimi', 'CSE-0002'),
+                                                                                                             ('SMT-011', '', '', '+JKyszOpDqWVqtzLKe0w5EsyRldXRkpGUUZqL2RlNVl0Wks1NlE9PQ==', 'hyyyyy', 'CSE-0003'),
+                                                                                                             ('SMT-012', '', '', 'kOZ3P+PnIXpvWU5UfWRr03dPbjdwbWt1L1RQcmgvMzExMkQ2TUFSNVZZYUxPaDFpeWtIQUdMRkZJOW89', 'Test', 'CSE-0004'),
+                                                                                                             ('SMT-013', '', '', 'HTLUJXQ2Uk8ovB8uNh2BokZLT1RuRFZsbXJRd29iL1BSREc0YS84Q2t5WGVFUDkrN2NaOS93SnhpZ3c9', 'Test', 'CSE-0004'),
+                                                                                                             ('SMT-014', '', '', 'vdTSvPTGqmozFnyCEkE6Qm9kenREUXIwRDJNMFN5eEVKREFGbjJWYTh2RGVxU3dGZEpXMUdpb1Z3aUU9', 'Test', 'CSE-0004'),
+                                                                                                             ('SMT-015', '', '', 'Otg3xumcfmzhvsvbrM41cldhNVI4RzdNd05ubEgyYzRxclRWeFE9PQ==', 'Test0_Sadee', 'CS-006'),
+                                                                                                             ('SMT-016', '', '', 'aDGH+Uk4QzY2VVoehgy9TXpnSXczcU1YMEZGZE5lWkYwOHdkRWc9PQ==', 'Test', 'CS-005'),
+                                                                                                             ('SMT-017', '', '', 'WVffEFAg+GbbJvwIMCwnAVF1Q0FGMTg5S2JiOHp0L2VZcG1QR1E9PQ==', 'Test', 'CS-005');
 
 -- --------------------------------------------------------
 
@@ -287,7 +298,7 @@ CREATE TRIGGER `insert _to_client` AFTER DELETE ON `deleted_client` FOR EACH ROW
     INSERT INTO client (`client_id`, `name`, `nic`, `email`, `DOB`, `contact_number`, `address`, `password`, `registerd_datte`, `status`)
     VALUES (OLD.client_id, OLD.name, OLD.nic, OLD.email, OLD.DOB, OLD.contact_number, OLD.address, OLD.password, OLD.registerd_datte, 'Active');
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -323,7 +334,7 @@ CREATE TRIGGER `record_deletion_trigger_to_lawyer` AFTER DELETE ON `deleted_lawy
     INSERT INTO lawyer (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, 'Active');
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -392,6 +403,7 @@ INSERT INTO `lawyer` (`lawyer_id`, `title`, `name`, `email`, `category`, `contac
                                                                                                                                        ('8', 'Jurist', 'Daniel Martinez', 'daniel.martinez@example.com', 'Tax Law', '8887776660', 'mysecretpass', 'Active', '2023-08-27 00:00:00'),
                                                                                                                                        ('9', 'Legal Advisor', 'Jessica Thompson', 'jessica.thompson@example.com', 'Employment Law', '4445556662', 'lawyerpass', 'Active', '2023-08-12 00:00:00'),
                                                                                                                                        ('LW01', 'Mr.', 'John Doe', 'john.doe@example.com', 'Corporate Law', '1234567890', 'password123', 'Active', '2023-08-31 00:00:00'),
+                                                                                                                                       ('LW05', 'Dr', 'sadeee', 'sadee1@gmail.com', 'Family Law', '0118792481', '123456', 'Active', '2023-08-08 00:00:00'),
                                                                                                                                        ('LW13', 'Chamara', 'Galagedra', 'jane.smith@example.com', 'Family Law', '9876543210', '123345', 'Inactive', NULL);
 
 --
@@ -401,7 +413,7 @@ DELIMITER $$
 CREATE TRIGGER `delete_from_user` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     DELETE FROM user WHERE user.user_id = OLD.lawyer_id;
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW BEGIN
@@ -409,14 +421,14 @@ CREATE TRIGGER `insert_user_from_lawyer` AFTER INSERT ON `lawyer` FOR EACH ROW B
     INSERT INTO user (user_id, name, role, password, status)
     VALUES (NEW.lawyer_id,NEW.name,'lawyer',NEW.password,'Active');
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `record_deletion_trigger` AFTER DELETE ON `lawyer` FOR EACH ROW BEGIN
     INSERT INTO deleted_lawyers (lawyer_id, title, name, email, category, contact_number, password, status)
     VALUES (OLD.lawyer_id, OLD.title, OLD.name, OLD.email, OLD.category, OLD.contact_number, OLD.password, OLD.status);
 END
-$$
+    $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
@@ -427,7 +439,7 @@ CREATE TRIGGER `update_user_lawyer` AFTER UPDATE ON `lawyer` FOR EACH ROW BEGIN
         status = 'Active'
     WHERE user_id = NEW.lawyer_id;
 END
-$$
+    $$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -497,6 +509,7 @@ INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `Email`, `status`, `o
                                                                                                            ('10', 'Olivia Lewis', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
                                                                                                            ('11', 'William Turner', 'lawyer', 'securepass', '', 'Active', NULL, NULL),
                                                                                                            ('12', 'Sophia Hernandez', 'lawyer', 'pass123', '', 'Active', NULL, NULL),
+                                                                                                           ('12345', 'bandara', 'lawyer', '12345', '', 'Active', NULL, NULL),
                                                                                                            ('13', 'Ethan Clark', 'lawyer', 'secretpass', '', 'Active', NULL, NULL),
                                                                                                            ('14', 'Ava Roberts', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
                                                                                                            ('15', 'Benjamin Thompson', 'lawyer', '12345678', '', 'Active', NULL, NULL),
@@ -511,13 +524,13 @@ INSERT INTO `user` (`user_id`, `name`, `role`, `password`, `Email`, `status`, `o
                                                                                                            ('5', 'Michael Brown', 'lawyer', 'mypassword', '', 'Active', NULL, NULL),
                                                                                                            ('8', 'Daniel Martinez', 'lawyer', 'mysecretpass', '', 'Active', NULL, NULL),
                                                                                                            ('9', 'Jessica Thompson', 'lawyer', 'lawyerpass', '', 'Active', NULL, NULL),
-                                                                                                           ('CLT-0003', 'Thimira Sadeesha', 'client', 'e2fc714c4727ee9395f324cd2', '', 'Active', NULL, NULL),
+                                                                                                           ('Admin', 'xxxx', 'admin', '1111', 'sadeeshathimira2000@gmail', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0003', 'Thimira Sadeesha', 'client', '1234', '', 'Active', NULL, NULL),
                                                                                                            ('CLT-0004', 'abcd', 'client', 'e10adc3949ba59abbe56e057f', '', 'Active', NULL, NULL),
-                                                                                                           ('CLT-0005', 'xxxx', 'client', 'e10adc3949ba59abbe56e057f', '', 'Active', NULL, NULL),
-                                                                                                           ('CLT-0006', 'Admin', 'client', '25f9e794323b453885f5181f1', '', 'Active', NULL, NULL),
+                                                                                                           ('CLT-0006', 'Admin', 'client', '2468', '', 'Active', NULL, NULL),
                                                                                                            ('E2046022', 'Kanishka_Bandara', 'client', 'admin@1234', '', 'Active', NULL, NULL),
                                                                                                            ('E2046315', 'Tharuka', 'client', 'admin@123', '', 'Active', NULL, NULL),
-                                                                                                           ('E23456', 'bandara', 'client', '', '', 'Active', NULL, NULL),
+                                                                                                           ('LW05', 'sadeee', 'lawyer', '123456', '', 'Active', NULL, NULL),
                                                                                                            ('sdeelz', 'ddcd', 'client', '', '', 'Active', NULL, NULL),
                                                                                                            ('soori', 'Tharuka', 'client', 'soori', 'tharukaravisara@gmail.com', 'active', NULL, NULL);
 
@@ -542,15 +555,15 @@ ALTER TABLE `appointment`
 --
 ALTER TABLE `assistant`
     ADD PRIMARY KEY (`assistant_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `cases`
 --
 ALTER TABLE `cases`
     ADD PRIMARY KEY (`case_id`),
-    ADD KEY `client_id` (`client_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `client`
@@ -593,14 +606,14 @@ ALTER TABLE `lawyer`
 --
 ALTER TABLE `lawyer_availablility`
     ADD PRIMARY KEY (`time_id`),
-    ADD KEY `lawyer_id` (`lawyer_id`);
+  ADD KEY `lawyer_id` (`lawyer_id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
     ADD PRIMARY KEY (`payment_id`),
-    ADD KEY `client_id` (`client_id`);
+  ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `user`
