@@ -14,6 +14,7 @@
     }
 
 
+
     ?>
 
     <!-- Content body start -->
@@ -22,7 +23,7 @@
             <div class="row page-titles">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active"><a>Administrator</a></li>
-                    <li class="breadcrumb-item"><a>Clients</a></li>
+                    <li class="breadcrumb-item"><a>Appointments</a></li>
                 </ol>
             </div>
             <div class="row">
@@ -33,19 +34,16 @@
                                 <table class="table table-sm mb-0">
                                     <thead>
                                     <tr>
+                                        <th class="align-middle"><strong>Appointment ID</strong></th>
+                                        <th class="align-middle"><strong>Case Type</strong></th>
+                                        <th class="align-middle"><strong>Lawyer ID</strong></th>
                                         <th class="align-middle"><strong>Client ID</strong></th>
-                                        <th class="align-middle"><strong>Name</strong></th>
-                                        <th class="align-middle"><strong>NIC</strong></th>
-                                        <th class="align-middle"><strong>Email</strong></th>
-                                        <th class="align-middle"><strong>DOB</strong></th>
-                                        <th class="align-middle"><strong>Contact Number</strong></th>
-                                        <th class="align-middle"><strong>Address</strong></th>
-                                        <th class="align-middle"><strong>Registered Date</strong></th>
+
                                     </tr>
                                     </thead>
                                     <tbody id="orders">
                                     <?php
-                                    $sql = "SELECT * FROM `client` ";
+                                    $sql = "SELECT * FROM `appointment` ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -55,21 +53,16 @@
 
                                             echo '<td class="py-2">
                                                             <a href="#">
-                                                                <strong>' . $row['client_id'] . '</strong>
+                                                                <strong>' . $row['Appointment_id'] . '</strong>
                                                             </a>
                                                         </td>';
 
-                                            echo "<td>" . $row['name'] . "</td>";
-                                            echo "<td>" . $row['nic'] . "</td>";
-                                            echo "<td>" . $row['email'] . "</td>";
-                                            echo "<td>" . $row['DOB'] . "</td>";
-                                            echo "<td>" . $row['contact_number'] . "</td>";
-                                            echo "<td>" . $row['address'] . "</td>";
-//                                            echo "<td>" . $row['password'] . "</td>";
-                                            echo "<td>" . $row['registerd_datte'] . "</td>";
+                                            echo "<td>" . $row['Case_Type'] . "</td>";
+                                            echo "<td>" . $row['Lawyer_Id'] . "</td>";
+                                            echo "<td>" . $row['client_id'] . "</td>";
+
                                             echo '</tr>';
 
-                                            echo "</tr>";
                                         }
                                     } else {
                                         echo "<tr><td colspan='7'>No data found</td></tr>";
@@ -85,6 +78,7 @@
         </div>
     </div>
 </div>
+
 
 
 
