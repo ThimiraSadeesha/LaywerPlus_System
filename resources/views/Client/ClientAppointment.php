@@ -18,7 +18,7 @@
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
-    
+
 
     // Check connection
     if ($conn->connect_error) {
@@ -59,7 +59,7 @@
             $middleNumber = str_pad($last_numeric_id + 1, 4, '0', STR_PAD_LEFT);
             $appointmentId = "APM-" . $middleNumber;
 
-            // Check if the appointment ID already exists
+            // if the appointment ID already exists
             $checkQuery = "SELECT * FROM `appointment` WHERE `Appointment_id` = '$appointmentId'";
             $checkResult = $conn->query($checkQuery);
             if ($checkResult->num_rows === 0) {
@@ -207,50 +207,50 @@
                         </div>
                     </div>
                 </div>
-<script>
-    function updateLawyerOptions(category) {
-        if (category !== "") {
-            $.ajax({
-                url: "GetLawyerData.php",
-                method: "GET",
-                data: {category: category},
-                dataType: "json",
-                success: function (data) {
-                    var options = '<option value="" disabled selected>Select Your Lawyer</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        options += '<option value="' + data[i].lawyer_id + '">' + data[i].name + '</option>';
+                <script>
+                    function updateLawyerOptions(category) {
+                        if (category !== "") {
+                            $.ajax({
+                                url: "GetLawyerData.php",
+                                method: "GET",
+                                data: {category: category},
+                                dataType: "json",
+                                success: function (data) {
+                                    var options = '<option value="" disabled selected>Select Your Lawyer</option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        options += '<option value="' + data[i].lawyer_id + '">' + data[i].name + '</option>';
+                                    }
+                                    $("#lawyerDropdown").html(options);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error(error);
+                                }
+                            });
+                        } else {
+                            $("#lawyerDropdown").html('<option value="" disabled selected>Select Your Lawyer</option>');
+                        }
                     }
-                    $("#lawyerDropdown").html(options);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        } else {
-            $("#lawyerDropdown").html('<option value="" disabled selected>Select Your Lawyer</option>');
-        }
-    }
 
-    function updateTimeOptions(lawyerId) {
-        if (lawyerId !== "") {
-            $.ajax({
-                url: "GetLawyerTimes.php",
-                method: "GET",
-                data: {lawyerId: lawyerId},
-                dataType: "json",
-                success: function (data) {
-                    var timeOptions = '<option value="" disabled selected>Select Date & Time</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        timeOptions += '<option value="' + data[i] + '">' + data[i] + '</option>';
+                    function updateTimeOptions(lawyerId) {
+                        if (lawyerId !== "") {
+                            $.ajax({
+                                url: "GetLawyerTimes.php",
+                                method: "GET",
+                                data: {lawyerId: lawyerId},
+                                dataType: "json",
+                                success: function (data) {
+                                    var timeOptions = '<option value="" disabled selected>Select Date & Time</option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        timeOptions += '<option value="' + data[i] + '">' + data[i] + '</option>';
+                                    }
+                                    $("#dateAndTimeDropdown").html(timeOptions);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error(error);
+                                }
+                            });
+                        } else {
+                            $("#dateAndTimeDropdown").html('<option value="" disabled selected>Select Date & Time</option>');
+                        }
                     }
-                    $("#dateAndTimeDropdown").html(timeOptions);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        } else {
-            $("#dateAndTimeDropdown").html('<option value="" disabled selected>Select Date & Time</option>');
-        }
-    }
-</script>
+                </script>
