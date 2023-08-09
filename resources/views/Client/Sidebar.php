@@ -44,43 +44,31 @@
         </svg>
 
         <?php
-        header('Cache-Control: no cache');
-        session_cache_limiter('private_no_expire');
-
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $dbname = 'lawyerPlus';
-
-        $conn = new mysqli($host, $user, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die('Connection failed: ' . $conn->connect_error);
-        }
-
-        $sql = "SELECT username FROM admin";
 
 
-        $result = $conn->query($sql);
 
-        $usernames = array();
+            $host = 'localhost';
+            $user = 'root';
+            $password = '';
+            $dbname = 'lawyerPlus';
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $usernames[] = $row["username"];
+            $conn = new mysqli($host, $user, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die('Connection failed: ' . $conn->connect_error);
             }
-        } else {
-            echo "No results found";
-        }
+            $user_id = $_SESSION['user_id'];
+
 
         $conn->close();
         ?>
         <div class="brand-title">
             <h2 class="">
         <?php
-        foreach ($usernames as $username) {
-            echo $username . "<br>";
-        }
+        echo $_SESSION['user_id'];
+//        foreach ($usernames as $username) {
+//            echo $username . "<br>";
+//        }
         ?>
             </h2>
             <span class="brand-sub-title">Welcome Back</span>
@@ -154,6 +142,12 @@
                 <a href="FindLawyer.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Lawyers</span>
+                </a>
+            </li>
+            <li>
+                <a href="CaseSubmit.php">
+                    <i class="fas fa-sticky-note"></i>
+                    <span class="nav-text">New Case</span>
                 </a>
             </li>
             <li>

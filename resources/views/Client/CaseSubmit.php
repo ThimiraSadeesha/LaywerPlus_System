@@ -1,6 +1,7 @@
 <div id="main-wrapper">
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <?php
+    session_start();
     include "Sidebar.php";
 
     $host = 'localhost';
@@ -11,6 +12,16 @@
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
+    }
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+
+    } else {
+        header("Location: ../Client/login.php");
     }
 
     $query = "SELECT category FROM lawyer";
@@ -61,7 +72,7 @@
         $Lawyerid=$row['lawyer_id'];
 
 
-        $sql="INSERT INTO `cases`(`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`,`Amount`) VALUES ('$caseID_id','$Lawyerid','CLT-0006','$description','$selectedCategory','$formattedDate','Pending','8970')";
+        $sql="INSERT INTO `cases`(`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`,`Amount`) VALUES ('$caseID_id','$Lawyerid','$user_id','$description','$selectedCategory','$formattedDate','Pending','8970')";
         $result = $conn->query($sql);
         if ($result) {
             echo "<script>alert('Case Submitted Successfully')</script>";

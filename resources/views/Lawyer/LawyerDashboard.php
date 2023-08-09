@@ -434,11 +434,7 @@
                                         });
                                     </script>
                                 </div>
-                                <div class="card-body">
-                                    <div class="accordion">
 
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
