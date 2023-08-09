@@ -1,5 +1,7 @@
 <div id="main-wrapper">
-    <?php global $conn, $lawyerCount;
+    <?php
+    session_start();
+    global $conn, $lawyerCount;
     include '../Admin/sidebar.php';
     $host = 'localhost';
     $user = 'root';
@@ -11,6 +13,19 @@
     if ($conn->connect_error) {
         die('Connection failed: ' . $conn->connect_error);
     }
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+
+    } else {
+        header("Location: ../Client/login.php");
+    }
+
+    $sql = "SELECT `case_id`,`client_id` FROM `cases` WHERE `lawyer_id` = '$user_id'";
+    $result = $conn->query($sql);
     ?>
 
     <div class="content-body">
@@ -41,8 +56,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $sql = "SELECT `case_id`,`client_id` FROM `cases` WHERE `lawyer_id` = 'LW01'";
-                                        $result = $conn->query($sql);
+
 
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
