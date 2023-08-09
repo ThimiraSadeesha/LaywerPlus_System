@@ -32,7 +32,7 @@
     }
 
     $query = "SELECT c.`case_id`, c.`lawyer_id`, c.`C_type`, c.`submit_date`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
-      FROM `case` c
+      FROM `cases` c
       LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
       WHERE c.`client_id` = '$client_id' AND c.`satuts` = 'Pending'";
     
