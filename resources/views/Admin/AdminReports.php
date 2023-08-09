@@ -1,5 +1,7 @@
 <div id="main-wrapper">
-    <?php include 'Sidebar.php'; ?>
+    <?php
+    session_start();
+    include 'Sidebar.php'; ?>
 
     <div class="content-body">
         <div class="container-fluid">
@@ -99,30 +101,30 @@
     }
 
     // Get case counts for different case types
-    $familyCases = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Family'");
-    $businessCases = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Business'");
-    $immigrationCases = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Immigration '");
-    $civilCases = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Civil Litigation'");
-    $labourCases = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Labor'");
-    $criminalCase = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'criminal'");
+    $familyCases = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Family'");
+    $businessCases = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Business'");
+    $immigrationCases = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Immigration '");
+    $civilCases = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Civil Litigation'");
+    $labourCases = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Family Law'");
+    $criminalCase = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '2023-01-01 00:00:00' AND submit_date <= '2023-12-31 23:59:59' AND C_type = 'Criminal Law'");
 
     //get count of cases for the months
-    $jan = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-01-01' AND '2023-01-31'");
-    $feb = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-02-01' AND '2023-02-29'");
-    $march = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-03-01' AND '2023-03-31'");
-    $april = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-04-01' AND '2023-04-30'");
-    $may = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-05-01' AND '2023-05-31'");
-    $june = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-06-01' AND '2023-06-31'");
-    $july = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-07-01' AND '2023-07-31'");
-    $aug = getCount($conn, "SELECT COUNT(*) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-08-01' AND '2023-08-31'");
+    $jan = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-01-01' AND '2023-01-31'");
+    $feb = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-02-01' AND '2023-02-29'");
+    $march = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-03-01' AND '2023-03-31'");
+    $april = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-04-01' AND '2023-04-30'");
+    $may = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-05-01' AND '2023-05-31'");
+    $june = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-06-01' AND '2023-06-31'");
+    $july = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-07-01' AND '2023-07-31'");
+    $aug = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-08-01' AND '2023-08-31'");
 
     //get profit of cases for the case types
-    $criminal_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `C_type` = 'criminal'");
-    $Business_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `C_type` = 'Business'");
-    $immigration_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `C_type` = 'Immigration '");
-    $Civil_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `C_type` = 'Civil Litigation'");
-    $labour_Prof = getCount($conn, "SELECT SUM(`Amount`)  AS count FROM `case` WHERE `C_type` = 'Labor'");
-    $family_Prof = getCount($conn, "SELECT SUM(`Amount`)  AS count FROM `case` WHERE `C_type` = 'Family'");
+    $criminal_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `C_type` = 'Criminal Law'");
+    $Business_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `C_type` = 'Business'");
+    $immigration_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `C_type` = 'Immigration '");
+    $Civil_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `C_type` = 'Civil Litigation'");
+    $labour_Prof = getCount($conn, "SELECT SUM(`Amount`)  AS count FROM `cases` WHERE `C_type` = 'Family Law'");
+    $family_Prof = getCount($conn, "SELECT SUM(`Amount`)  AS count FROM `cases` WHERE `C_type` = 'Family'");
 
     //5% present of the profit
     $crimal5 = $criminal_Prof * 0.05;
@@ -133,24 +135,32 @@
     $family5 = $family_Prof * 0.05;
 
     //get profit of cases for the months
-    $jan_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-01-01' AND '2023-01-31'");
-    $feb_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-02-01' AND '2023-02-29'");
-    $march_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-03-01' AND '2023-03-31'");
-    $april_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-04-01' AND '2023-04-30'");
-    $may_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-05-01' AND '2023-05-31'");
-    $june_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-06-01' AND '2023-06-31'");
-    $july_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-07-01' AND '2023-07-31'");
-    $aug_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `case` WHERE `submit_date` BETWEEN '2023-08-01' AND '2023-08-31'");
+    $jan_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '1970-01-01' AND '2023-01-31'");
+    $feb_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-02-01' AND '2023-02-29'");
+    $march_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-03-01' AND '2023-03-31'");
+    $april_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-04-01' AND '2023-04-30'");
+    $may_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '1970-01-01' AND '2023-05-31'");
+    $june_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-06-01' AND '2023-06-31'");
+    $july_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '1970-01-01' AND '2023-07-31'");
+    $aug_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-08-01' AND '2023-08-31'");
 
     //get profit of cases for the months
-    $jan5= $jan_Prof * 0.05;
-    $feb5= $feb_Prof * 0.05;
-    $march5= $march_Prof * 0.05;
-    $april5= $april_Prof * 0.05;
-    $may5= $may_Prof * 0.05;
-    $june5= $june_Prof * 0.05;
-    $july5= $july_Prof * 0.05;
-    $aug5= $aug_Prof * 0.05;
+    $jan5= $jan_Prof * 0.10;
+    $feb5= $feb_Prof * 0.10;
+    $march5= $march_Prof * 0.10;
+    $april5= $april_Prof * 0.10;
+    $may5= $may_Prof * 0.10;
+    $june5= $june_Prof * 0.10;
+    $july5= $july_Prof * 0.10;
+    $aug5= $aug_Prof * 0.10;
+
+    //get count of cases for the case types
+    $fam = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE C_type = 'Family'");
+    $Busi = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE C_type = 'Business'");
+    $Crim = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE C_type = 'Criminal Law'");
+    $labo = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE C_type = 'Family Law'");
+    $civil = getCount($conn, "SELECT COUNT(*) AS count FROM `cases` WHERE C_type = 'Civil Litigation'");
+
 
 
 
@@ -347,12 +357,12 @@
                     if(jQuery('#doughnut_chart').length > 0 ){
                         //doughut chart
                         const doughnut_chart = document.getElementById("doughnut_chart").getContext('2d');
-                        var Fam_Value = <?php echo json_encode($familyCases); ?>;
-                        var Busi_Value = <?php echo json_encode($businessCases); ?>;
+                        var Fam_Value = <?php echo json_encode($fam); ?>;
+                        var Busi_Value = <?php echo json_encode($Busi); ?>;
                         var Immi_Value = <?php echo json_encode($immigrationCases); ?>;
                         var Civil_Value = <?php echo json_encode($civilCases); ?>;
-                        var Labour_Value = <?php echo json_encode($labourCases); ?>;
-                        var criminal_Value = <?php echo json_encode($criminalCase); ?>;
+                        var Labour_Value = <?php echo json_encode($labo); ?>;
+                        var criminal_Value = <?php echo json_encode($Crim); ?>;
 
                         new Chart(doughnut_chart, {
 

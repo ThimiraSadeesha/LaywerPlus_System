@@ -1,6 +1,7 @@
 ﻿<div id="main-wrapper">
-
-    <?php global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
+    <?php
+    session_start();
+    global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
     include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
@@ -13,6 +14,7 @@
         die('Connection failed: ' . $conn->connect_error);
     }
 
+
     // Helper function to get count from query
     function getCount($conn, $query)
     {
@@ -24,17 +26,17 @@
     }
 
     // Get counts
-    $CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Completed'");
+    $CountAllCase_com = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Completed'");
     $clientsCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `client`");
-    $newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Pending'");
+    $newCountCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Pending'");
     $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
-    $CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Ongoing'");
-    $stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case` WHERE `satuts` = 'Cancelled'");
-    $CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `case`");
+    $CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Processing'");
+    $stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Cancelled'");
+    $CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases`");
 
     $currentDateTime = date("Y-m-d"); // Get the current date and time in the appropriate format
     $submit_date = '2023-06-01 00:00:00';
-    $sql = "SELECT COUNT(*) AS count FROM `case` WHERE submit_date >= '2023-06-01 00:00:00' AND submit_date <= '2023-07-26 23:59:59' AND satuts = 'Completed'";
+    $sql = "SELECT COUNT(*) AS count FROM `cases` WHERE submit_date >= '1970-01-01 00:00:00' AND submit_date <= '2023-07-26 23:59:59' AND satuts = 'Completed'";
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -44,8 +46,8 @@
         echo "0";
     }
 
-    $ongoingProjects = $CountAllCase + $newCountCase;
-    $CompleteCase = $CountAllCases - $stoppedCount;
+
+    $CompleteCase = $CountAllCases - $newCountCase;
     $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
     $format_progress = intval($ProgressOfCases, 2);
     ?>
@@ -85,7 +87,7 @@
                                                         <span class="donut1"
                                                                     <?php
                                                                     // Calculate % completed cases
-                                                                    $percentageCompleted = ($CountAllCase_com / $CountAllCases) * 100;
+                                                                    $percentageCompleted = ($CountAllCases/$CountAllCase_com  ) * 100;
                                                                     // Calculate % remaining cases
                                                                     $percentageRemaining = 100 - $percentageCompleted;
                                                                     ?>
@@ -106,7 +108,7 @@
                                                             </svg>
                                                         </div>
                                                         <div class="ms-3">
-                                                            <h4 class="fs-24 font-w700 "><?php echo $ongoingProjects; ?></h4>
+                                                            <h4 class="fs-24 font-w700 "><?php echo $CountAllCase; ?></h4>
                                                             <span class="fs-16 font-w400 d-block">On Going</span>
                                                         </div>
                                                     </div>
@@ -119,7 +121,7 @@
                                                             </svg>
                                                         </div>
                                                         <div class="ms-3">
-                                                            <h4 class="fs-24 font-w700 "><?php echo $stoppedCount; ?></h4>
+                                                            <h4 class="fs-24 font-w700 "><?php echo $newCountCase; ?></h4>
                                                             <span class="fs-16 font-w400 d-block">Hold</span>
                                                         </div>
                                                     </div>
@@ -159,7 +161,7 @@
 																		8506 9.9006 20.4095 11 19.5078 11H1.49217Z"
                                                                               fill="#09BD3C"></path>
 																	</svg>
-																	<small class="d-block fs-16 font-w400 text-success">+0,5%</small>
+<!--																	<small class="d-block fs-16 font-w400 text-success">+0,5%</small>-->
 																</span>
                                                             <script>
                                                                 // navigate to "ClientList.php"
@@ -263,8 +265,7 @@
                                             <div class="row">
                                                 <div class="col-xl-6 col-sm-6">
                                                     <div class="items">
-                                                        <h4 class="fs-20 font-w700 mb-4">Fillow Company Profile
-                                                            Website Project</h4>
+                                                        <h4 class="fs-20 font-w700 mb-4">Lawyer Plus Management System</h4>
                                                         <span class="fs-14 font-w400">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </span>
                                                     </div>
                                                 </div>
@@ -316,6 +317,7 @@
                     height: "70"
                 });
             }
+            //First Chart bY month
             var chartBar = function () {
 
                 var phpValue = <?php echo json_encode($value); ?>;
@@ -392,7 +394,7 @@
                     },
                     xaxis: {
                         position: 'bottom',
-                        categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                        categories: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July'],
                         labels: {
                             style: {
                                 colors: '#787878',
@@ -445,6 +447,7 @@
                 var chartBar1 = new ApexCharts(document.querySelector("#chartBar"), options);
                 chartBar1.render();
             }
+            //Second Chart by weekly
             var chartBar1 = function () {
 
                 var options = {
@@ -615,52 +618,9 @@
                         colors: ['var(--primary)'],
                     },
 
-                    grid: {
-                        borderColor: '#eee',
-                        show: true,
-                        xaxis: {
-                            lines: {
-                                show: true,
-                            }
-                        },
-                        yaxis: {
-                            lines: {
-                                show: false,
-                            }
-                        },
-                    },
-                    xaxis: {
 
-                        categories: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                        labels: {
-                            style: {
-                                colors: '#7E7F80',
-                                fontSize: '13px',
-                                fontFamily: 'Poppins',
-                                fontWeight: 100,
-                                cssClass: 'apexcharts-xaxis-label',
-                            },
-                        },
-                        crosshairs: {
-                            show: false,
-                        }
-                    },
-                    yaxis: {
-                        show: true,
-                        labels: {
-                            offsetX: -15,
-                            style: {
-                                colors: '#7E7F80',
-                                fontSize: '14px',
-                                fontFamily: 'Poppins',
-                                fontWeight: 100,
 
-                            },
-                            formatter: function (y) {
-                                return y.toFixed(0) + "k";
-                            }
-                        },
-                    },
+
                     fill: {
                         opacity: 1,
                         colors: '#FAC7B6'

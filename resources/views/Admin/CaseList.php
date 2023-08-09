@@ -1,6 +1,8 @@
 ﻿<div id="main-wrapper">
     <!-- Include the sidebar -->
-    <?php include 'Sidebar.php';
+    <?php
+    session_start();
+    include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -36,20 +38,20 @@
                                     <thead>
                                     <tr>
 
-                                        <th class="align-middle">Case ID</th>
-                                        <th class="align-middle">Lawyer ID</th>
-                                        <th class="align-middle">Client ID</th>
-                                        <th class="align-middle">Category</th>
-                                        <th class="align-middle">Date</th>
-                                        <th class="align-middle">Status</th>
-                                        <th class="align-middle">Amount</th>
+                                        <th class="align-middle"> <strong>Case ID</strong> </th>
+                                        <th class="align-middle"><strong>Lawyer ID</strong></th>
+                                        <th class="align-middle"><strong>Client ID</strong></th>
+                                        <th class="align-middle"><strong>Category</strong></th>
+                                        <th class="align-middle"><strong>Date</strong></th>
+                                        <th class="align-middle"><strong>Status</strong></th>
+                                        <th class="align-middle"><strong>Amount</strong></th>
 
 
                                     </tr>
                                     </thead>
                                     <tbody id="orders">
                                     <?php
-                                    $sql = "SELECT * FROM `case` ";
+                                    $sql = "SELECT * FROM `cases` ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {

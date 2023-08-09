@@ -1,172 +1,186 @@
 ﻿<div id="main-wrapper">
     <?php global $conn, $lawyerCount;
-    $currentDateTime = date("Y-m-d H:i:s");
-    include '../Admin/Sidebar.php';
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $dbname = 'lawyerPlus';
 
-    // Connect to database
-    $conn = new mysqli($host, $user, $password, $dbname);
-    if ($conn->connect_error) {
-        die('Connection failed: ' . $conn->connect_error);
-    }
-    function getCount($conn, $query)
-    {
-        $result = $conn->query($query);
-        if ($result && $result->num_rows === 1) {
-            return $result->fetch_assoc()['completed_count'];
+    session_start();
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+
+        $currentDateTime = date("Y-m-d H:i:s");
+        include '../Admin/Sidebar.php';
+        $host = 'localhost';
+        $user = 'root';
+        $password = '';
+        $dbname = 'lawyerPlus';
+
+        // Connect to database
+        $conn = new mysqli($host, $user, $password, $dbname);
+        if ($conn->connect_error) {
+            die('Connection failed: ' . $conn->connect_error);
         }
-        return 0;
-    }
-    $selectcase="SELECT `Case_Id` FROM `client_statement` ORDER BY `statement_id` DESC LIMIT 1";
-    $result = $conn->query($selectcase);
-    if ($result && $result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $cases_id = $row['Case_Id'];
-    }
+        function getCount($conn, $query)
+        {
+            $result = $conn->query($query);
+            if ($result && $result->num_rows === 1) {
+                return $result->fetch_assoc()['completed_count'];
+            }
+            return 0;
+        }
 
-    $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
-
-    function generate_statement_id()
-    {
-        include '../Admin/DB_Connection.php';
-        global $conn;
-        $sql = "SELECT MAX(SUBSTRING(statement_id, 5)) as max_id FROM client_statement";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
+        $selectcase = "SELECT `Case_Id` FROM `client_statement` ORDER BY `statement_id` DESC LIMIT 1";
+        $result = $conn->query($selectcase);
+        if ($result && $result->num_rows === 1) {
             $row = $result->fetch_assoc();
-            $max_id = intval($row["max_id"]);
-            $next_id = $max_id + 1;
-            $statement_id = 'SMT-' . str_pad($next_id, 3, '0', STR_PAD_LEFT);
-            return $statement_id;
-        } else {
-            return "SMT-001";
-        }
-    }
-
-    if (isset($_POST['submit'])) {
-        $selectedCase = $_POST['selectedCaseInput']; // Retrieve the selected case ID
-        $topic = $_POST['topic'];
-        $message = $_POST['message'];
-        $client_id = $row['client_id'];
-
-        insert_statement($client_id,$topic, $message,$selectedCase,);
-    }
-
-    $selectclient="SELECT `client_id` FROM `cases` WHERE `case_id`='CSE-0003'";
-    $result = $conn->query($selectclient);
-    if ($result && $result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $client_id = $row['client_id'];
-    }
-
-    function encryptMessage($message, $key): string
-    {
-        $iv = random_bytes(16);
-        $encrypted = openssl_encrypt($message, "AES-256-CBC", $key, 0, $iv);
-        return base64_encode($iv . $encrypted);
-    }
-
-    function insert_statement($client_id,$topic, $message,$selectedCase)
-    {
-        include '../Admin/DB_Connection.php';
-        global $conn;
-        $secretKey = "Lawyer_Plus_System";
-        $encryptedMessage = encryptMessage($message, $secretKey);
-        $topic = $conn->real_escape_string($topic);
-        $message = $conn->real_escape_string($message);
-        $client_id = $conn->real_escape_string($client_id);
-
-        $selectedCase = $conn->real_escape_string($selectedCase);
-        $statement_id = generate_statement_id();
-        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '$client_id', '', '$encryptedMessage', '$topic', '$selectedCase')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Data inserted successfully.";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-    function getLatestStatements($conn)
-    {
-        $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
-        $result = $conn->query($query);
-        if ($result && $result->num_rows > 0) {
-            $rows = $result->fetch_all(MYSQLI_ASSOC);
-            return $rows;
-        }
-        return [];
-    }
-    $latestStatements = getLatestStatements($conn);
-    function decryptMessage($latestStatements, $key) {
-        $data = base64_decode($latestStatements);
-        $iv = substr($data, 0, 16);
-        $encrypted = substr($data, 16);
-        return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
-    }
-    if (!empty($latestStatements)) {
-        $secretKey = "Lawyer_Plus_System";
-        $firstTopic = $latestStatements[0]['Topic'];
-        $firstEncryptedMessage = $latestStatements[0]['message'];
-        $firstMessage = decryptMessage($firstEncryptedMessage, $secretKey);
-        $secondTopic = $latestStatements[1]['Topic'];
-        $secondEncryptedMessage = $latestStatements[1]['message'];
-        $secondMessage = decryptMessage($secondEncryptedMessage, $secretKey);
-
-        $thirdTopic = $latestStatements[2]['Topic'];
-        $thirdEncryptedMessage = $latestStatements[2]['message'];
-        $thirdMessage = decryptMessage($thirdEncryptedMessage, $secretKey);
-    } else {
-        echo "No statements found.";
-    }
-
-    $query2 = "SELECT c.`case_id`, c.`client_id`, c.`C_type`, c.`satuts`, c.`Amount`, cl.`name`, cl.`contact_number`, cl.`registerd_datte` FROM `cases` c JOIN `client` cl ON c.`client_id` = cl.`client_id` WHERE c.`lawyer_id` = 'LW13' ORDER BY c.`case_id` DESC LIMIT 1;";
-    $result_case_lawyer = $conn->query($query2);
-
-    // Display the results
-    if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
-        $row = $result_case_lawyer->fetch_assoc();
-        $Case_ID = $row['case_id'];
-        $client_ID = $row['client_id'];
-        $date = $row['registerd_datte'];
-        $status = $row['satuts'];
-        $l_type = $row['C_type'];
-        $amount = $row['Amount'];
-        $name = $row['name'];
-    }
-    function getCasesIds($conn)
-    {
-        $query = "SELECT `case_id` FROM `cases` WHERE `lawyer_id` = 'LW13'";
-        $result = $conn->query($query);
-
-        $caseIds = array();
-        while ($row = $result->fetch_assoc()) {
-            $caseIds[] = $row['case_id'];
+            $cases_id = $row['Case_Id'];
         }
 
-        return $caseIds;
-    }
-    $caseIds = getCasesIds($conn);
-    function getProfit($conn)
-    {
-        $query = "SELECT SUM(`Amount`) AS total_profit FROM `cases` WHERE `lawyer_id` = 'LW13'";
-        $result = $conn->query($query);
+        $lawyerCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `lawyer`");
+
+        function generate_statement_id()
+        {
+            include '../Admin/DB_Connection.php';
+            global $conn;
+            $sql = "SELECT MAX(SUBSTRING(statement_id, 5)) as max_id FROM client_statement";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $max_id = intval($row["max_id"]);
+                $next_id = $max_id + 1;
+                $statement_id = 'SMT-' . str_pad($next_id, 3, '0', STR_PAD_LEFT);
+                return $statement_id;
+            } else {
+                return "SMT-001";
+            }
+        }
+
+        if (isset($_POST['submit'])) {
+            $selectedCase = $_POST['selectedCaseInput']; // Retrieve the selected case ID
+            $topic = $_POST['topic'];
+            $message = $_POST['message'];
+            $client_id = $row['client_id'];
+
+            insert_statement($client_id, $topic, $message, $selectedCase,);
+        }
+
+        $selectclient = "SELECT `client_id` FROM `cases` WHERE `case_id`='CSE-0003'";
+        $result = $conn->query($selectclient);
         if ($result && $result->num_rows === 1) {
-            return $result->fetch_assoc()['total_profit'];
+            $row = $result->fetch_assoc();
+            $client_id = $row['client_id'];
         }
-        return 0;
-    }
-    $profit = getProfit($conn);
-    function getcountcases($conn)
-    {
-        $query = "SELECT COUNT(`case_id`) AS total_cases FROM `cases` WHERE `satuts` = 'Pending'";
-        $result = $conn->query($query);
-        if ($result && $result->num_rows === 1) {
-            return $result->fetch_assoc()['total_cases'];
+
+        function encryptMessage($message, $key): string
+        {
+            $iv = random_bytes(16);
+            $encrypted = openssl_encrypt($message, "AES-256-CBC", $key, 0, $iv);
+            return base64_encode($iv . $encrypted);
         }
-        return 0;
+
+        function insert_statement($client_id, $topic, $message, $selectedCase)
+        {
+            include '../Admin/DB_Connection.php';
+            global $conn;
+            $secretKey = "Lawyer_Plus_System";
+            $encryptedMessage = encryptMessage($message, $secretKey);
+            $topic = $conn->real_escape_string($topic);
+            $message = $conn->real_escape_string($message);
+            $client_id = $conn->real_escape_string($client_id);
+
+            $selectedCase = $conn->real_escape_string($selectedCase);
+            $statement_id = generate_statement_id();
+            $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '$client_id', '', '$encryptedMessage', '$topic', '$selectedCase')";
+            if ($conn->query($sql) === TRUE) {
+                echo "Data inserted successfully.";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+
+        function getLatestStatements($conn)
+        {
+            $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
+            $result = $conn->query($query);
+            if ($result && $result->num_rows > 0) {
+                $rows = $result->fetch_all(MYSQLI_ASSOC);
+                return $rows;
+            }
+            return [];
+        }
+
+        $latestStatements = getLatestStatements($conn);
+        function decryptMessage($latestStatements, $key)
+        {
+            $data = base64_decode($latestStatements);
+            $iv = substr($data, 0, 16);
+            $encrypted = substr($data, 16);
+            return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+        }
+
+        if (!empty($latestStatements)) {
+            $secretKey = "Lawyer_Plus_System";
+            $firstTopic = $latestStatements[0]['Topic'];
+            $firstEncryptedMessage = $latestStatements[0]['message'];
+            $firstMessage = decryptMessage($firstEncryptedMessage, $secretKey);
+            $secondTopic = $latestStatements[1]['Topic'];
+            $secondEncryptedMessage = $latestStatements[1]['message'];
+            $secondMessage = decryptMessage($secondEncryptedMessage, $secretKey);
+
+            $thirdTopic = $latestStatements[2]['Topic'];
+            $thirdEncryptedMessage = $latestStatements[2]['message'];
+            $thirdMessage = decryptMessage($thirdEncryptedMessage, $secretKey);
+        } else {
+            echo "No statements found.";
+        }
+
+        $query2 = "SELECT c.`case_id`, c.`client_id`, c.`C_type`, c.`satuts`, c.`Amount`, cl.`name`, cl.`contact_number`, cl.`registerd_datte` FROM `cases` c JOIN `client` cl ON c.`client_id` = cl.`client_id` WHERE c.`lawyer_id` = 'LW13' ORDER BY c.`case_id` DESC LIMIT 1;";
+        $result_case_lawyer = $conn->query($query2);
+
+        // Display the results
+        if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
+            $row = $result_case_lawyer->fetch_assoc();
+            $Case_ID = $row['case_id'];
+            $client_ID = $row['client_id'];
+            $date = $row['registerd_datte'];
+            $status = $row['satuts'];
+            $l_type = $row['C_type'];
+            $amount = $row['Amount'];
+            $name = $row['name'];
+        }
+        function getCasesIds($conn)
+        {
+            $query = "SELECT `case_id` FROM `cases` WHERE `lawyer_id` = 'LW13'";
+            $result = $conn->query($query);
+
+            $caseIds = array();
+            while ($row = $result->fetch_assoc()) {
+                $caseIds[] = $row['case_id'];
+            }
+
+            return $caseIds;
+        }
+
+        $caseIds = getCasesIds($conn);
+        function getProfit($conn)
+        {
+            $query = "SELECT SUM(`Amount`) AS total_profit FROM `cases` WHERE `lawyer_id` = 'LW13'";
+            $result = $conn->query($query);
+            if ($result && $result->num_rows === 1) {
+                return $result->fetch_assoc()['total_profit'];
+            }
+            return 0;
+        }
+
+        $profit = getProfit($conn);
+        function getcountcases($conn)
+        {
+            $query = "SELECT COUNT(`case_id`) AS total_cases FROM `cases` WHERE `satuts` = 'Pending'";
+            $result = $conn->query($query);
+            if ($result && $result->num_rows === 1) {
+                return $result->fetch_assoc()['total_cases'];
+            }
+            return 0;
+        }
     }
+
     $countcases = getcountcases($conn);
     ?>
 
@@ -190,7 +204,7 @@
                                     <img src="../../images/user.png" alt="">
                                     <div>
                                         <h3 class="fs-18 text-black font-w600"><?php echo $l_type ?></h3>
-                                        <span class="fs-18 font-w500"><?php echo  $name ?></span>
+                                        <span class="fs-18 font-w500"><?php echo $name ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -392,14 +406,16 @@
                                             </div>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <?php foreach ($caseIds as $caseId) : ?>
-                                                    <a class="dropdown-item case-item" href="#" data-case="<?php echo $caseId; ?>"><?php echo $caseId; ?></a>
+                                                    <a class="dropdown-item case-item" href="#"
+                                                       data-case="<?php echo $caseId; ?>"><?php echo $caseId; ?></a>
                                                 <?php endforeach; ?>
                                             </div>
                                             <input type="hidden" id="selectedCaseInput" name="selectedCaseInput">
                                         </div>
                                         <div class="basic-form">
                                             <div class="input-group mb-3 input-primary">
-                                                <input type="text" name="topic" class="form-control input-default" placeholder="Statement Heading Here">
+                                                <input type="text" name="topic" class="form-control input-default"
+                                                       placeholder="Statement Heading Here">
                                                 <button type="submit" name="submit" class="btn btn-primary btn-sm">
                                                     Send Statement
                                                 </button>
