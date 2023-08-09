@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <title>LawyerPlus - Client Area</title>
+    <title>LawyerPlus - Lawyer Area</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,7 @@
              xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M27.5 0C12.3122 0 0 12.3122 0 27.5C0 42.6878 12.3122 55 27.5 55C42.6878 55
-                   55 42.6878 55 27.5C55 12.3122 42.6878 0 27.5 0ZM28.0092 46H19L19.0001 34.9784L19 27.5803V24.4779C19 
+                   55 42.6878 55 27.5C55 12.3122 42.6878 0 27.5 0ZM28.0092 46H19L19.0001 34.9784L19 27.5803V24.4779C19
                    14.3752 24.0922 10 35.3733 10V17.5571C29.8894 17.5571 28.0092 19.4663 28.0092 24.4779V27.
                    5803H36V34.9784H28.0092V46Z"
                   fill="url(#paint0_linear)"></path>
@@ -44,44 +44,48 @@
         </svg>
 
         <?php
-        header('Cache-Control: no cache');
-        session_cache_limiter('private_no_expire');
-
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $dbname = 'lawyerPlus';
-
-        $conn = new mysqli($host, $user, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die('Connection failed: ' . $conn->connect_error);
-        }
-
-        $sql = "SELECT username FROM admin";
 
 
-        $result = $conn->query($sql);
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
 
-        $usernames = array();
+            $host = 'localhost';
+            $user = 'root';
+            $password = '';
+            $dbname = 'lawyerPlus';
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $usernames[] = $row["username"];
+            $conn = new mysqli($host, $user, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die('Connection failed: ' . $conn->connect_error);
             }
-        } else {
-            echo "No results found";
+
+            $sql = "SELECT username FROM admin";
+
+
+            $result = $conn->query($sql);
+
+            $usernames = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $usernames[] = $row["username"];
+                }
+            } else {
+                echo "No results found";
+            }
         }
 
         $conn->close();
         ?>
         <div class="brand-title">
             <h2 class="">
-        <?php
-        foreach ($usernames as $username) {
-            echo $username . "<br>";
-        }
-        ?>
+                <?php
+                echo $_SESSION['user_id'];
+                //        foreach ($usernames as $username) {
+                //            echo $username . "<br>";
+                //        }
+                ?>
             </h2>
             <span class="brand-sub-title">Welcome Back</span>
         </div>
@@ -119,8 +123,8 @@
                             <span class="ms-2">Profile </span>
                         </a>
                         <a href="logout.php" class="dropdown-item ai-icon">
-                            <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" 
-                                 viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+                            <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
+                                 viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                 <polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -145,19 +149,19 @@
                 </a>
             </li>
             <li>
-                <a href="LawyerCaseList.php">
+                <a href="LawyerCases.php">
                     <i class="fa-solid fa-clipboard-list"></i>
                     <span class="nav-text">My Cases</span>
                 </a>
             </li>
             <li>
-                <a href="LawyerClients.php.php">
+                <a href="LawyerClients.php">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Clients</span>
                 </a>
             </li>
             <li>
-                <a href="LawyerAppointment.php">
+                <a href="ClientAppointment.php">
                     <i class="fas fa-calendar"></i>
                     <span class="nav-text">Appointment</span>
                 </a>
