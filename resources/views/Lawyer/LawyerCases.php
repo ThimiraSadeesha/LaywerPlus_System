@@ -1,5 +1,7 @@
 <div id="main-wrapper">
-    <?php global $conn, $lawyerCount;
+    <?php
+    session_start();
+    global $conn, $lawyerCount;
     include 'sidebar.php';
     $host = 'localhost';
     $user = 'root';
@@ -11,98 +13,148 @@
     if ($conn->connect_error) {
         die('Connection failed: ' . $conn->connect_error);
     }
-    $query2 = "SELECT c.`case_id`, c.`lawyer_id`, c.`submit_date`, c.`C_type`, c.`satuts`, c.`Amount`, l.`title`, l.`name`, l.`category`
-          FROM `cases` c
-          LEFT JOIN `lawyer` l ON c.`lawyer_id` = l.`lawyer_id`
-          WHERE c.`client_id` = 'LW13'
-          ORDER BY c.`case_id`";
+
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+
+    } else {
+        header("Location: ../Client/login.php");
+    }
+    $query2 = "SELECT c.`case_id`, c.`client_id`, c.`description`, c.`C_type`, c.`submit_date`, c.`satuts`, c.`Amount`, cl.`name`, cl.`nic`, cl.`email`, cl.`contact_number`, cl.`address` FROM `cases` c LEFT JOIN `client` cl ON c.`client_id` = cl.`client_id` WHERE c.`lawyer_id` = '$user_id';";
 
     $result_case_lawyer = $conn->query($query2);
+
 
     ?>
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
-                <?php
-                if ($result_case_lawyer && $result_case_lawyer->num_rows > 0) {
-                    // Display the first row
-                    // ... (existing code)
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <form method="post" action="">
+                                <table class="table table-sm mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="align-middle">
+                                            <div class="form-check custom-checkbox checkbox-success">
+                                                <input type="checkbox" class="form-check-input" id="checkAll"
+                                                       onclick="checkAllCheckboxes()">
+                                                <label class="form-check-label" for="checkAll"></label>
+                                            </div>
+                                        </th>
+                                        <th class="align-middle"><strong>Case ID</strong></th>
+                                        <th class="align-middle"><strong>Client Name</strong></th>
+                                        <th class="align-middle"><strong>Email</strong></th>
+                                        <th class="align-middle"><strong>Contact</strong></th>
+                                        <th class="align-middle"><strong>Description</strong></th>
+                                        <th class="align-middle"><strong>Amount</strong></th>
+                                        <th class="align-middle"><strong>Status</strong></th>
+                                        <th class="align-middle"><strong>Action</strong></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        while ($row = $result_case_lawyer->fetch_assoc()) {
+                                            $case_id = $row['case_id'];
+                                            $client_id = $row['client_id'];
+                                            $description = $row['description'];
+                                            $C_type = $row['C_type'];
+                                            $submit_date = $row['submit_date'];
+                                            $status = $row['satuts'];
+                                            $Amount = $row['Amount'];
+                                            $name = $row['name'];
+                                            $nic = $row['nic'];
+                                            $contact_number = $row['contact_number'];
+                                            $address = $row['address'];
+                                            $email = $row['email'];
+                                            $statusIcon = "";
+                                            switch ($status) {
+                                                case "Pending":
+                                                case "Processing":
+                                                case "Completed":
+                                                    break;
+                                                default:
+                                                    // Default case if status doesn't match any of the above
 
-                    // Display the rest of the rows
-                    while ($row = $result_case_lawyer->fetch_assoc()) {
-                        // Removed the redundant nested while loop
-                        $Case_ID= $row['case_id'] ;
-                        $law_id= $row['lawyer_id'] ;
-                        $date= $row['submit_date'] ;
-                        $status= $row['satuts'] ;
-                        $l_type= $row['category'] ;
-                        $c_type= $row['C_type'] ;
-                        $amount= $row['Amount'] ;
-                        $title= $row['title'] ;
-                        $name= $row['name'];
-                        ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-xl-3  col-lg-6 col-sm-12 align-items-center customers">
-                                        <div class="media-body">
-                                            <span class="text-primary d-block fs-18 font-w500 mb-1"><?php echo $Case_ID ?></span>
-                                            <h3 class="fs-18 text-black font-w600"><?php echo $c_type ?></h3>
-                                            <span class="d-block mb-lg-0 mb-0 fs-16"><i class="fas fa-calendar me-3"></i>Created on <?php echo $date ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2  col-lg-3 col-sm-4  col-6 mb-3 text-lg-right">
-                                        <div class="d-flex project-image">
-                                            <img src="../../images/user.png" alt="">
-                                            <div>
-                                                <h3 class="fs-18 text-black font-w600"><?php echo $l_type ?></h3>
-                                                <small class="d-block fs-16 font-w400">
-                                                    <span class="fs-18 font-w500"><?php echo $title.$name ?></span>
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-3 text-lg-right">
-                                        <div class="d-flex project-image">
-                                            <img src="../../images/user.png" alt="">
-                                            <div>
-                                                <small class="d-block fs-16 font-w400">Assistant</small>
-                                                <span class="fs-18 font-w500">Marley Dokidis</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3  col-lg-6 col-sm-6 mb-sm-4 mb-0">
-                                        <div class="d-flex project-image">
-                                            <svg class="me-3" width="55" height="55" viewbox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <!-- ... (SVG path data) ... -->
-                                            </svg>
-                                            <div>
-                                                <small class="d-block fs-16 font-w400">Last Update</small>
-                                                <span class="fs-18 font-w500">Tuesday,  Sep 29th 2020</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2  col-lg-6 col-sm-4 mb-sm-3 mb-3 text-end">
-                                        <div class="d-flex justify-content-end project-btn">
-                                            <a class="btn bg-progress fs-18 font-w600 text-nowrap text-bg-progress"><?php echo $status ?></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                                    break;
+                                            }
+                                            echo '<tr class="btn-reveal-trigger">';
+                                            echo '<td class="py-2">
+                                                        <div class="form-check custom-checkbox checkbox-success">
+                                                            <input type="checkbox" class="form-check-input delete-checkbox" data-lawyer-id="' . $case_id . '">
+                                                        </div>
+                                                    </td>';
+                                            echo '<td class="py-2">
+                                                        <a href="#">
+                                                           ' . $case_id . '
+                                                        </a>
+                                                    </td>';
+                                            echo '<td class="py-2">' . $name . '</td>';
+                                            echo '<td class="py-2">' . $email . '</td>';
+                                            echo '<td class="py-2">' . $contact_number . '</td>';
+                                            echo '<td class="py-2">' . $description . '</td>';
+
+                                            echo '<td class="py-2">' . $Amount . '</td>';
+
+                                            echo '<td class="py-2">';
+                                            if ($status == "Completed") {
+                                                echo '<span class="badge badge-success">' . $status . $statusIcon . '</span></td>';
+                                            } elseif ($status == "Processing") {
+                                                echo '<span class="badge badge-primary"> ' . $status . $statusIcon . '</span></td>';
+                                            } elseif ($status == "Pending") {
+                                                echo '<span class="badge badge-warning"> ' . $status . $statusIcon . '</span></td>';
+                                            }
+
+                                            echo '<td class="py-2">
+                                                        <div class="dropdown text-sans-serif">
+                                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                                                                <span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                                            <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                                                            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                                                            <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                                                        </g>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                                                                <div class="py-2">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Processing</a>
+                                                                    <div class="dropdown-divider"></div>   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>';
+                                            echo '</tr>';
+                                        }
+
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
-                        <?php
-                    }
-                }
-                ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="../../vendor/apexchart/apexchart.js"></script>
-    <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../../vendor/peity/jquery.peity.min.js"></script>
-    <script src="../../js/dlabnav-init.js"></script>
-    <script src="../../js/styleSwitcher.js"></script>
+</div>
+
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../vendor/apexchart/apexchart.js"></script>
+<script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="../../vendor/peity/jquery.peity.min.js"></script>
+<script src="../../js/dlabnav-init.js"></script>
+<script src="../../js/styleSwitcher.js"></script>
 
 
