@@ -6,6 +6,7 @@
 </head>
 
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -23,7 +24,8 @@ $conn = new mysqli($host, $user, $password, $dbname);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
+    $hashedInputPassword = Md5($password);
+
 
     // Check Email or Username
     if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
@@ -31,14 +33,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
     }
-    
-    
+
+
     $result = $conn->query($sql);
 
     if ($result) {
         if ($result->num_rows === 1) {
             // Login successful
+
             $user = $result->fetch_assoc();
+            $user_id = $user['user_id'];
+
+
+
+            $_SESSION['user_id'] = $user_id;
+
+            // Redirect the user to the appropriate dashboard
             switch ($user['role']) {
                 case 'lawyer':
                     header('Location: ../Lawyer/lawyerDashboard.php');
@@ -60,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Server settings
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();  // Send using SMTP
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'lawyerplusproject@gmail.com';
-                $mail->Password   = 'shbymrsvcavpqujk';
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'lawyerplusproject@gmail.com';
+                $mail->Password = 'shbymrsvcavpqujk';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port       = 465;
+                $mail->Port = 465;
 
                 //Sender and recipient settings
                 $mail->setFrom('lawyerplusproject@gmail.com', 'LawyerPlus');
