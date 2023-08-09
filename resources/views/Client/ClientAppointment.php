@@ -4,6 +4,7 @@
 <body>
 <div id="main-wrapper">
     <?php
+    session_start();
     global $conn, $lawyerCount;
     include 'Sidebar.php';
 
@@ -19,6 +20,16 @@
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
+    }
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+
+    } else {
+        header("Location: ../Client/login.php");
     }
     // get data from the database
     $lawyerQuery = "SELECT `lawyer_id`, `name` FROM `lawyer`";
@@ -49,7 +60,6 @@
         $secretKey = "Lawyer_Plus_System";
 
 
-
         // Generate appointment ID
         $last_numeric_id = null;
         do {
@@ -67,11 +77,11 @@
         } while (true);
         $iv = random_bytes(16);
         $encrypted = openssl_encrypt($description, "AES-256-CBC", $secretKey, 0, $iv);
-        $encriptDescription= base64_encode($iv . $encrypted);
+        $encriptDescription = base64_encode($iv . $encrypted);
 
         // Insert appointment data into the appointment table
         $insertQuery = "INSERT INTO `appointment` (`Appointment_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`, `time`)
-                    VALUES ('$appointmentId', '$caseType', '$lawyerId', '$encriptDescription', NULL, '$dateTime')";
+                    VALUES ('$appointmentId', '$caseType', '$lawyerId', '$encriptDescription', $user_id, '$dateTime')";
 
         if ($conn->query($insertQuery) === TRUE) {
             echo "Appointment created successfully.";
@@ -97,37 +107,40 @@
                             <div class="row">
                                 <div class="col-auto">
                                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                        <div class="mb-3">
+                                            <select name="category" class="form-control" id="caseType" required=""
+                                                    onchange="updateLawyerOptions(this.value)">
+                                                <option value="" disabled selected>Select a category</option>
+                                                <?php echo $CatogeryOptions; ?>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="col-auto">
                                     <div class="mb-3">
-                                        <select name="category" class="form-control" id="caseType" required="" onchange="updateLawyerOptions(this.value)">
-                                            <option value="" disabled selected>Select a category</option>
-                                            <?php echo $CatogeryOptions; ?>
+                                        <select name="lawyer" class="form-control" id="lawyerDropdown" required=""
+                                                onchange="updateTimeOptions(this.value)">
+                                            <option value="" disabled selected>Select Your Lawyer</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <div class="mb-3">
-                                        <select name="lawyer" class="form-control" id="lawyerDropdown" required="" onchange="updateTimeOptions(this.value)">
-                                            <option value="" disabled selected>Select Your Lawyer</option>
+                                        <select name="time" class="form-control" id="dateAndTimeDropdown" required="">
+                                            onchange="updateLawyerOptions(this.value)">
+                                            <option value="" disabled selected></i>Select Date & Time</option>
                                         </select>
                                     </div>
                                 </div>
-                                    <div class="col-auto">
-                                        <div class="mb-3">
-                                            <select name="time" class="form-control" id="dateAndTimeDropdown" required="">
-                                                    onchange="updateLawyerOptions(this.value)">
-                                                <option value="" disabled selected></i>Select Date & Time</option>
-                                            </select>
-                                        </div>
-                                </div>
                                 <div class="basic-form">
-                                    <textarea name="description" id="textarea" class="form-control input-default fixed-textarea"
+                                    <textarea name="description" id="textarea"
+                                              class="form-control input-default fixed-textarea"
                                               placeholder="Type your notice here."></textarea>
-                                        <br>
-                                        <button type="submit" name="submit" class="btn btn-primary btn-sm">Send
-                                            Statement
-                                        </button>
+                                    <br>
+                                    <button type="submit" name="submit" class="btn btn-primary btn-sm">Send
+                                        Statement
+                                    </button>
                                 </div>
-                              
+
                                 <style>
                                     .fixed-textarea {
                                         resize: none;
@@ -157,16 +170,16 @@
             $.ajax({
                 url: "GetLawyerData.php",
                 method: "GET",
-                data: { category: category },
+                data: {category: category},
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     var options = '<option value="" disabled selected>Select Your Lawyer</option>';
                     for (var i = 0; i < data.length; i++) {
                         options += '<option value="' + data[i].lawyer_id + '">' + data[i].name + '</option>';
                     }
                     $("#lawyerDropdown").html(options);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error(error);
                 }
             });
@@ -174,21 +187,22 @@
             $("#lawyerDropdown").html('<option value="" disabled selected>Select Your Lawyer</option>');
         }
     }
+
     function updateTimeOptions(lawyerId) {
         if (lawyerId !== "") {
             $.ajax({
                 url: "GetLawyerTimes.php",
                 method: "GET",
-                data: { lawyerId: lawyerId },
+                data: {lawyerId: lawyerId},
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     var timeOptions = '<option value="" disabled selected>Select Date & Time</option>';
                     for (var i = 0; i < data.length; i++) {
                         timeOptions += '<option value="' + data[i] + '">' + data[i] + '</option>';
                     }
                     $("#dateAndTimeDropdown").html(timeOptions);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error(error);
                 }
             });
@@ -197,5 +211,3 @@
         }
     }
 </script>
-//
-//

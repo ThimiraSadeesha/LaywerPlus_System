@@ -145,6 +145,12 @@
                 </a>
             </li>
             <li>
+                <a href="CaseSubmit.php">
+                    <i class="fas fa-sticky-note"></i>
+                    <span class="nav-text">New Case</span>
+                </a>
+            </li>
+            <li>
                 <a href="ClientAppointment.php">
                     <i class="fas fa-calendar"></i>
                     <span class="nav-text">Appointment</span>

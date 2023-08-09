@@ -1,5 +1,6 @@
 <div id="main-wrapper">
     <?php
+    session_start();
     include "Sidebar.php";
     $host = 'localhost';
     $user = 'root';
@@ -11,9 +12,17 @@
     if ($conn->connect_error) {
         die('Connection failed: ' . $conn->connect_error);
     }
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
 
+    } else {
+        header("Location: ../Client/login.php");
+    }
     $query = "SELECT `lawyer_id`, `title`, `name`, `email`, `category`, `contact_number`, `status` FROM lawyer";
-
     $result = $conn->query($query);
 
     ?>
