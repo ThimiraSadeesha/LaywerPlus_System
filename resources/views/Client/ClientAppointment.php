@@ -4,6 +4,7 @@
 <body>
 <div id="main-wrapper">
     <?php
+    session_start();
     global $conn, $lawyerCount;
     include 'Sidebar.php';
 
@@ -24,6 +25,16 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
+
+    } else {
+        header("Location: ../Client/login.php");
+    }
     // get data from the database
     $lawyerQuery = "SELECT `lawyer_id`, `name` FROM `lawyer`";
     $lawyerResult = $conn->query($lawyerQuery);
@@ -38,7 +49,7 @@
     $categoryQuery = "SELECT DISTINCT `category` FROM `lawyer`";
     $categoryResult = $conn->query($categoryQuery);
     $CatogeryOptions = '';
-    $client_id = 'test client';
+
 
 
     if ($categoryResult->num_rows > 0) {
@@ -70,7 +81,7 @@
         } while (true);
         // Insert appointment data into the appointment table
         $insertQuery = "INSERT INTO `appointment` (`Appointment_id`, `Case_Type`, `Lawyer_Id`, `Description`, `client_id`, `time`)
-                    VALUES ('$appointmentId', '$caseType', '$lawyerId', '$description', '$client_id', '$dateTime')";
+                    VALUES ('$appointmentId', '$caseType', '$lawyerId', '$description', '$user_id', '$dateTime')";
 
         if ($conn->query($insertQuery) === TRUE) {
             //update the booking status
@@ -181,7 +192,7 @@
                                 $bookedAppointmentsQuery = "SELECT a.`Case_Type`, a.`Lawyer_Id`, a.`time`, L.`name`, L.`contact_number` 
                                 FROM `appointment` a 
                                 INNER JOIN `lawyer` L ON L.`Lawyer_Id` = a.`lawyer_id` 
-                                WHERE a.`client_id` = '$client_id'";
+                                WHERE a.`client_id` = '$user_id'";
                                 $bookedAppointmentsResult = $conn->query($bookedAppointmentsQuery);
 
                                 if ($bookedAppointmentsResult->num_rows > 0) {
