@@ -83,9 +83,7 @@
             <h2 class="">
         <?php
         echo $_SESSION['user_id'];
-//        foreach ($usernames as $username) {
-//            echo $username . "<br>";
-//        }
+
         ?>
             </h2>
             <span class="brand-sub-title">Welcome Back</span>
