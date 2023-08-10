@@ -1,2 +1,0 @@
-# Localhost
-Lawyer management system
