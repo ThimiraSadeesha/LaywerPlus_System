@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert the data into the database
     $sql = "INSERT INTO inactive_users (user_id, name, nic, email, contact_number, address, Password, role, status) 
-            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$encryptedPassword','client', 'inactive')";
+            VALUES ('$client_id', '$fullName', '$nic', '$email', '$contactNumber', '$address', '$encryptedPassword','client', 'active')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['account_created'] = true;
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Redirect to Verification.php
-        header("Location: Verification.php");
+        header("../Login/Verification.php");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -157,7 +157,7 @@ $conn->close();
                                 </div>
                             </form>
                             <div class="text-center mt-3">
-                                <p>Already have an account? <a class="text-primary" href="Login.php">Sign
+                                <p>Already have an account? <a class="text-primary" href="../Client/ClientLogin.php">Sign
                                         in</a></p>
                             </div>
                         <?php } ?>
