@@ -45,7 +45,7 @@
     } else {
         echo "0";
     }
-
+        $progress=($CountAllCase_com/$CountAllCases)*100;
 
     $CompleteCase = $CountAllCases - $newCountCase;
     $ProgressOfCases = ($CompleteCase / $CountAllCases) * 100;
@@ -200,7 +200,7 @@
                                                     const progressValue = document.getElementById("progress-value");
 
                                                     // Set the initial progress value
-                                                    const lawyerCountElement = '<?= $lawyerCount?>';
+                                                    const lawyerCountElement = '<?= $CountAllCases?>';
 
                                                     // var currentValue =17;
                                                     // var currentValue =17;
@@ -221,7 +221,7 @@
                                                             <h2 class="fs-32 font-w700"><?php echo $clientsCount; ?></h2>
 
                                                             <span class="d-block fs-16 font-w400">
-                                                                <small class="text-danger">-2%</small> than last month</span>
+
                                                         </div>
                                                     </div>
                                                     <div id="NewCustomers"></div>
@@ -244,7 +244,7 @@
                                                             <h2 class="fs-32 font-w700"><?php echo $lawyerCount; ?></h2>
 
                                                             <span class="d-block fs-16 font-w400">
-                                                                <small class="text-danger">-2%</small> than last month</span>
+
                                                         </div>
                                                     </div>
                                                     <div id="NewCustomers1"></div>
@@ -272,7 +272,7 @@
                                                 <div class="col-xl-6 redial col-sm-6">
                                                     <div id="redial"></div>
                                                     <span class="text-center d-block fs-18 font-w600">On Progress <small
-                                                                class="text-success"><?php echo $format_progress . "%"; ?></small></span>
+                                                                class="text-success"><?php echo number_format($progress) . "%"; ?></small></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -989,7 +989,7 @@
                 chartBar1.render();
 
             }
-            var ProG_val = <?php echo json_encode($format_progress); ?>;
+            var ProG_val = <?php echo json_encode(number_format($progress)); ?>;
             var redial = function () {
                 var options = {
                     //bigcircle
