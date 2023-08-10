@@ -6,7 +6,7 @@
         $user_id = $_SESSION['user_id'];
 
         $currentDateTime = date("Y-m-d H:i:s");
-        include '../Admin/Sidebar.php';
+        include 'Sidebar.php';
         $host = 'localhost';
         $user = 'root';
         $password = '';

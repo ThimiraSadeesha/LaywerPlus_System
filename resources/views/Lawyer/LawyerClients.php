@@ -2,7 +2,7 @@
     <?php
     session_start();
     global $conn, $lawyerCount;
-    include '../Admin/sidebar.php';
+    include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
     $password = '';
@@ -45,7 +45,7 @@
                                     <table class="table table-sm mb-0">
                                         <thead>
                                         <tr>
-                                            <th class="align-middle">Case ID</th>
+                                            <th class="align-middle">Client ID</th>
                                             <th class="align-middle">Client Name</th>
                                             <th class="align-middle">NIC</th>
                                             <th class="align-middle">Email</th>
@@ -84,7 +84,7 @@
                                                 }
                                             }
                                         } else {
-                                            echo "<tr><td colspan='7'>No case data found</td></tr>";
+                                            echo "<tr><td colspan='7'>No client data found</td></tr>";
                                         }
                                         ?>
                                         </tbody>

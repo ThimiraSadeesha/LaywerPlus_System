@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <title>LawyerPlus - Lawyer Area</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
+    <meta property="og:title" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
+    <meta property="og:description" content="Fillow : Fillow Saas Admin  Bootstrap 5 Template">
     <meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
+    <title>LawyerPlus - Lawyer Area</title>
     <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <link href="../../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../vendor/nouislider/nouislider.min.css">
     <link href="../../css/style.css" rel="stylesheet">
-    <link href="../../vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
-    <link href="../../vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="../../css/style.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/51900a2fdc.js" crossorigin="anonymous"></script>
 
@@ -46,34 +50,31 @@
         <?php
 
 
-        if (isset($_SESSION['user_id'])) {
-            $user_id = $_SESSION['user_id'];
+        $host = 'localhost';
+        $user = 'root';
+        $password = '';
+        $dbname = 'lawyerPlus';
 
-            $host = 'localhost';
-            $user = 'root';
-            $password = '';
-            $dbname = 'lawyerPlus';
+        $conn = new mysqli($host, $user, $password, $dbname);
 
-            $conn = new mysqli($host, $user, $password, $dbname);
+        if ($conn->connect_error) {
+            die('Connection failed: ' . $conn->connect_error);
+        }
+        $user_id = $_SESSION['user_id'];
 
-            if ($conn->connect_error) {
-                die('Connection failed: ' . $conn->connect_error);
+        $sql = "SELECT username FROM admin";
+
+
+        $result = $conn->query($sql);
+
+        $usernames = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $usernames[] = $row["username"];
             }
-
-            $sql = "SELECT username FROM admin";
-
-
-            $result = $conn->query($sql);
-
-            $usernames = array();
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $usernames[] = $row["username"];
-                }
-            } else {
-                echo "No results found";
-            }
+        } else {
+            echo "No results found";
         }
 
         $conn->close();
@@ -114,7 +115,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
 
-                        <a href="logout.php" class="dropdown-item ai-icon">
+                        <a href="../Client/logout.php" class="dropdown-item ai-icon">
                             <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
                                  viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round">
@@ -137,25 +138,31 @@
             <li class="active">
                 <a href="LawyerDashboard.php">
                     <i class="fas fa-home"></i>
-                    <span class="nav-text">Home</span>
+                    <span class="nav-text">Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="LawyerCases.php">
                     <i class="fa-solid fa-clipboard-list"></i>
-                    <span class="nav-text">My Cases</span>
+                    <span class="nav-text">Cases</span>
+                </a>
+            </li>
+            <li>
+                <a href="LawyerAvailableDate.php">
+                    <i class="fas fa-pager"></i>
+                    <span class="nav-text">Appointments</span>
                 </a>
             </li>
             <li>
                 <a href="LawyerClients.php">
-                    <i class="fas fa-user-tie"></i>
+                    <i class="fas fa-users"></i>
                     <span class="nav-text">Clients</span>
                 </a>
             </li>
             <li>
-                <a href="ClientAppointment.php">
-                    <i class="fas fa-calendar"></i>
-                    <span class="nav-text">Appointment</span>
+                <a href="LawyerReports.php">
+                    <i class="fas fa-receipt"></i>
+                    <span class="nav-text">Clients</span>
                 </a>
             </li>
         </ul>
@@ -173,7 +180,7 @@
 <script src="../../js/styleSwitcher.js"></script>
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/apexchart/apexchart.js"></script>
-<script src="../../js/plugins-init/chartjs-init.js"></script>
+<!--<script src="../../js/plugins-init/chartjs-init.js"></script>-->
 
 </body>
 </html>

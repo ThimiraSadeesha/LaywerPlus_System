@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check Email or Username
     if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$decryptedPassword'";
+        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$password'";
     } else {
-        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$decryptedPassword'";
+        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
     }
 
 
