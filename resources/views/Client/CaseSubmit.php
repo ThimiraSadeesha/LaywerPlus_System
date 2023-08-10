@@ -72,7 +72,7 @@
         $Lawyerid=$row['lawyer_id'];
 
 
-        $sql="INSERT INTO `cases`(`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`,`Amount`) VALUES ('$caseID_id','$Lawyerid','$user_id','$description','$selectedCategory','$formattedDate','Pending','8970')";
+        $sql="INSERT INTO `cases`(`case_id`, `lawyer_id`, `client_id`, `description`, `C_type`, `submit_date`, `satuts`,`Amount`) VALUES ('$caseID_id','$Lawyerid','$user_id','$description','$selectedCategory','$formattedDate','Pending','4000')";
         $result = $conn->query($sql);
         if ($result) {
             echo "<script>alert('Case Submitted Successfully')</script>";
