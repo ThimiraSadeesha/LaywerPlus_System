@@ -18,7 +18,7 @@ $host = 'localhost';
 $user = 'root';
 $password = '';
 $dbname = 'lawyerPlus';
-$conn = new mysqli($host, $user, $password, $dbname);
+
 $conn = new mysqli($host, $user, $password, $dbname);
 if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
@@ -41,9 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check Email or Username
     if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$decryptedPassword'";
+        $sql = "SELECT * FROM `user` WHERE `Email` = '$username' AND `password` = '$password'";
     } else {
-        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$decryptedPassword'";
+        $sql = "SELECT * FROM `user` WHERE `user_id` = '$username' AND `password` = '$password'";
     }
 
 
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="form-group">
                             <div class="d-flex justify-content-between">
-                                <a href="ResetPassowrd.php" class="text-muted embed-responsive">Forgot Password?</a>
+                                <a href="../Login/ResetPassowrd.php" class="text-muted embed-responsive">Forgot Password?</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <hr>
                     <div class="form-group text-center">
                         <span class="text-muted">Don't have an account?</span>
-                        <a href="#" class="ml-2">
+                        <a href="../Admin/AdminRegistration.php" class="ml-2">
                             <button type="submit" class="btn btn-link">Signup</button>
                         </a>
                     </div>

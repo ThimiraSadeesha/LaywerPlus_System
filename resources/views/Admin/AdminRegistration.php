@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Redirect to Verification.php
-        header("Location: Verification.php");
+        header("../Login/Verification.php");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -138,7 +138,7 @@ $conn->close();
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Contact Number</strong></label>
-                                    <input type="text" name="phone" class="form-control" placeholder="Contact Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                                    <input type="text" name="phone" class="form-control" placeholder="Contact Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label"><strong>Address</strong></label>
@@ -157,7 +157,7 @@ $conn->close();
                                 </div>
                             </form>
                             <div class="text-center mt-3">
-                                <p>Already have an account? <a class="text-primary" href="Login.php">Sign
+                                <p>Already have an account? <a class="text-primary" href="../Admin/AdminLogin.php">Sign
                                         in</a></p>
                             </div>
                         <?php } ?>
@@ -167,6 +167,7 @@ $conn->close();
         </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
