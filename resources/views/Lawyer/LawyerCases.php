@@ -16,10 +16,7 @@
 
     if (!empty($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
-        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        $client_id = $row['client_id'];
+
 
     } else {
         header("Location: ../Client/login.php");
