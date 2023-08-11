@@ -2,6 +2,7 @@
     <?php
     session_start();
     global $conn, $CountAllCase, $clientsCount, $newCountCase, $lawyerCount, $CountAllCase, $stoppedCount, $ProjectCount;
+    global $fam,$Busi,$Crim,$Copa,$civil,$Inte,$tax;
     include 'Sidebar.php';
     $host = 'localhost';
     $user = 'root';
@@ -33,6 +34,44 @@
     $CountAllCase = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Processing'");
     $stoppedCount = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE `satuts` = 'Cancelled'");
     $CountAllCases = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases`");
+
+
+
+    $fam = getCount($conn, "SELECT COUNT(*) AS  completed_count FROM `cases` WHERE C_type = 'Family Law'");
+    $Busi = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Business'");
+    $Crim = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Criminal Law'");
+    $Copa = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Corporate Law'");
+    $civil = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Civil Litigation'");
+    $Inte= getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Real Estate Law'");
+    $tax= getCount($conn, "SELECT COUNT(*)AS completed_count FROM `cases` WHERE C_type = 'Tax Law'");
+    $Immi = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Immigration Law'");
+
+    //get pending cases category
+    $Pfam = getCount($conn, "SELECT COUNT(*) AS  completed_count FROM `cases` WHERE C_type = 'Family' AND satuts = 'Pending'");
+    $PBusi = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Business' AND satuts = 'Pending'");
+    $PCrim = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Criminal Law'   AND satuts = 'Pending'");
+    $PCopa = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Corporate Law'  AND satuts = 'Pending'");
+    $Pcivil = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Civil Litigation' AND satuts = 'Pending'");
+    $PInte= getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Intellectual Property Law'  AND satuts = 'Pending'");
+    $Ptax= getCount($conn, "SELECT COUNT(*)AS completed_count FROM `cases` WHERE C_type = 'Tax Law' AND satuts = 'Pending'");
+
+//get processing cases category
+    $Procfam = getCount($conn, "SELECT COUNT(*) AS  completed_count FROM `cases` WHERE C_type = 'Family' AND satuts = 'Processing'");
+    $ProcBusi = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Business' AND satuts = 'Processing'");
+    $ProcCrim = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Criminal Law'   AND satuts = 'Processing'");
+    $ProcCopa = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Corporate Law'  AND satuts = 'Processing'");
+    $Proccivil = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Civil Litigation' AND satuts = 'Processing'");
+    $ProcInte= getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE C_type = 'Intellectual Property Law'  AND satuts = 'Processing'");
+    $Proctax= getCount($conn, "SELECT COUNT(*)AS completed_count FROM `cases` WHERE C_type = 'Tax Law' AND satuts = 'Processing'");
+
+
+    //get processing cases category
+    $Pending = getCount($conn, "SELECT COUNT(*) AS  completed_count FROM `cases` WHERE  satuts = 'Pending'");
+    $Processing = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE  satuts = 'Processing'");
+    $Completed = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE  satuts = 'Completed'");
+    $Cancelled = getCount($conn, "SELECT COUNT(*) AS completed_count FROM `cases` WHERE  satuts = 'Cancelled'");
+
+
 
     $currentDateTime = date("Y-m-d"); // Get the current date and time in the appropriate format
     $submit_date = '2023-06-01 00:00:00';
@@ -69,11 +108,11 @@
                                                     <ul class="nav nav-tabs" role="tablist">
                                                         <li class="nav-item">
                                                             <a class="nav-link active" data-bs-toggle="tab"
-                                                               href="#monthly" role="tab">Monthly</a>
+                                                               href="#monthly" role="tab">Categories</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-bs-toggle="tab" href="#Weekly"
-                                                               role="tab">Weekly</a>
+                                                               role="tab">Status</a>
                                                         </li>
 
                                                     </ul>
@@ -320,17 +359,35 @@
             //First Chart bY month
             var chartBar = function () {
 
-                var phpValue = <?php echo json_encode($value); ?>;
+
+
+                var fam = <?php echo json_encode($fam); ?>;
+                var Cri= <?php echo json_encode($Crim); ?>;
+                var Tax=<?php echo json_encode($tax); ?>;
+                var Imi=<?php echo json_encode($Immi); ?>;
+                var Cop=<?php echo json_encode($Copa); ?>;
+                var Civil=<?php echo json_encode($civil); ?>;
+                var Inte=<?php echo json_encode($Inte); ?>;
+
+                var Pfam = <?php echo json_encode($Pfam); ?>;
+                var PCri= <?php echo json_encode($PCrim); ?>;
+                var PTax=<?php echo json_encode($PCrim); ?>;
+                var PImi=<?php echo json_encode($PCrim); ?>;
+                var PCop=<?php echo json_encode($PCrim); ?>;
+                var PCivil=<?php echo json_encode($PCrim); ?>;
+                var PInte=<?php echo json_encode($PCrim); ?>;
+
+
                 var options = {
                     series: [
                         { //dashboard eka hadanna
-                            name: 'New Projects',
-                            data: [phpValue, phpValue, phpValue, phpValue, phpValue, phpValue, 20],
-                            //radius: 12,
+                            name: 'Have :',
+                            data: [fam, Cri, Tax, Imi, Cop, Civil, Inte],
+                            radius: 12,
                         },
                         {
-                            name: 'Completed Projects',
-                            data: [100, 40, 55, 20, 45, 30, 80]
+
+
                         },
 
                     ],
@@ -357,7 +414,7 @@
                             filter: 'none',
                         }
                     },
-                    colors: ['#FFA26D', '#FF5ED2'],
+                    colors: ['#553f8f', '#FF5ED2'],
                     dataLabels: {
                         enabled: false,
                     },
@@ -394,7 +451,7 @@
                     },
                     xaxis: {
                         position: 'bottom',
-                        categories: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July'],
+                        categories: ['Fam', 'Cri', 'Tax', 'Imi', 'Cop', 'Civil', 'Inte'],
                         labels: {
                             style: {
                                 colors: '#787878',
@@ -437,7 +494,7 @@
                     tooltip: {
                         y: {
                             formatter: function (val) {
-                                return val + " projects" //database eken data ganna
+                                return val + " Cases" //database eken data ganna
 
                             }
                         }
@@ -449,17 +506,22 @@
             }
             //Second Chart by weekly
             var chartBar1 = function () {
+                    var pross = <?php echo json_encode($Processing); ?>;
+                    var com = <?php echo json_encode($Completed); ?>;
+                    var pen = <?php echo json_encode($Pending); ?>;
+                    var can = <?php echo json_encode($Cancelled); ?>;
+
+
 
                 var options = {
                     series: [
                         {
-                            name: 'Running',
-                            data: [50, 18, 70, 40, 90, 70, 20],
-                            //radius: 12,
+                            name: 'Status',
+                            data: [com, pross, pen,can]
                         },
                         {
                             name: 'Cycling',
-                            data: [80, 40, 55, 20, 45, 30, 80]
+
                         },
 
                     ],
@@ -523,7 +585,7 @@
                     },
                     xaxis: {
                         position: 'bottom',
-                        categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                        categories: ['Completed', 'Processing', 'Pending ','Canceled'],
                         labels: {
                             style: {
                                 colors: '#787878',
@@ -539,7 +601,7 @@
                     },
                     yaxis: {
                         labels: {
-                            offsetX: -16,
+                            offsetX: -18,
                             style: {
                                 colors: '#787878',
                                 fontSize: '13px',
@@ -566,7 +628,7 @@
                     tooltip: {
                         y: {
                             formatter: function (val) {
-                                return "$ " + val + " thousands"
+                                return  + val
                             }
                         }
                     },
@@ -628,7 +690,7 @@
                     tooltip: {
                         y: {
                             formatter: function (val) {
-                                return "$ " + val + " hundred"
+                                return + val
                             }
                         }
                     }
@@ -642,14 +704,11 @@
             var columnChart = function () {
                 var options = {
                     series: [{
-                        name: 'Aplication Sent',
+                        name: ' ',
                         data: [40, 55, 15, 55]
                     }, {
-                        name: 'Appllication Answered',
+                        name: ' ',
                         data: [40, 55, 35, 55]
-                    }, {
-                        name: 'Hired',
-                        data: [40, 17, 55, 55]
                     }],
                     chart: {
                         type: 'bar',
@@ -709,7 +768,7 @@
                             show: false,
                         },
 
-                        categories: ['Sun', 'Mon', 'Tue'],
+
                     },
                     yaxis: {
                         show: false

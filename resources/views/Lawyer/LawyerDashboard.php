@@ -249,7 +249,7 @@
                 <div class="col-xl-12">
                     <div class="row">
                         <div class="col-xl-3 col-sm-6">
-                            <div class=" widget-stat card bg-primary card clickable-card" onclick="redirectToPayment()">
+                            <div class=" widget-stat card bg-primary card clickable-card" >
                                 <div class="card-body p-4 d-flex align-items-center">
                                     <div class="media">
                                           <span class="me-3">
@@ -270,12 +270,12 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6">
-                            <div class="card clickable-card" onclick="redirectToClientList()">
+                            <div class="card clickable-card" >
                                 <div class="card-body d-flex px-4 justify-content-between">
                                     <div>
-                                        <h4 class="fs-18 font-w600 mb-4 text-nowrap">New Cases</h4>
+                                        <h4 class="fs-18 font-w600 mb-4 text-nowrap" >New Cases</h4>
                                         <div class="">
-                                            <h3 class="text-success fs-32 font-w700"><?php echo "+ " . $countcases; ?></h3>
+                                            <h3 class="text-success fs-32 font-w700" href="../LawyerCases.php"><?php echo "+ " . $countcases; ?></h3>
                                             <span class="d-block fs-16 font-w400">
                                                 <small class="text-success">Total New Cases To Manage</small></span>
                                         </div>
@@ -284,7 +284,7 @@
                                     <script>
                                         // navigate to "ClientList.php"
                                         function redirectToClientList() {
-                                            window.location.href = 'findLawyer.php';
+                                            window.location.href = '../LawyerCases.php';
                                         }
                                     </script>
                                 </div>
@@ -303,7 +303,7 @@
                                         </div>
                                     </div>
                                     <span class="mb-2">Sep 8th, 2023</span>
-                                    <p class="fs-14 text-muted mb-0">Don't forget to prepare for the meeting.</p>
+                                    <p class="fs-14 text-muted mb-0">Don't forget the Date.</p>
                                 </div>
                                 <script>
                                     // navigate to "ClientList.php"
@@ -333,7 +333,7 @@
                                         <h4 class="fs-18 font-w600 mb-4 text-nowrap">Analysis</h4>
                                         <div class="">
                                             <div class="mb-4">
-                                                <a href="LawyerRepost.php" class="btn btn-primary">View Reports</a>
+                                                <a href="LawyerReports.php" class="btn btn-primary">View Reports</a>
                                             </div>
                                         </div>
                                     </div>
