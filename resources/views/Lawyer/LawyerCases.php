@@ -16,7 +16,10 @@
 
     if (!empty($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
-
+        $sql = "SELECT * FROM client WHERE client_id = '$user_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $client_id = $row['client_id'];
 
     } else {
         header("Location: ../Client/login.php");
@@ -107,34 +110,15 @@
                                                 echo '<span class="badge badge-warning"> ' . $status . $statusIcon . '</span></td>';
                                             }
 
-                                            echo '<td class="py-2">
-                                                        <div class="dropdown text-sans-serif">
-                                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
-                                                                <span>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0" width="24" height="24"></rect>
-                                                                            <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                                                            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                                                            <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                                                                        </g>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                                <div class="py-2">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Processing</a>
-                                                                    <div class="dropdown-divider"></div>   
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>';
-                                            echo '</tr>';
+                                            echo '<td class="py-2">';
+                                            echo '<div class="btn-group" role="group">';
+                                            echo '<button type="button" class="btn btn-success btn-sm btn-status" data-case-id="' . $case_id . '" data-status="Completed">Completed</button>';
+                                            echo '<button type="button" class="btn btn-primary btn-sm btn-status" data-case-id="' . $case_id . '" data-status="Processing">Processing</button>';
+                                            echo '</div>';
+                                            echo '</td>';
                                         }
 
-
+                                  
 
                                     ?>
                                     </tbody>
@@ -147,6 +131,42 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnStatuses = document.querySelectorAll(".btn-status");
+
+        btnStatuses.forEach(btn => {
+            btn.addEventListener("click", function() {
+                const caseId = this.getAttribute("data-case-id");
+                const status = this.getAttribute("data-status");
+                console.log("Clicked: caseId =", caseId, ", status =", status);
+                updateCaseStatus(caseId, status);
+            });
+        });
+
+
+        function updateCaseStatus(caseId, status) {
+            fetch("update_status.php", {
+                method: "POST",
+                body: JSON.stringify({ caseId, status }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+    });
+
+</script>
+
 
 <script src="../../vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
