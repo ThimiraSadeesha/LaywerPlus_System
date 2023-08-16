@@ -76,9 +76,9 @@
         $topic = $conn->real_escape_string($topic);
         $message = $conn->real_escape_string($message);
         $selectedCase = $conn->real_escape_string($selectedCase);
-
+        $user_id = $_SESSION['user_id'];
         $statement_id = generate_statement_id();
-        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '', '', '$encryptedMessage', '$topic','$selectedCase')";
+        $sql = "INSERT INTO client_statement (statement_id, client_id, lawyer_id, message, Topic, Case_id) VALUES ('$statement_id', '$user_id', '', '$encryptedMessage', '$topic','$selectedCase')";
         if ($conn->query($sql) === TRUE) {
             echo "Data inserted successfully.";
         } else {
@@ -88,9 +88,9 @@
 
     }
 
-    function getLatestStatements($conn)
+    function getLatestStatements($conn, $user_id)
     {
-        $query = "SELECT `Topic`, `message` FROM client_statement ORDER BY `statement_id` DESC LIMIT 3";
+        $query = "SELECT `Topic`, `message` FROM client_statement WHERE `client_id` = '$user_id'  ORDER BY `statement_id` DESC LIMIT 3";
         $result = $conn->query($query);
         if ($result && $result->num_rows > 0) {
             $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -99,7 +99,7 @@
         return [];
     }
 
-    $latestStatements = getLatestStatements($conn);
+    $latestStatements = getLatestStatements($conn,$user_id);
     function decryptMessage($latestStatements, $key)
     {
         $data = base64_decode($latestStatements);
@@ -164,9 +164,9 @@
     }
 
     $caseIds = getCasesIds($conn,$user_id);
-    function getlatestcase($conn){
+    function getlatestcase($conn,$user_id){
 
-        $query = "SELECT `case_id` FROM client_statement ORDER BY `statement_id` DESC LIMIT 1";
+        $query = "SELECT `case_id` FROM client_statement WHERE `client_id` = '$user_id' ORDER BY `statement_id` DESC LIMIT 1";
         $result = $conn->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -174,7 +174,7 @@
         }
         return [];
     }
-    $latestcase = getlatestcase($conn);
+    $latestcase = getlatestcase($conn,$user_id);
 
 
     ?>

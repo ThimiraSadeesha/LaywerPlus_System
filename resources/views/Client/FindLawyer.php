@@ -59,10 +59,6 @@
                                                 <p>Availability: <span class="item"> <?php echo $status ?><i class="fa fa-check-circle text-success"></i></span></p>
                                                 <p>Lawyer code: <span class="item"><?php echo $lawyer_id ?></span></p>
                                                 <p>Category: <span class="item"><?php echo $category ?></span></p>
-                                                <p>Location: <span class="item">Colombo</span></p>
-                                                <p class="text-content">There are many variations of passages of Lorem Ipsum
-                                                    available, but the majority have suffered alteration in some form, by injected
-                                                    humour, or randomised words.</p>
                                                 <br>
                                                 <button type="button" class="btn btn-primary btn-xs">Hire Lawyer</button>
                                             </div>

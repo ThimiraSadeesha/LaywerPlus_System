@@ -139,9 +139,9 @@
     $feb_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-02-01' AND '2023-02-29'");
     $march_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-03-01' AND '2023-03-31'");
     $april_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-04-01' AND '2023-04-30'");
-    $may_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '1970-01-01' AND '2023-05-31'");
+    $may_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-05-01' AND '2023-05-31'");
     $june_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-06-01' AND '2023-06-31'");
-    $july_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '1970-01-01' AND '2023-07-31'");
+    $july_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-07-01' AND '2023-07-31'");
     $aug_Prof = getCount($conn, "SELECT SUM(`Amount`) AS count FROM `cases` WHERE `submit_date` BETWEEN '2023-08-01' AND '2023-08-31'");
 
     //get profit of cases for the months
